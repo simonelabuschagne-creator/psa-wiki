@@ -230,6 +230,16 @@ tr:last-child td{border-bottom:none;}
 .tier0-strip ul{margin:0; padding-left:18px; font-size:13.5px; color:var(--ink);}
 .tier0-strip li{margin-bottom:3px;}
 
+.day-strip{margin:16px 0 20px; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+.day-card{display:grid; grid-template-columns:56px 1fr; gap:16px; padding:14px 16px; border-bottom:1px solid var(--line); background:var(--panel);}
+.day-card:last-child{border-bottom:none;}
+.day-card:nth-child(even){background:var(--paper);}
+.day-label{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:12.5px; color:var(--ink); padding-top:2px; letter-spacing:.02em;}
+.day-body ul{margin:0; padding-left:16px;}
+.day-body li{font-size:13.5px; line-height:1.5; margin-bottom:4px; color:var(--ink);}
+.day-body li:last-child{margin-bottom:0;}
+.day-note{font-size:12px; color:var(--mute); margin-top:6px; font-style:italic;}
+
 ul.plain{padding-left:18px; color:var(--slate); font-size:14px;}
 ul.plain li{margin-bottom:5px;}
 
@@ -960,42 +970,49 @@ code.block{
         <li><b>Contact both sides same week only when:</b> intern's account implicates the supervisor directly · supervisor's account implicates the intern directly · both scores are ≤7 independently · a Week 4 low score follows a Week 3 At Risk/Critical status.</li>
       </ul>
 
-      <h2>How to read a WFL score</h2>
-      <p>Before acting, place the score in context:</p>
+      <h2>Working a low score</h2>
+      <p>Quick context check before you act, then a step-by-step guide for each side when you need it.</p>
       <ul class="plain">
-        <li><b>What week is this?</b> A score of 6 in Week 2 means something broke against a known baseline — you have Week 1 call context. A score of 6 in Week 7 means you're re-entering after stepping back.</li>
-        <li><b>Is this intern or supervisor?</b> Don't conflate them. Each side is assessed independently.</li>
-        <li><b>Is this the first low score, or a pattern?</b> A single low score with no prior concern is different from a second low score following a weak Week 3 status.</li>
-        <li><b>Does the engagement data align?</b> If hours and submissions are healthy but the score is low, that's an outlier. If both are weak, it's a signal.</li>
+        <li><b>What week is this?</b> A 6 in Week 2 means something broke against a known baseline. A 6 in Week 7 means you're re-entering after stepping back.</li>
+        <li><b>Intern or supervisor?</b> Don't conflate them — each side is assessed independently.</li>
+        <li><b>First low score, or a pattern?</b> A single low score is different from a second one following a weak Week 3 status.</li>
+        <li><b>Does engagement data agree?</b> Score low but hours/submissions healthy → outlier. Both weak → signal.</li>
       </ul>
 
-      <h2>Decision framework — intern score ≤7</h2>
-      <p><b>Step 1 — Review context.</b> Pull the most recent call log · check Risk Status and Engagement Status together · check hours vs. expected · check for inbound tickets or contact. Act on a low score regardless of whether engagement data looks healthy — strong engagement does not cancel a low score.</p>
-      <p><b>Step 2 — Email the intern (Mon/Tue).</b> Open with context, not alarm: <i>"Hi [Name], I've seen your feedback for this week and wanted to check in. I just want to understand how things are actually going — can you walk me through what this week looked like?"</i> Choose two or three questions, not all five: what specifically made you rate it the way you did? · is this about the work itself, your relationship with your supervisor, or something else? · has anything changed since we last spoke? · what would need to be different for next week to feel better? · is there a conversation with your supervisor you've been putting off? No response within 48h → follow up once more. Still nothing → SLA process.</p>
-      <p><b>Step 3 — Determine the root cause.</b></p>
-      <table class="tight">
-        <tr><th>What the intern tells you</th><th>Root cause</th><th>Action</th></tr>
-        <tr><td>Not enough tasks, supervisor unresponsive, no feedback</td><td>Supervisor-side</td><td>Contact supervisor same week (Wed). Don't wait for their WFL score.</td></tr>
-        <tr><td>Personal stress, competing commitments, motivation dip</td><td>Intern-side</td><td>Coach the intern. Agree one specific action with a deadline. Log verbatim.</td></tr>
-        <tr><td>Confusion about tasks, unclear expectations</td><td>Clarity gap</td><td>Help intern articulate the question, coach them to raise it directly. Supervisor unresponsive → contact same week.</td></tr>
-        <tr><td>Relationship friction, communication breakdown</td><td>Relationship issue</td><td>Early friction → coach intern. Breakdown → contact supervisor same week. Unresolvable → escalation pathway.</td></tr>
-        <tr><td>Intern can't identify a specific cause</td><td>Unclear</td><td>Anchor in hours/tasks completed. Data weak → At Risk. Data healthy → monitor next Thursday.</td></tr>
-      </table>
-      <p><b>Step 4 — Week-specific calibration.</b> <b>Week 2:</b> you have Week 1 context — go back to the three foundations (supervisor connection, task clarity, working rhythm) and identify which one broke down. <b>Week 4:</b> you have Week 1 and Week 3 context — if Drifting/At Risk at Week 3 and Week 4 is also low, treat as a pattern and contact the host directly without waiting for further evidence. <b>Week 6+:</b> check engagement signals alongside the score — both weak means treat as Disengaged, not just a low score.</p>
+      <details class="toggle">
+        <summary>Diagnosing an intern score ≤7 <span class="sop-desc">Email opener, root-cause table, week-specific calibration</span></summary>
+        <div class="toggle-body">
+          <p><b>Step 1 — Review context.</b> Pull the most recent call log · check Risk Status and Engagement Status together · check hours vs. expected · check for inbound tickets or contact. Act on a low score regardless of whether engagement data looks healthy — strong engagement does not cancel a low score.</p>
+          <p><b>Step 2 — Email the intern (Mon/Tue).</b> Open with context, not alarm: <i>"Hi [Name], I've seen your feedback for this week and wanted to check in. I just want to understand how things are actually going — can you walk me through what this week looked like?"</i> Choose two or three questions, not all five: what specifically made you rate it the way you did? · is this about the work itself, your relationship with your supervisor, or something else? · has anything changed since we last spoke? · what would need to be different for next week to feel better? · is there a conversation with your supervisor you've been putting off? No response within 48h → follow up once more. Still nothing → SLA process.</p>
+          <p><b>Step 3 — Determine the root cause.</b></p>
+          <table class="tight">
+            <tr><th>What the intern tells you</th><th>Root cause</th><th>Action</th></tr>
+            <tr><td>Not enough tasks, supervisor unresponsive, no feedback</td><td>Supervisor-side</td><td>Contact supervisor same week (Wed). Don't wait for their WFL score.</td></tr>
+            <tr><td>Personal stress, competing commitments, motivation dip</td><td>Intern-side</td><td>Coach the intern. Agree one specific action with a deadline. Log verbatim.</td></tr>
+            <tr><td>Confusion about tasks, unclear expectations</td><td>Clarity gap</td><td>Help intern articulate the question, coach them to raise it directly. Supervisor unresponsive → contact same week.</td></tr>
+            <tr><td>Relationship friction, communication breakdown</td><td>Relationship issue</td><td>Early friction → coach intern. Breakdown → contact supervisor same week. Unresolvable → escalation pathway.</td></tr>
+            <tr><td>Intern can't identify a specific cause</td><td>Unclear</td><td>Anchor in hours/tasks completed. Data weak → At Risk. Data healthy → monitor next Thursday.</td></tr>
+          </table>
+          <p><b>Step 4 — Week-specific calibration.</b> <b>Week 2:</b> you have Week 1 context — go back to the three foundations (supervisor connection, task clarity, working rhythm) and identify which one broke down. <b>Week 4:</b> you have Week 1 and Week 3 context — if Drifting/At Risk at Week 3 and Week 4 is also low, treat as a pattern and contact the host directly without waiting for further evidence. <b>Week 6+:</b> check engagement signals alongside the score — both weak means treat as Disengaged, not just a low score.</p>
+        </div>
+      </details>
 
-      <h2>Decision framework — supervisor score ≤7</h2>
-      <p><b>Step 1 — Review context.</b> Check the intern's most recent call status and Risk Status · check Engagement Status · check supervisor submission rate · act immediately, don't wait for the intern's WFL.</p>
-      <p><b>Step 2 — Email the supervisor (Wed).</b> Frame as a programme check-in: <i>"Hi [Name], I'm checking in on [intern]'s placement — I like to stay close to how things are going from your side. Could you give me a quick update on how they're getting on?"</i> Choose two or three questions: how would you describe their progress this week? · anything about their work, attitude, or communication you'd want to flag? · are they getting enough structure and direction from your side? · is there anything you need from us to make this placement work better? No response within 48h → follow up once. Still nothing → SLA process, then SLA tagging if persistent.</p>
-      <p><b>Step 3 — Determine the root cause.</b></p>
-      <table class="tight">
-        <tr><th>What the supervisor tells you</th><th>Root cause</th><th>Action</th></tr>
-        <tr><td>Intern not showing up, not communicating, not delivering</td><td>Intern-side</td><td>Contact intern same week if not already done. Don't share supervisor's feedback verbatim.</td></tr>
-        <tr><td>Supervisor struggling to provide tasks or unclear on expectations</td><td>Supervisor-side</td><td>Coach on task structure. Activate CareerBridge for the intern meanwhile — C3 L1, C2 L4.</td></tr>
-        <tr><td>Dissatisfied but can't articulate a specific issue</td><td>Unclear</td><td>Ask for one concrete example. None → monitor. Serious example → relationship issue.</td></tr>
-        <tr><td>Relationship friction or communication breakdown</td><td>Relationship issue</td><td>Early friction → coach both sides separately. Breakdown → consider mediation pathway.</td></tr>
-      </table>
-      <p><b>Step 4 — Week-specific calibration.</b> <b>Week 2:</b> a low supervisor score often signals an expectation gap rather than a genuine performance concern — figure out which before acting. <b>Week 4:</b> if the intern was At Risk at Week 3 and the supervisor is now scoring low, the internship needs active intervention, not monitoring. <b>Week 6+:</b> a late signal — if the supervisor is disengaged and intern engagement is also weak, both sides need same-week contact.</p>
-
+      <details class="toggle">
+        <summary>Diagnosing a supervisor score ≤7 <span class="sop-desc">Email opener, root-cause table, week-specific calibration</span></summary>
+        <div class="toggle-body">
+          <p><b>Step 1 — Review context.</b> Check the intern's most recent call status and Risk Status · check Engagement Status · check supervisor submission rate · act immediately, don't wait for the intern's WFL.</p>
+          <p><b>Step 2 — Email the supervisor (Wed).</b> Frame as a programme check-in: <i>"Hi [Name], I'm checking in on [intern]'s placement — I like to stay close to how things are going from your side. Could you give me a quick update on how they're getting on?"</i> Choose two or three questions: how would you describe their progress this week? · anything about their work, attitude, or communication you'd want to flag? · are they getting enough structure and direction from your side? · is there anything you need from us to make this placement work better? No response within 48h → follow up once. Still nothing → SLA process, then SLA tagging if persistent.</p>
+          <p><b>Step 3 — Determine the root cause.</b></p>
+          <table class="tight">
+            <tr><th>What the supervisor tells you</th><th>Root cause</th><th>Action</th></tr>
+            <tr><td>Intern not showing up, not communicating, not delivering</td><td>Intern-side</td><td>Contact intern same week if not already done. Don't share supervisor's feedback verbatim.</td></tr>
+            <tr><td>Supervisor struggling to provide tasks or unclear on expectations</td><td>Supervisor-side</td><td>Coach on task structure. Activate CareerBridge for the intern meanwhile — C3 L1, C2 L4.</td></tr>
+            <tr><td>Dissatisfied but can't articulate a specific issue</td><td>Unclear</td><td>Ask for one concrete example. None → monitor. Serious example → relationship issue.</td></tr>
+            <tr><td>Relationship friction or communication breakdown</td><td>Relationship issue</td><td>Early friction → coach both sides separately. Breakdown → consider mediation pathway.</td></tr>
+          </table>
+          <p><b>Step 4 — Week-specific calibration.</b> <b>Week 2:</b> a low supervisor score often signals an expectation gap rather than a genuine performance concern — figure out which before acting. <b>Week 4:</b> if the intern was At Risk at Week 3 and the supervisor is now scoring low, the internship needs active intervention, not monitoring. <b>Week 6+:</b> a late signal — if the supervisor is disengaged and intern engagement is also weak, both sides need same-week contact.</p>
+        </div>
+      </details>
 
       <div class="two-col">
         <div class="card">
@@ -1077,34 +1094,60 @@ code.block{
       </ul>
 
       <h2>Your week, day by day</h2>
-      <table>
-        <tr><th style="width:9%;">Day</th><th style="width:52%;">What's due</th><th>Note</th></tr>
-        <tr>
-          <td><b>Mon</b></td>
-          <td><b>Critical/At Risk follow-ups</b> open (~3 min each) · <b>Wk1 calls</b> open (~5–7 min) · <b>Wk3/Wk5 calls</b> window opens</td>
-          <td>Open the Queue first — get the week's shape before diving in.</td>
-        </tr>
-        <tr>
-          <td><b>Tue</b></td>
-          <td><b>Critical/At Risk follow-ups</b> — last day to close out · <b>Wk1 calls</b> — buffer day</td>
-          <td>If Monday got eaten by Tier 0 items, catch up today — don't let it become "Wednesday will be worse."</td>
-        </tr>
-        <tr>
-          <td><b>Wed</b></td>
-          <td><b>Wk1 calls — hard cutoff</b>, EOD · <b>Supervisor Actions</b> (~3 min each)</td>
-          <td>Busiest fixed-deadline day — protect your morning if you can.</td>
-        </tr>
-        <tr>
-          <td><b>Thu</b></td>
-          <td><b>Queue monitoring</b> — Risk Status + Engagement Status together · <b>Wk3/Wk5 calls</b> still open</td>
-          <td>Catch up on anything that slipped Mon–Wed before Friday's crunch.</td>
-        </tr>
-        <tr>
-          <td><b>Fri</b></td>
-          <td><b>Bulk emails</b> — Disengaged/Slipping, Assessments · <b>Wk3/Wk5 calls</b> — last day · <b>Close-out &amp; prep</b> — clear tickets, review hours/submissions, set up next week</td>
-          <td>Do the bulk sends early in the day, not at 4pm.</td>
-        </tr>
-      </table>
+      <div class="day-strip">
+        <div class="day-card">
+          <div class="day-label">MON</div>
+          <div class="day-body">
+            <ul>
+              <li><b>Critical/At Risk follow-ups</b> open — ~3 min each</li>
+              <li><b>Wk1 calls</b> open — ~5–7 min each</li>
+              <li><b>Wk3/Wk5 calls</b> — window opens</li>
+            </ul>
+            <div class="day-note">Open the Queue first — get the week's shape before diving in.</div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-label">TUE</div>
+          <div class="day-body">
+            <ul>
+              <li><b>Critical/At Risk follow-ups</b> — last day to close out</li>
+              <li><b>Wk1 calls</b> — buffer day before Wednesday's cutoff</li>
+            </ul>
+            <div class="day-note">If Monday got eaten by Tier 0 items, catch up today — don't let it become "Wednesday will be worse."</div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-label">WED</div>
+          <div class="day-body">
+            <ul>
+              <li><b>Wk1 calls</b> — hard cutoff, EOD</li>
+              <li><b>Supervisor Actions</b> — ~3 min each</li>
+            </ul>
+            <div class="day-note">Busiest fixed-deadline day — protect your morning if you can.</div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-label">THU</div>
+          <div class="day-body">
+            <ul>
+              <li><b>Queue monitoring</b> — Risk Status + Engagement Status together</li>
+              <li><b>Wk3/Wk5 calls</b> — still open</li>
+            </ul>
+            <div class="day-note">Catch up on anything that slipped Mon–Wed before Friday's crunch.</div>
+          </div>
+        </div>
+        <div class="day-card">
+          <div class="day-label">FRI</div>
+          <div class="day-body">
+            <ul>
+              <li><b>Bulk emails</b> — Disengaged/Slipping, Assessments</li>
+              <li><b>Wk3/Wk5 calls</b> — last day of the window</li>
+              <li><b>Close-out &amp; prep</b> — clear tickets, review hours/submissions, set up next week</li>
+            </ul>
+            <div class="day-note">Do the bulk sends early in the day, not at 4pm.</div>
+          </div>
+        </div>
+      </div>
       <div class="callout warn">
         <p><b>Flag, not yet resolved:</b> the written SOP's Thursday-monitoring table says Critical status gets contacted <i>same day</i>, and Week 1's trigger callout states a <i>Wednesday EOD hard deadline</i>. The Queue tags both as Mon/Tue instead. Worth confirming which governs — treat Mon/Tue as the ceiling, not the target, until it's resolved.</p>
       </div>
@@ -1508,58 +1551,78 @@ PSA actions taken: [Each action with timestamp]</code>
     <section class="panel" id="panel-tech">
       <div class="eyebrow"><span class="tab-chip" style="background:var(--slate);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.3a1 1 0 0 0 0 1.4l1.8 1.8a1 1 0 0 0 1.4 0l3.5-3.5a5.5 5.5 0 0 1-7.3 7.3l-6.4 6.4a2 2 0 0 1-2.8-2.8l6.4-6.4a5.5 5.5 0 0 1 7.3-7.3z"/></svg></span>Reference</div>
       <h1 class="page-title">Tech stack</h1>
-      <p>Five tools, one source of truth per job. Know which to reach for and when.</p>
+      <p>Five tools, one source of truth per job. Expand the one you need.</p>
 
-      <h2>VI Platform — internship management</h2>
-      <p><b>What you use it for:</b> viewing and editing active internship offers · checking placement details, project plans, intern/HC information · making in-flight changes to offers.</p>
-      <p style="font-size:13.5px;"><b>Key resources:</b> Product &amp; Platform Knowledge · SOP: Editing Offers During Internship · Sending Orientation Emails to First-Time Hosting Supervisors · Saving and Sharing Offer Letters and PPP as PDFs.</p>
+      <details class="toggle">
+        <summary>VI Platform <span class="sop-desc">Internship management — offers, project plans, placement details</span></summary>
+        <div class="toggle-body">
+          <p><b>What you use it for:</b> viewing and editing active internship offers · checking placement details, project plans, intern/HC information · making in-flight changes to offers.</p>
+          <p style="font-size:13.5px;"><b>Key resources:</b> Product &amp; Platform Knowledge · SOP: Editing Offers During Internship · Sending Orientation Emails to First-Time Hosting Supervisors · Saving and Sharing Offer Letters and PPP as PDFs.</p>
+        </div>
+      </details>
 
-      <h2>HubSpot CRM — case management and communication logging</h2>
-      <p><b>What you use it for:</b> logging all intern and HC interactions · managing your task queue · tracking ticket status and case history · recording call outcomes.</p>
-      <h3>Logging standards (non-negotiable)</h3>
-      <ul class="plain">
-        <li>Update the touchpoint status property immediately after every call — before anything else.</li>
-        <li>Every proactive call gets a summary note on the contact page.</li>
-        <li>Every score follow-up logs: the triggering score, root cause identified, action agreed, any supervisor contact made that week.</li>
-        <li>Do not paraphrase intern commitments — log verbatim.</li>
-        <li>All SLA-related actions documented with date, summary, evidence links.</li>
-      </ul>
-      <table>
-        <tr><th>Property</th><th>Type</th><th>Values</th></tr>
-        <tr><td>Week 1 Touchpoint Status</td><td>Dropdown</td><td>Confirmed / Partially Confirmed / Not Confirmed / Not Confirmed - Critical / Unresolved</td></tr>
-        <tr><td>Week 3 Touchpoint Status</td><td>Dropdown</td><td>On Track / Minor Concerns / At Risk / Critical / Unresponsive</td></tr>
-        <tr><td>Week 5 Touchpoint Status</td><td>Dropdown</td><td>On Track / Minor Concerns / At Risk / Critical / Unresponsive</td></tr>
-      </table>
-      <p style="font-size:13.5px;"><b>Key resources:</b> HubSpot CRM Overview · HubSpot Tasks for Internship Support · Ticket Status on HubSpot · Logging WhatsApp Messages into HubSpot.</p>
+      <details class="toggle">
+        <summary>HubSpot CRM <span class="sop-desc">Case management and communication logging</span></summary>
+        <div class="toggle-body">
+          <p><b>What you use it for:</b> logging all intern and HC interactions · managing your task queue · tracking ticket status and case history · recording call outcomes.</p>
+          <h4>Logging standards (non-negotiable)</h4>
+          <ul class="plain">
+            <li>Update the touchpoint status property immediately after every call — before anything else.</li>
+            <li>Every proactive call gets a summary note on the contact page.</li>
+            <li>Every score follow-up logs: the triggering score, root cause identified, action agreed, any supervisor contact made that week.</li>
+            <li>Do not paraphrase intern commitments — log verbatim.</li>
+            <li>All SLA-related actions documented with date, summary, evidence links.</li>
+          </ul>
+          <table class="tight">
+            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
+            <tr><td>Week 1 Touchpoint Status</td><td>Dropdown</td><td>Confirmed / Partially Confirmed / Not Confirmed / Not Confirmed - Critical / Unresolved</td></tr>
+            <tr><td>Week 3 Touchpoint Status</td><td>Dropdown</td><td>On Track / Minor Concerns / At Risk / Critical / Unresponsive</td></tr>
+            <tr><td>Week 5 Touchpoint Status</td><td>Dropdown</td><td>On Track / Recovery Running / Minor Concerns / At Risk / Critical / Unresponsive</td></tr>
+          </table>
+          <p style="font-size:13.5px;"><b>Key resources:</b> HubSpot CRM Overview · HubSpot Tasks for Internship Support · Ticket Status on HubSpot · Logging WhatsApp Messages into HubSpot.</p>
+        </div>
+      </details>
 
-      <h2>Metabase — data and signal monitoring</h2>
-      <p><b>What you use it for:</b> monitoring Intern and HC Engagement Status for all active internships · reviewing Slipping/Disengaged cases on Thursdays post-Week 5 · informing score follow-up decisions.</p>
-      <p style="font-size:13.5px;"><b>Key resources:</b> Submissions Tracking Report · Pre-Skills Assessment Follow-Up SOP.</p>
+      <details class="toggle">
+        <summary>Metabase <span class="sop-desc">Data and signal monitoring</span></summary>
+        <div class="toggle-body">
+          <p><b>What you use it for:</b> monitoring Intern and HC Engagement Status for all active internships · reviewing Slipping/Disengaged cases on Thursdays post-Week 5 · informing score follow-up decisions.</p>
+          <p style="font-size:13.5px;"><b>Key resources:</b> Submissions Tracking Report · Pre-Skills Assessment Follow-Up SOP.</p>
+        </div>
+      </details>
 
-      <h2>The Queue — daily caseload prioritisation</h2>
-      <p><b>What you use it for:</b> your first stop every working day — pulls live data from Metabase and HubSpot, shows your caseload sorted by urgency in real time. Run Week 1/3/5 call guides directly from intern cards, with the script, rubric, and log template opening in one tap.</p>
-      <p style="font-size:13.5px;"><b>How to open it:</b> Cowork (Claude desktop app) → select your name → caseload loads automatically.</p>
+      <details class="toggle">
+        <summary>The Queue <span class="sop-desc">Daily caseload prioritisation — your first stop every day</span></summary>
+        <div class="toggle-body">
+          <p><b>What you use it for:</b> your first stop every working day — pulls live data from Metabase and HubSpot, shows your caseload sorted by urgency in real time. Run Week 1/3/5 call guides directly from intern cards, with the script, rubric, and log template opening in one tap.</p>
+          <p style="font-size:13.5px;"><b>How to open it:</b> Cowork (Claude desktop app) → select your name → caseload loads automatically.</p>
 
-      <h3>The eight sections, in order</h3>
-      <table class="tight">
-        <tr><th>Section</th><th>Trigger</th><th>Action</th></tr>
-        <tr><td>📞 Wk 1/3/5 Calls</td><td>Intern is in their scheduled check-in week</td><td>Complete the structured call. Overlaps with status sections — an intern can be Critical <i>and</i> in Wk 3 Calls at once.</td></tr>
-        <tr><td>🔴 Critical</td><td>Intern rated 5 or below</td><td>Contact intern same day. Card shows both intern and supervisor scores.</td></tr>
-        <tr><td>🟡 At Risk</td><td>Intern rated 6 or 7</td><td>Contact intern Mon/Tue. Card shows both scores.</td></tr>
-        <tr><td>🏢 Supervisor Actions</td><td>HC Disengaged/Slipping, or supervisor assessments outstanding</td><td>Contact supervisor this week (Wed).</td></tr>
-        <tr><td>🟠 Disengaged</td><td>Not Critical/At Risk by score, but intern engagement = Disengaged or Slipping</td><td>Contact intern directly. No response → SLA process.</td></tr>
-        <tr><td>📋 Assessments</td><td>Outstanding pre-eval, goals, or post-eval</td><td>Nudge intern and/or supervisor to complete.</td></tr>
-        <tr><td>🟢 On Track</td><td>Intern <i>and</i> supervisor both rated 8–10, both flagged Engaged</td><td>No action required. Monitor Thursday.</td></tr>
-        <tr><td>⚪ No Flag</td><td>No specific issues flagged — not yet fully verified as On Track</td><td>Monitor. Check engagement and score when next submitted.</td></tr>
-      </table>
+          <h4>The eight sections, in order</h4>
+          <table class="tight">
+            <tr><th>Section</th><th>Trigger</th><th>Action</th></tr>
+            <tr><td>📞 Wk 1/3/5 Calls</td><td>Intern is in their scheduled check-in week</td><td>Complete the structured call. Overlaps with status sections — an intern can be Critical <i>and</i> in Wk 3 Calls at once.</td></tr>
+            <tr><td>🔴 Critical</td><td>Intern rated 5 or below</td><td>Contact intern same day. Card shows both intern and supervisor scores.</td></tr>
+            <tr><td>🟡 At Risk</td><td>Intern rated 6 or 7</td><td>Contact intern Mon/Tue. Card shows both scores.</td></tr>
+            <tr><td>🏢 Supervisor Actions</td><td>HC Disengaged/Slipping, or supervisor assessments outstanding</td><td>Contact supervisor this week (Wed).</td></tr>
+            <tr><td>🟠 Disengaged</td><td>Not Critical/At Risk by score, but intern engagement = Disengaged or Slipping</td><td>Contact intern directly. No response → SLA process.</td></tr>
+            <tr><td>📋 Assessments</td><td>Outstanding pre-eval, goals, or post-eval</td><td>Nudge intern and/or supervisor to complete.</td></tr>
+            <tr><td>🟢 On Track</td><td>Intern <i>and</i> supervisor both rated 8–10, both flagged Engaged</td><td>No action required. Monitor Thursday.</td></tr>
+            <tr><td>⚪ No Flag</td><td>No specific issues flagged — not yet fully verified as On Track</td><td>Monitor. Check engagement and score when next submitted.</td></tr>
+          </table>
 
-      <h3>CareerBridge</h3>
-      <p>Low-score intern cards (≤7) surface a specific lesson suggestion automatically. The full CareerBridge Reference panel, below the search bar, gives copy-ready email scripts and lesson links for every learner profile and problem scenario — Part A covers learner profiles, Part B covers problem scenarios. Course 2 (Thriving in Your Internship) and Course 3 (Remote Work Ready) are the two primary references for interns in their first two weeks.</p>
-      <p style="font-size:13.5px;"><b>What "activating CareerBridge" actually means:</b> you send the intern a message — email by default, call/text/WhatsApp if the situation warrants it — naming the specific lesson codes for their situation, confirming the hours count toward their target, and confirming they know how to access them on the platform. No platform-side setup is required from you; CareerBridge is self-serve once the intern knows what to do. You confirm it worked through their next WFL submission, not as a separate check-in step.</p>
+          <h4>CareerBridge</h4>
+          <p>Low-score intern cards (≤7) surface a specific lesson suggestion automatically. The full CareerBridge Reference panel, below the search bar, gives copy-ready email scripts and lesson links for every learner profile and problem scenario — Part A covers learner profiles, Part B covers problem scenarios. Course 2 (Thriving in Your Internship) and Course 3 (Remote Work Ready) are the two primary references for interns in their first two weeks.</p>
+          <p style="font-size:13.5px;"><b>What "activating CareerBridge" actually means:</b> you send the intern a message — email by default, call/text/WhatsApp if the situation warrants it — naming the specific lesson codes for their situation, confirming the hours count toward their target, and confirming they know how to access them on the platform. No platform-side setup is required from you; CareerBridge is self-serve once the intern knows what to do. You confirm it worked through their next WFL submission, not as a separate check-in step.</p>
+        </div>
+      </details>
 
-      <h2>Curriculum — intern learning context</h2>
-      <p><b>What you use it for:</b> understanding what interns are learning and when · contextualising feedback and task-sufficiency issues · grounding coaching conversations in programme content.</p>
-      <p style="font-size:13.5px;"><b>Key resources:</b> Curriculum Refresh 2.0.</p>
+      <details class="toggle">
+        <summary>Curriculum <span class="sop-desc">Intern learning context</span></summary>
+        <div class="toggle-body">
+          <p><b>What you use it for:</b> understanding what interns are learning and when · contextualising feedback and task-sufficiency issues · grounding coaching conversations in programme content.</p>
+          <p style="font-size:13.5px;"><b>Key resources:</b> Curriculum Refresh 2.0.</p>
+        </div>
+      </details>
     </section>
 
     <!-- ============ GROWTH ============ -->
@@ -2208,6 +2271,20 @@ PSA actions taken: [Each action with timestamp]</code>
       history.replaceState(null, '', '#' + id);
       show(id);
     });
+  });
+
+  // In-content links (e.g. "see Daily Reference") only had their href changed
+  // the URL hash with no listener acting on it. This catches any link whose
+  // target matches a real panel id and switches panels properly.
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a){ return; }
+    var id = a.getAttribute('href').slice(1);
+    var target = document.getElementById('panel-' + id);
+    if(!target){ return; } // not a panel link (e.g. a TOC heading anchor) — let default behavior run
+    e.preventDefault();
+    history.replaceState(null, '', '#' + id);
+    show(id);
   });
 
   var initial = (location.hash || '#hub').replace('#','');
