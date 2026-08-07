@@ -207,8 +207,8 @@ details.toggle{
 }
 details.toggle summary{
   cursor:pointer; list-style:none; padding:11px 16px; font-size:13.5px;
-  font-weight:600; color:var(--ink); display:flex; align-items:center;
-  justify-content:space-between; gap:8px;
+  font-weight:600; color:var(--ink); display:grid;
+  grid-template-columns: 300px 1fr auto; align-items:center; gap:12px;
 }
 details.toggle summary::-webkit-details-marker{display:none;}
 details.toggle summary::after{
@@ -217,7 +217,13 @@ details.toggle summary::after{
 }
 details.toggle[open] summary::after{content:'\2212';}
 details.toggle summary .sop-desc{
-  font-weight:400; color:var(--slate); font-size:12.5px; margin-left:4px;
+  font-weight:400; color:var(--slate); font-size:12.5px;
+}
+@media (max-width: 700px){
+  details.toggle summary{grid-template-columns: 1fr auto;}
+  details.toggle summary .sop-desc{display:none;}
+  .session-card{grid-template-columns: 1fr;}
+  .session-card .session-desc{display:none;}
 }
 details.toggle .toggle-body{
   padding:2px 16px 16px; font-size:13px; color:var(--slate); border-top:1px solid var(--line);
@@ -232,14 +238,14 @@ details.toggle .toggle-body li{margin-bottom:4px;}
 details.toggle .toggle-body p{font-size:13px; margin:0 0 10px;}
 
 .session-card{
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  display:grid; grid-template-columns: 300px 1fr; align-items:center; gap:12px;
   padding:11px 16px; margin-bottom:8px; font-size:13.5px;
   border:1px solid var(--line); border-radius:var(--radius); background:var(--panel);
 }
 .session-card a{color:var(--ink); text-decoration:none; font-weight:600;}
 .session-card a:hover{color:var(--blue);}
 .session-card a::after{content:'\2192'; margin-left:6px; color:var(--mute); font-weight:400;}
-.session-card .session-desc{color:var(--slate); font-size:12.5px; text-align:right; flex-shrink:0; max-width:280px;}
+.session-card .session-desc{color:var(--slate); font-size:12.5px; text-align:left;}
 
 .week1-check{
   border:1px solid var(--line); border-radius:var(--radius); background:var(--panel);
@@ -1222,9 +1228,60 @@ PSA actions taken: [Each action with timestamp]</code>
       <div class="callout info"><p>Start by identifying your level in the Growth Framework. Then use the training sessions to target what matters most at your current stage.</p></div>
 
       <h2>Team operations</h2>
-      <div class="session-card"><a href="https://app.notion.com/p/2689ebc4bb558037bb2decbcc409c82c" target="_blank" rel="noopener">Learnings &amp; Wins Sharing</a><span class="session-desc">Slack channel — share what's working</span></div>
-      <div class="session-card"><a href="https://app.notion.com/p/2689ebc4bb5580a38188f2c4c4c4e458" target="_blank" rel="noopener">PSA Annual Leave Handover Process</a><span class="session-desc">Who covers your caseload while you're out</span></div>
-      <div class="session-card"><a href="https://app.notion.com/p/2bf9ebc4bb55800a958dc1be797ab07a" target="_blank" rel="noopener">1:1 Meetings with Your Manager</a><span class="session-desc">Cadence and what to bring</span></div>
+
+      <details class="toggle">
+        <summary>Learnings &amp; Wins Sharing <span class="sop-desc">Slack — how and what to post</span></summary>
+        <div class="toggle-body">
+          <p>Capture wins, lessons, and red flags in-the-flow so the team learns fast. Post in #psa-team, always in threads.</p>
+          <h4>Cadence</h4>
+          <ul>
+            <li><b>Ad-hoc:</b> post within 24 hours of something notable.</li>
+            <li><b>Monthly:</b> a "Month in Review" thread on the 1st workday of the month.</li>
+          </ul>
+          <h4>Pick one focus per post</h4>
+          <ul>
+            <li><b>WIN</b> — tangible progress, time saved, a great facilitation moment.</li>
+            <li><b>LESSON</b> — what you'd repeat vs. change next time.</li>
+            <li><b>RED FLAG</b> — systemic issue, policy ambiguity, or a pattern to watch.</li>
+          </ul>
+          <p>Replying well matters more than posting: prioritize thoughtful 3–5 line replies over reaction emojis, and be candid but constructive — feedback should help the poster <i>and</i> the team.</p>
+        </div>
+      </details>
+
+      <details class="toggle">
+        <summary>PSA Annual Leave Handover Process <span class="sop-desc">What to prepare before you're out, what covering PSAs do</span></summary>
+        <div class="toggle-body">
+          <p>Purpose: a smooth transition of responsibilities so covering PSAs can maintain uninterrupted support without hunting for context.</p>
+          <h4>Before you leave</h4>
+          <ul>
+            <li>Duplicate the handover template, rename it <code style="font-family:'IBM Plex Mono',monospace;">PSA Handover – [Name] – [Start → End]</code>.</li>
+            <li>Populate: Internships &amp; Status, Evaluations &amp; Deadlines, Open Issues &amp; Follow-ups, Meetings &amp; Calls, Reports &amp; Tracking, Handover Notes.</li>
+            <li>Assign and brief your covering PSA via Slack before you go. Update the doc the day before leave with the latest info.</li>
+          </ul>
+          <h4>While covering</h4>
+          <ul>
+            <li>Update tables daily. Flag urgency with priority tags: 🔴 High · 🟡 Medium · 🟢 Low.</li>
+          </ul>
+          <h4>On return</h4>
+          <ul>
+            <li>Review updates in the doc and Slack. Schedule a short debrief call if anything's unresolved.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="toggle">
+        <summary>1:1 Meetings with Your Manager <span class="sop-desc">Cadence, prep format, what "no agenda" means</span></summary>
+        <div class="toggle-body">
+          <p><b>No agenda shared ≥2 hours before → no 1:1.</b> Bi-weekly cadence, prep required in advance.</p>
+          <h4>Bring</h4>
+          <ul>
+            <li>Wins &amp; highlights, priorities &amp; progress (on track / at risk), blockers and what you've already tried.</li>
+            <li><b>Monthly insights</b> (at least once a month): support score trends, completion-rate risks, SOP gaps and a suggested fix.</li>
+            <li>Feedback both ways, and a growth area you're working on.</li>
+          </ul>
+          <p>Document decisions and actions (owner + deadline) during the call, close loops, try first before asking.</p>
+        </div>
+      </details>
 
       <h2>Growth Framework</h2>
       <div class="session-card"><a href="https://docs.google.com/spreadsheets/d/1zCU-4R7CsT9NAHMg_GD8FKaHwcHVqL3ww4U7tjlNKjM/edit?gid=0#gid=0" target="_blank" rel="noopener">PSA Growth Framework</a><span class="session-desc">Google Sheet — identify your current level here first</span></div>
@@ -1238,23 +1295,111 @@ PSA actions taken: [Each action with timestamp]</code>
       <h3>Relationship management</h3>
       <div class="session-card"><a href="https://drive.google.com/file/d/1fJ1PvkH69W26ALZ8_2Cza7nQApApWicO/view" target="_blank" rel="noopener">Working with Interns</a><span class="session-desc">Video</span></div>
       <div class="session-card"><a href="https://drive.google.com/file/d/1xoFgONU8qyIiSCqRiq5kqnC3tr2tDI-k/view" target="_blank" rel="noopener">Working with HCs</a><span class="session-desc">Video</span></div>
-      <div class="session-card"><a href="https://app.notion.com/p/2619ebc4bb55808bb0b5d57b82915ccb" target="_blank" rel="noopener">Archetypes in Action: Jason</a><span class="session-desc">Case study</span></div>
-      <div class="session-card"><a href="https://app.notion.com/p/2629ebc4bb558062bf5df3cf4e70edf8" target="_blank" rel="noopener">Archetypes in Action: Ankur</a><span class="session-desc">Case study</span></div>
+
+      <details class="toggle">
+        <summary>Archetypes in Action: Jason <span class="sop-desc">Supervisor styles — "Ones" vs "Twos"</span></summary>
+        <div class="toggle-body">
+          <p>Supervisors broadly split into two styles, often mixed depending on the task:</p>
+          <ul>
+            <li><b>"Ones"</b> — give the "why" (broad direction), expect interns to show initiative.</li>
+            <li><b>"Twos"</b> — give the "why + what," sometimes the "how" too, more process-oriented.</li>
+          </ul>
+          <p>Interns who struggle are usually the ones lacking intent, not the ones facing a harder supervisor style. Helping an intern recognize their supervisor's style eases friction and sets realistic expectations on both sides.</p>
+          <h4>ISA role</h4>
+          <ul>
+            <li>Build trust with the supervisor before intervening — listen actively, offer practical solutions, frame support as easing their burden rather than adding oversight.</li>
+            <li>Reframe unclear task structures by connecting tasks to skill development, not rigid daily lists.</li>
+            <li>Some supervisors intentionally don't correct small mistakes — that's a learning moment, not neglect.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="toggle">
+        <summary>Archetypes in Action: Ankur <span class="sop-desc">Ramp-up periods, defining intern success, AI over-reliance</span></summary>
+        <div class="toggle-body">
+          <ul>
+            <li><b>Success isn't KPIs.</b> It's grasping business context, independent problem-solving, and proactively communicating roadblocks.</li>
+            <li><b>Ramp-up matters.</b> A 1–2 week period to learn the product and problem space is essential — skipping it sets interns up to fail. Supervisors should start proactive, shift reactive once the intern proves reliable.</li>
+            <li><b>Struggling interns</b> are usually caught earlier through open dialogue, not rigid checkpoints — look for personal distractions or skill gaps before termination is on the table.</li>
+            <li><b>AI use:</b> fine for polish and productivity, a problem when an intern can't explain or defend their own work. Address it as a candid, supportive conversation, not a violation.</li>
+          </ul>
+        </div>
+      </details>
 
       <h3>Communication</h3>
-      <div class="session-card"><a href="https://app.notion.com/p/2a29ebc4bb55808687bccb4f3b95b22e" target="_blank" rel="noopener">Human-Centred Communication</a><span class="session-desc">Notion page</span></div>
-      <div class="session-card"><a href="https://app.notion.com/p/2859ebc4bb55809280a0f288a598fa91" target="_blank" rel="noopener">Objection Handling: Raksha</a><span class="session-desc">Case study</span></div>
+
+      <details class="toggle">
+        <summary>Human-Centred Communication <span class="sop-desc">The purpose / perception / polish framework</span></summary>
+        <div class="toggle-body">
+          <p>Most PSA communication is written, so it needs to work without tone of voice to carry it. Trust builds gradually through consistently thoughtful messages, not any single email.</p>
+          <h4>Three filters before sending</h4>
+          <ul>
+            <li><b>Purpose</b> — what is this email actually trying to achieve?</li>
+            <li><b>Perception</b> — how will the recipient read this, given what they're juggling beyond the internship?</li>
+            <li><b>Polish</b> — is the tone clear, empathetic, and professional?</li>
+          </ul>
+          <p>Tone shifts between interns and supervisors, but the underlying principles — intentional, empathetic, clear — don't.</p>
+        </div>
+      </details>
+
+      <details class="toggle">
+        <summary>Objection Handling: Raksha <span class="sop-desc">The 3-step framework and the Three E's</span></summary>
+        <div class="toggle-body">
+          <p>Objections from interns or HCs usually mask a deeper issue — get on a call rather than resolving purely over email, where tone is easy to misread.</p>
+          <h4>3-step framework</h4>
+          <ul>
+            <li><b>Listen</b> — understand the root cause, not just the surface complaint.</li>
+            <li><b>Respond</b> — acknowledge without immediately defending; validate before proposing anything.</li>
+            <li><b>Confirm</b> — check the resolution actually works for them before closing it out.</li>
+          </ul>
+          <h4>The Three E's</h4>
+          <ul>
+            <li><b>Empathize</b> — validate the concern.</li>
+            <li><b>Educate</b> — explain the reasoning behind a decision.</li>
+            <li><b>Encourage</b> — suggest small, practical next steps.</li>
+          </ul>
+          <p>For difficult cases (blacklisting, skill concerns): lead with transparency, back claims with evidence, and use joint calls rather than one-sided written accusations.</p>
+        </div>
+      </details>
+
       <div class="session-card"><a href="https://drive.google.com/file/d/1YteN01CEETvBTHxpnENV72ycrv-gO0K_/view" target="_blank" rel="noopener">Soft Skills for Customer Success</a><span class="session-desc">Video</span></div>
 
       <h3>Judgment and resolution</h3>
-      <div class="session-card"><a href="https://app.notion.com/p/2bf9ebc4bb5580da855bd0497344490d" target="_blank" rel="noopener">Judgment &amp; Decision-Making Confidence</a><span class="session-desc">Notion page</span></div>
-      <div class="session-card"><a href="https://app.notion.com/p/2e89ebc4bb558061bd51de1b9ac9a35c" target="_blank" rel="noopener">Mediation &amp; Conflict Resolution</a><span class="session-desc">Notion page</span></div>
+      <div class="session-card"><a href="https://app.notion.com/p/2bf9ebc4bb5580da855bd0497344490d" target="_blank" rel="noopener">Judgment &amp; Decision-Making Confidence</a><span class="session-desc">Video — session recording, no separate write-up</span></div>
+      <div class="session-card"><a href="https://app.notion.com/p/2e89ebc4bb558061bd51de1b9ac9a35c" target="_blank" rel="noopener">Mediation &amp; Conflict Resolution</a><span class="session-desc">Guide, slide deck &amp; case scenarios — linked docs, not inline text</span></div>
+      <p style="font-size:12.5px; color:var(--mute);">The core mediation framework (fast triage, the mediation spine, when to escalate) is already inlined on the Hub's SOP Index — this session goes deeper with case scenarios and team reflections.</p>
 
       <h3>Commercial awareness</h3>
-      <div class="session-card"><a href="https://app.notion.com/p/2629ebc4bb55800bb120f091f2968ba0" target="_blank" rel="noopener">Commercial Awareness for ISAs</a><span class="session-desc">Notion page</span></div>
+      <details class="toggle">
+        <summary>Commercial Awareness for ISAs <span class="sop-desc">Why PSA work drives contract renewals</span></summary>
+        <div class="toggle-body">
+          <ul>
+            <li>Learner outcomes, testimonials, and fast service directly influence university/partner funding and renewals — this isn't a sales-only concern.</li>
+            <li><b>Speed of response is a renewal driver.</b> Partners value prompt acknowledgement even when an immediate fix isn't possible.</li>
+            <li><b>Market context differs:</b> US students are often more transactional and financially invested; UK models tend to bundle internships within university programmes.</li>
+            <li>ISA data collection (evaluations, outcomes, feedback) directly supports partner grant applications and renewal conversations.</li>
+            <li>Longer, prepaid contracts give VI financial predictability — accurate forecasting from contract types informs PSA capacity planning.</li>
+          </ul>
+        </div>
+      </details>
 
       <h2>PSA Async Prioritisation Exercise</h2>
-      <div class="session-card"><a href="https://app.notion.com/p/35a9ebc4bb5580a59e4cc1e44a201356" target="_blank" rel="noopener">PSA Async Prioritisation Exercise</a><span class="session-desc">Self-paced</span></div>
+      <details class="toggle">
+        <summary>How the exercise works <span class="sop-desc">Two-part, runs Monday–Wednesday</span></summary>
+        <div class="toggle-body">
+          <p>Surfaces how you reason under pressure — not about getting a "right" answer. Runs across Monday and Wednesday, at your own pace within the deadlines.</p>
+          <ul>
+            <li><b>Step 1:</b> pre-reading (~15 min) + prep-card reflections based on your actual caseload.</li>
+            <li><b>Step 2:</b> Monday scenario — three competing cases, decide what you action first/second/third and why. <b>Due EOD Tuesday.</b></li>
+            <li><b>Step 3:</b> Wednesday reveal — new information lands on each case. Does your thinking change? <b>Due EOD Wednesday.</b></li>
+            <li><b>Step 4:</b> team debrief on what each scenario tested.</li>
+          </ul>
+          <p>Work your page in order, don't skip the reflections, and don't compare scenarios across the team — everyone's is different.</p>
+        </div>
+      </details>
+      <div class="session-card"><a href="https://app.notion.com/p/35a9ebc4bb558039a6d7f5157d457d68" target="_blank" rel="noopener">Amorie — Scenario &amp; Reveal</a><span class="session-desc">Individual page</span></div>
+      <div class="session-card"><a href="https://app.notion.com/p/35a9ebc4bb5580e88ff5fa27b5a74e74" target="_blank" rel="noopener">Chika — Scenario &amp; Reveal</a><span class="session-desc">Individual page</span></div>
+      <div class="session-card"><a href="https://app.notion.com/p/35a9ebc4bb55808495a6c058157bd19e" target="_blank" rel="noopener">Jane — Scenario &amp; Reveal</a><span class="session-desc">Individual page</span></div>
 
       <h2>Training calendar</h2>
       <div class="session-card"><a href="https://app.notion.com/p/2629ebc4bb5580d68a9ee3245efa0f2c" target="_blank" rel="noopener">PSA Training &amp; Development Calendar</a><span class="session-desc">Scheduling for the sessions above</span></div>
