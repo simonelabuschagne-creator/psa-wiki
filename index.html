@@ -395,10 +395,10 @@ code.block{
     <section class="panel active" id="panel-hub">
       <div class="eyebrow"><span class="tab-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></span>Home</div>
       <h1 class="page-title">SOP Hub</h1>
-      <p>Your day-to-day home for running a caseload. New to the team? Work through PSA Onboarding first — it owns sequencing. Once you're through it, this is your reference.</p>
+      <p>Your reference for running a caseload — every SOP lives here in full, not as a summary pointing somewhere else. New to the team? Start with PSA Onboarding first; it sets out what to do in what order. Once you're through it, this is where you'll come back to for the detail behind a decision.</p>
 
       <h2>SOP index</h2>
-      <p>Expand any one when you need it; collapse it when you don't.</p>
+      <p>Expand any SOP below when you need it. Nothing here is a summary — it's the whole process.</p>
 
       <div class="sop-group">
         <div class="sop-group-label">Risk &amp; compliance</div>
@@ -579,9 +579,9 @@ code.block{
         <div class="sop-group-label">Assessments</div>
 
         <details class="toggle">
-          <summary>Pre-Skills Assessment &amp; WFL Follow-Up SOP <span class="sop-desc">WFL score bands, follow-up procedure</span></summary>
+          <summary>WFL Follow-Up SOP <span class="sop-desc">Score bands, follow-up timing matched to the Queue</span></summary>
           <div class="toggle-body">
-            <p><b>Purpose:</b> timely monitoring and follow-up on low WFL scores or missed pre-skills assessments — maintain quality, enforce accountability, apply SLA violations correctly.</p>
+            <p><b>Purpose:</b> timely monitoring and follow-up on low WFL scores — maintain quality, enforce accountability, apply SLA violations correctly.</p>
             <h4>WFL score bands</h4>
             <table>
               <tr><th>Score</th><th>Meaning</th></tr>
@@ -591,6 +591,26 @@ code.block{
               <tr><td>No Rating</td><td>Most recent submission not made</td></tr>
             </table>
             <p>This is the real scale behind the "≤7" trigger used throughout Daily Reference and the call scripts.</p>
+            <h4>Follow-up timing — matches the Queue exactly</h4>
+            <table class="tight">
+              <tr><th>Who</th><th>When</th><th>Order within the day</th></tr>
+              <tr><td>Intern-side WFL</td><td><span class="readout blue">Mon/Tue</span></td><td>Critical (1–5) first, then At Risk (6–7)</td></tr>
+              <tr><td>Supervisor-side WFL</td><td><span class="readout gray">Wed — Supervisor Actions</span></td><td>Same order: Critical first, then At Risk</td></tr>
+            </table>
+            <h4>Follow-up procedure</h4>
+            <ul>
+              <li>Open the WFL Metabase report, filter to your caseload, sort by HC name so all outreach to one company lands in a single email.</li>
+              <li>Work intern-side items Mon/Tue and supervisor-side items Wed — this matches how the Queue already surfaces them, so you're not running a separate pass on a different schedule.</li>
+              <li>Within each day: Critical first, then At Risk.</li>
+              <li>If the same person also has a pre-skills item outstanding, check the Pre-Skills Assessment SOP and combine both into one email — never split into two emails for the same issue window.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="toggle">
+          <summary>Pre-Skills Assessment SOP <span class="sop-desc">Status definitions, follow-up timing matched to the Queue</span></summary>
+          <div class="toggle-body">
+            <p><b>Purpose:</b> timely follow-up on missed pre-skills assessments before an internship gets underway.</p>
             <h4>Pre-skills assessment status</h4>
             <table>
               <tr><th>Status</th><th>Meaning</th></tr>
@@ -599,13 +619,18 @@ code.block{
               <tr><td>In_Progress</td><td>Started, not completed</td></tr>
               <tr><td>Not_Started</td><td>Not yet started</td></tr>
             </table>
+            <h4>Follow-up timing — matches the Queue exactly</h4>
+            <table class="tight">
+              <tr><th>Who</th><th>When</th></tr>
+              <tr><td>Intern-side pre-skills</td><td><span class="readout blue">Mon/Tue</span></td></tr>
+              <tr><td>Supervisor-side pre-skills</td><td><span class="readout gray">Wed — Supervisor Actions</span></td></tr>
+            </table>
             <h4>Follow-up procedure</h4>
             <ul>
-              <li>Open the WFL + Pre-Skills Metabase report, filter to your caseload, sort by HC name so all outreach to one company lands in a single email.</li>
-              <li>Prioritize Critical (1–5) first, then At Risk (6–7), then check assessment status for No Rating / Healthy.</li>
-              <li>While reviewing, check pre-skills assessment status too.</li>
-              <li>Consolidate WFL and pre-skills follow-up into one email per person wherever possible — never split into two emails for the same issue window.</li>
+              <li>Open the Pre-Skills Metabase report, filter to your caseload, sort by HC name.</li>
+              <li>Work intern-side items Mon/Tue and supervisor-side items Wed, same as WFL.</li>
               <li>If an assessment isn't on the platform, check the tracking Gsheet and include any missing submissions in your outreach.</li>
+              <li>If the same person also has a WFL follow-up due, check the WFL Follow-Up SOP and combine both into one email — never split into two emails for the same issue window.</li>
             </ul>
           </div>
         </details>
@@ -614,6 +639,7 @@ code.block{
           <summary>Post-Skills Assessment SOP <span class="sop-desc">Open date, soft/hard deadlines, follow-up cadence</span></summary>
           <div class="toggle-body">
             <p><b>Purpose:</b> consistent, timely completion of post-internship skills assessments by interns and HCs, with clear enforcement.</p>
+            <p style="font-size:13.5px; color:var(--slate);"><b>Condition:</b> this assumes the pre-skills assessment was already submitted for that intern/HC. If pre-skills is still outstanding, resolve that first via the Pre-Skills Assessment SOP above — don't chase post-skills ahead of it.</p>
             <table>
               <tr><th>Term</th><th>Meaning</th></tr>
               <tr><td>Open date</td><td>First Monday of the internship's final week</td></tr>
@@ -883,7 +909,6 @@ code.block{
               <li>Matching → Manage Offers → search intern by name → Open Offer.</li>
               <li>Offers tab → Edit → update fields (Supervisor, Duration/Hours if in batch, Start Date). Start date can move outside the batch, but confirm with PAM/HC/Intern first.</li>
               <li>Review carefully → Update Offer to save. Verify in Offer Details. An automated update email goes to HC/Intern.</li>
-              <li><b>Cancelling an offer mid-internship:</b> use Cancel Candidature → select reason.</li>
             </ul>
             <p><b>Timeline:</b> complete within 24 hours of request. Don't change critical details (dates, company) without prior approval — document the reason for audit.</p>
           </div>
@@ -910,7 +935,13 @@ code.block{
             <h4>Steps</h4>
             <ul>
               <li>Moo → Matching → Manage Offers → search intern by email → note their Batch Code.</li>
-              <li>Three Drive folders to check: "PDF Offer Letters for Interns" (Offer Letter + PPP combined, search by Batch Code → Intern Name), "PDF PPPs" (PPP only, same search), "Offer Letter Editable Slides" (editable version, search by Intern Name).</li>
+              <li>Three Drive folders to check, each organised into per-batch subfolders — search by Batch Code, then Intern Name:
+                <ul style="margin-top:6px;">
+                  <li><a href="https://drive.google.com/drive/folders/16gY3KGJNYlRkey17WLN2a6R_B1z_nxDM" target="_blank" rel="noopener">PDF Offer Letters for Interns</a> — Offer Letter + PPP combined.</li>
+                  <li><a href="https://drive.google.com/drive/folders/13R1jmgsWA5Y4ZNCRA4D53Q1MKW2jSOpc" target="_blank" rel="noopener">PDF PPPs</a> — PPP only, same search.</li>
+                  <li><a href="https://drive.google.com/drive/folders/1pS2akLmikpIPFQz-XjYMRizrZPUQwBug" target="_blank" rel="noopener">Offer Letter Editable Slides</a> — for edits before creating a new PDF, search by Intern Name.</li>
+                </ul>
+              </li>
               <li>Download the relevant file directly if no edits are needed.</li>
               <li><b>If details are wrong</b> (start date, supervisor): open the file in the Editable Slides folder, make corrections, export via File → Download → PDF Document, save with the same Batch Code + Intern Name naming convention.</li>
             </ul>
@@ -986,7 +1017,17 @@ code.block{
         <summary>Diagnosing an intern score ≤7 <span class="sop-desc">Email opener, root-cause table, week-specific calibration</span></summary>
         <div class="toggle-body">
           <p><b>Step 1 — Review context.</b> Pull the most recent call log · check Risk Status and Engagement Status together · check hours vs. expected · check for inbound tickets or contact. Act on a low score regardless of whether engagement data looks healthy — strong engagement does not cancel a low score.</p>
-          <p><b>Step 2 — Email the intern (Mon/Tue).</b> Open with context, not alarm: <i>"Hi [Name], I've seen your feedback for this week and wanted to check in. I just want to understand how things are actually going — can you walk me through what this week looked like?"</i> Choose two or three questions, not all five: what specifically made you rate it the way you did? · is this about the work itself, your relationship with your supervisor, or something else? · has anything changed since we last spoke? · what would need to be different for next week to feel better? · is there a conversation with your supervisor you've been putting off? No response within 48h → follow up once more. Still nothing → SLA process.</p>
+          <p><b>Step 2 — Email the intern (Mon/Tue).</b> Open with context, not alarm:</p>
+          <p style="font-size:13.5px; font-style:italic; color:var(--slate); border-left:2px solid var(--line-strong); padding-left:12px; margin:8px 0 12px;">"Hi [Name], I've seen your feedback for this week and wanted to check in. I just want to understand how things are actually going — can you walk me through what this week looked like?"</p>
+          <p style="font-size:13.5px;">Pick two or three — each is designed to surface something different, so don't default to the same two every time:</p>
+          <ul class="plain" style="font-size:13.5px;">
+            <li><b>Anchor on the number:</b> "What specifically made you rate it that way this week?"</li>
+            <li><b>Locate the source:</b> "Is this more about the work itself, your supervisor relationship, or something else going on?"</li>
+            <li><b>Check the trajectory:</b> "Has something changed since we last spoke, or has this been building for a while?" — new vs. ongoing changes what you do next.</li>
+            <li><b>Surface the unspoken:</b> "Is there anything you haven't mentioned to your supervisor that might help if they knew?"</li>
+            <li><b>Get something concrete:</b> "What would need to happen for next week to feel different?"</li>
+          </ul>
+          <p style="font-size:13.5px;">No response within 48h → follow up once more. Still nothing → SLA process.</p>
           <p><b>Step 3 — Determine the root cause.</b></p>
           <table class="tight">
             <tr><th>What the intern tells you</th><th>Root cause</th><th>Action</th></tr>
@@ -1004,7 +1045,17 @@ code.block{
         <summary>Diagnosing a supervisor score ≤7 <span class="sop-desc">Email opener, root-cause table, week-specific calibration</span></summary>
         <div class="toggle-body">
           <p><b>Step 1 — Review context.</b> Check the intern's most recent call status and Risk Status · check Engagement Status · check supervisor submission rate · act immediately, don't wait for the intern's WFL.</p>
-          <p><b>Step 2 — Email the supervisor (Wed).</b> Frame as a programme check-in: <i>"Hi [Name], I'm checking in on [intern]'s placement — I like to stay close to how things are going from your side. Could you give me a quick update on how they're getting on?"</i> Choose two or three questions: how would you describe their progress this week? · anything about their work, attitude, or communication you'd want to flag? · are they getting enough structure and direction from your side? · is there anything you need from us to make this placement work better? No response within 48h → follow up once. Still nothing → SLA process, then SLA tagging if persistent.</p>
+          <p><b>Step 2 — Email the supervisor (Wed).</b> Frame as a programme check-in:</p>
+          <p style="font-size:13.5px; font-style:italic; color:var(--slate); border-left:2px solid var(--line-strong); padding-left:12px; margin:8px 0 12px;">"Hi [Name], I'm checking in on [intern]'s placement — I like to stay close to how things are going from your side. Could you give me a quick update on how they're getting on?"</p>
+          <p style="font-size:13.5px;">Pick two or three — each is designed to surface something different:</p>
+          <ul class="plain" style="font-size:13.5px;">
+            <li><b>Check the trajectory:</b> "How would you describe their progress this week compared to previous weeks?"</li>
+            <li><b>Catch anything unsaid:</b> "Is there anything about their work, attitude, or communication you'd want to flag?"</li>
+            <li><b>Locate the source, safely:</b> "Are you able to give them enough structure and direction at the moment, or has that been harder than expected on your side?" — phrased so a supervisor can admit their own gap without feeling accused.</li>
+            <li><b>Get something concrete:</b> "Is there anything from our side that would make this placement easier to manage?"</li>
+            <li><b>Check the trajectory, other direction:</b> "Has anything changed recently, or has this been fairly consistent?"</li>
+          </ul>
+          <p style="font-size:13.5px;">No response within 48h → follow up once. Still nothing → SLA process, then SLA tagging if persistent.</p>
           <p><b>Step 3 — Determine the root cause.</b></p>
           <table class="tight">
             <tr><th>What the supervisor tells you</th><th>Root cause</th><th>Action</th></tr>
@@ -1069,20 +1120,21 @@ code.block{
       </div>
 
       <div class="tier0-strip">
-        <div class="eyebrow">Always first — any day, before anything below</div>
+        <div class="eyebrow">Usually needs attention before anything else</div>
+        <p style="font-size:12.5px; color:var(--slate); margin:2px 0 8px;">If one of these shows up, it's the most important thing on your plate that day — it reorders everything else below, any day it happens, not just on its "usual" day.</p>
         <ul>
-          <li>Safeguarding concerns</li>
-          <li>Non-attendance or complete communication breakdown</li>
-          <li>Any Critical status from a proactive call (Wk1 score 3, Wk3/Wk5 score 0–3)</li>
-          <li>Full Unreachable protocol triggered</li>
-          <li>Urgent tickets</li>
+          <li><b>Safeguarding concerns</b> — if in doubt, escalate immediately. Don't wait to gather full context first.</li>
+          <li><b>Non-attendance or complete communication breakdown</b> — check every channel before concluding this: email, call, text, WhatsApp.</li>
+          <li><b>Any Critical status from a proactive call</b> (Wk1 score 3, Wk3/Wk5 score 0–3) — act the same day you spot it, whatever day that is.</li>
+          <li><b>Full Unreachable protocol triggered</b> — log every contact attempt with a timestamp as you go, not after the fact.</li>
+          <li><b>Urgent tickets</b> — if it's urgent enough to jump the queue, it's urgent enough to handle before your next scheduled call.</li>
         </ul>
       </div>
 
       <h2>When things pile up</h2>
       <p>These aren't fixed steps to run through in order — they're what tends to matter most, so you're not starting from zero when three things land on the same day. Real cases won't always fit neatly. Use your read of the actual situation over a static list — that's still the standard everywhere else on this site.</p>
       <ul class="plain">
-        <li><b>Always-first items</b> (above) aren't a judgment call — they're a programme requirement, regardless of what else is happening that day.</li>
+        <li><b>The items above</b> are the ones most likely to need same-day attention, since they touch safety, communication breakdown, or a clearly Critical case. That's a strong default, not an override of your judgment on the specific case in front of you.</li>
         <li><b>Hard deadlines and Critical scores</b> generally carry more weight than the rest, simply because they have the least flexibility — a Wednesday cutoff doesn't move, and Critical is same-day by definition.</li>
         <li><b>At Risk scores, scheduled calls, and Supervisor Actions</b> have a window rather than a single moment — spread them across the days available instead of leaving them all for the last one.</li>
         <li><b>Bulk items and tickets</b> are usually the most forgiving of the group, but that's a pattern, not a rule — if a ticket signals something that needs attention now, treat it like it does.</li>
@@ -1092,7 +1144,7 @@ code.block{
       <h3>A few habits that help</h3>
       <ul class="plain">
         <li><b>Log as you go</b> — catching up on old logs later usually means the day got away from you.</li>
-        <li><b>Front-load where you can</b> — starting Wk1 calls Monday, even though the deadline is Wednesday, gives you room if someone's hard to reach.</li>
+        <li><b>Front-load where you can</b> — nothing stops you running all of the week's calls on Monday if your schedule allows it. It gives you room to still hit the Wednesday cutoff if someone's hard to reach later in the week.</li>
         <li><b>Check last week first</b> — a quick glance at last week's commitments before diving into a new one.</li>
       </ul>
 
@@ -1151,8 +1203,8 @@ code.block{
           </div>
         </div>
       </div>
-      <div class="callout warn">
-        <p><b>Flag, not yet resolved:</b> the written SOP's Thursday-monitoring table says Critical status gets contacted <i>same day</i>, and Week 1's trigger callout states a <i>Wednesday EOD hard deadline</i>. The Queue tags both as Mon/Tue instead. Worth confirming which governs — treat Mon/Tue as the ceiling, not the target, until it's resolved.</p>
+      <div class="callout info">
+        <p><b>Tip:</b> if you're ever unsure whether Critical needs same-day or Mon/Tue contact, default to same day — acting sooner is never wrong. Wednesday's Wk1 cutoff applies either way, so it's not affected by this.</p>
       </div>
     </section>
     <section class="panel" id="panel-week1">
