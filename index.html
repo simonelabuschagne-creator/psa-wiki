@@ -161,15 +161,18 @@ p{color:var(--slate); margin:0 0 12px;}
 strong{color:var(--ink); font-weight:600;}
 
 .callout{
-  border:1px solid var(--line); border-left:3px solid var(--ink);
-  background:var(--panel); border-radius:0 var(--radius) var(--radius) 0;
+  border:1px solid var(--line); border-left:3px solid var(--slate);
+  background:var(--paper); border-radius:0 var(--radius) var(--radius) 0;
   padding:14px 18px; margin:0 0 22px;
 }
 .callout p{margin:0 0 4px; color:var(--ink); font-size:14px;}
 .callout p:last-child{margin-bottom:0;}
 .callout.warn{border-left-color:var(--red); background:var(--red-bg);}
 .callout.warn p{color:var(--red);}
-.callout.info{border-left-color:var(--slate);}
+.callout.info{border-left-color:var(--blue); background:var(--blue-bg);}
+.callout.info p{color:var(--ink);}
+.callout.success{border-left-color:var(--green); background:var(--green-bg);}
+.callout.success p{color:var(--ink);}
 
 .readout{
   font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13px;
@@ -210,6 +213,12 @@ tr:last-child td{border-bottom:none;}
 
 .two-col{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
 .card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px;}
+
+.band-row{display:flex; gap:0; margin:10px 0 16px; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+.band-item{flex:1; padding:10px 14px; border-right:1px solid var(--line);}
+.band-item:last-child{border-right:none;}
+.band-label{display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.05em; color:var(--mute); margin-bottom:4px;}
+.band-value{display:block; font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:15px; color:var(--ink);}
 .card h3{margin-top:0;}
 
 .week-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:0 0 26px;}
@@ -242,7 +251,7 @@ tr:last-child td{border-bottom:none;}
 .day-body li:last-child{margin-bottom:0;}
 .day-note{font-size:12px; color:var(--mute); margin-top:6px; font-style:italic;}
 
-ul.plain{padding-left:18px; color:var(--slate); font-size:14px;}
+ul.plain{padding-left:18px; color:var(--ink); font-size:14px;}
 ul.plain li{margin-bottom:5px;}
 
 .sop-group{margin-bottom:22px;}
@@ -374,7 +383,7 @@ code.block{
     <div class="rail-group">
       <div class="rail-group-label">Reference</div>
       <div class="rail-link" data-panel="faq"><span class="rail-tab" style="background:var(--blue-bg);color:var(--blue);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.3 9a2.7 2.7 0 0 1 5.2 1c0 1.6-2.5 1.9-2.5 3.6"/><circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none"/></svg></span>FAQ</div>
-      <div class="rail-link" data-panel="escalation"><span class="rail-tab" style="background:var(--amber-bg);color:var(--amber);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.5 3.9a1.7 1.7 0 0 0-3 0z"/><line x1="12" y1="9.5" x2="12" y2="13.5"/><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"/></svg></span>Escalation &amp; edge cases</div>
+      <div class="rail-link" data-panel="escalation"><span class="rail-tab" style="background:var(--amber-bg);color:var(--amber);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.5 3.9a1.7 1.7 0 0 0-3 0z"/><line x1="12" y1="9.5" x2="12" y2="13.5"/><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"/></svg></span>Escalation</div>
       <div class="rail-link" data-panel="tech"><span class="rail-tab" style="background:var(--paper);color:var(--slate);border:1px solid var(--line);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.3a1 1 0 0 0 0 1.4l1.8 1.8a1 1 0 0 0 1.4 0l3.5-3.5a5.5 5.5 0 0 1-7.3 7.3l-6.4 6.4a2 2 0 0 1-2.8-2.8l6.4-6.4a5.5 5.5 0 0 1 7.3-7.3z"/></svg></span>Tech stack</div>
     </div>
 
@@ -1070,7 +1079,7 @@ code.block{
 
       <div class="two-col">
         <div class="card">
-          <h3>Unreachable — exact threshold</h3>
+          <h3>Unresponsive — exact threshold</h3>
           <p style="font-size:13.5px;">All of the following, same week:</p>
           <ul class="plain" style="font-size:13.5px;">
             <li>2 call attempts, no answer</li>
@@ -1078,7 +1087,7 @@ code.block{
             <li>1 text, no response</li>
             <li>1 email, no response</li>
           </ul>
-          <p style="font-size:13px;"><b>When reached:</b> log all attempts with timestamps → flag PAM immediately → contact supervisor to confirm attendance → apply that week's Unreachable outcome.</p>
+          <p style="font-size:13px;"><b>When reached:</b> log all attempts with timestamps → flag PAM immediately → contact supervisor to confirm attendance → apply that week's Unresponsive outcome.</p>
         </div>
         <div class="card">
           <h3>Ticket SLA</h3>
@@ -1093,7 +1102,7 @@ code.block{
         <div class="card" style="border-left:3px solid var(--red);">
           <h3 style="color:var(--red);">Escalate to PAM</h3>
           <ul class="plain" style="font-size:13.5px;">
-            <li>Intern Unreachable, full protocol applied</li>
+            <li>Intern Unresponsive, full protocol applied</li>
             <li>Not Confirmed – Critical at Wk 1, no host response 24h</li>
             <li>Critical at Wk 3 or 5, no host response 48h</li>
             <li>SLA breached, Disengaged case post-Wk 5</li>
@@ -1126,7 +1135,7 @@ code.block{
           <li><b>Safeguarding concerns</b> — if in doubt, escalate immediately. Don't wait to gather full context first.</li>
           <li><b>Non-attendance or complete communication breakdown</b> — check every channel before concluding this: email, call, text, WhatsApp.</li>
           <li><b>Any Critical status from a proactive call</b> (Wk1 score 3, Wk3/Wk5 score 0–3) — act the same day you spot it, whatever day that is.</li>
-          <li><b>Full Unreachable protocol triggered</b> — log every contact attempt with a timestamp as you go, not after the fact.</li>
+          <li><b>Full Unresponsive protocol triggered</b> — log every contact attempt with a timestamp as you go, not after the fact.</li>
           <li><b>Urgent tickets</b> — if it's urgent enough to jump the queue, it's urgent enough to handle before your next scheduled call.</li>
         </ul>
       </div>
@@ -1213,11 +1222,11 @@ code.block{
 
       <div class="callout">
         <p><b>When:</b> Every intern, Week 1, by Wednesday EOD.</p>
-        <p><b>Unreachable threshold:</b> 2 calls + 1 voicemail + 1 text + 1 email, no response.</p>
+        <p><b>Unresponsive threshold:</b> 2 calls + 1 voicemail + 1 text + 1 email, no response.</p>
         <p><b>Purpose:</b> Confirm the internship actually started — supervisor contact, task clarity, working rhythm. Missing any one of the three → act same day.</p>
       </div>
       <div class="callout warn">
-        <p>Programme requirement, not optional. Unreachable interns → flag PAM immediately. Unresponsive hosts (24h) → escalate, subject to SLA tagging.</p>
+        <p>Programme requirement, not optional. Unresponsive interns → flag PAM immediately. Unresponsive hosts (24h) → escalate, subject to SLA tagging.</p>
       </div>
 
       <h2>Call script</h2>
@@ -1260,9 +1269,9 @@ code.block{
         <tr><th>Score</th><th>Status</th><th>PSA action</th><th>Deadline / escalation</th></tr>
         <tr><td><span class="readout green">12–15</span></td><td>Confirmed</td><td>Log score and one sentence per category. No further action until Friday report.</td><td>Friday report shows hours not logged → contact intern same day.</td></tr>
         <tr><td><span class="readout amber">8–11</span></td><td>Partially Confirmed</td><td>Log exactly what is missing against each category. Follow up by Wednesday.</td><td>Unresolved by Wed EOD → treat as Not Confirmed. Same-day action applies.</td></tr>
-        <tr><td><span class="readout amber">4–7</span></td><td>Not Confirmed</td><td>Intern takes a specific self-directed action agreed on the call, deadline before end of week. PSA contacts host directly same day.</td><td>No host response in 48h → escalate. Intern unreachable by Wed EOD → treat as Critical.</td></tr>
+        <tr><td><span class="readout amber">4–7</span></td><td>Not Confirmed</td><td>Intern takes a specific self-directed action agreed on the call, deadline before end of week. PSA contacts host directly same day.</td><td>No host response in 48h → escalate. Intern unresponsive by Wed EOD → treat as Critical.</td></tr>
         <tr><td><span class="readout red">3</span></td><td>Not Confirmed – Critical</td><td>PSA contacts host same day — do not wait for intern first contact. CareerBridge same day: C2 L1, C2 L4, C2 L6, C3 L3. Escalation flag raised.</td><td>No host response in 24h → escalate immediately. PAM visibility triggered.</td></tr>
-        <tr><td><span class="readout red">Unreachable</span></td><td>Unresolved</td><td>Log all contact attempts with timestamps. Contact supervisor to confirm all is on track. Follow-up text and email same day.</td><td>No intern response in 24h → flag PAM immediately.</td></tr>
+        <tr><td><span class="readout red">Unresponsive</span></td><td>Unresolved</td><td>Log all contact attempts with timestamps. Contact supervisor to confirm all is on track. Follow-up text and email same day.</td><td>No intern response in 24h → flag PAM immediately.</td></tr>
       </table>
 
       <h2>HubSpot log template</h2>
@@ -1284,11 +1293,11 @@ PSA actions taken: [Each action with timestamp]</code>
 
       <div class="callout">
         <p><b>When:</b> Every intern, Week 3, any day — regardless of WFL scores or engagement status.</p>
-        <p><b>Unreachable threshold:</b> 2 calls + 1 voicemail + 1 text + 1 email, no response.</p>
+        <p><b>Unresponsive threshold:</b> 2 calls + 1 voicemail + 1 text + 1 email, no response.</p>
         <p><b>Before dialling:</b> Pull the Week 1 call log. That status is your entry point.</p>
         <p><b>Purpose:</b> Assess trajectory across work output, hours, and host relationship. Log a trajectory projection in the intern's own words.</p>
       </div>
-      <div class="callout warn"><p>Programme requirement. Unreachable interns → flag PAM immediately. Unresponsive hosts → subject to SLA tagging.</p></div>
+      <div class="callout warn"><p>Programme requirement. Unresponsive interns → flag PAM immediately. Unresponsive hosts → subject to SLA tagging.</p></div>
 
       <h2>Call script</h2>
       <div class="script-line"><span class="who">Opening</span>"Hi [Name], [PSA name] here. You're three weeks in, which is when I check in properly with everyone - not because anything's wrong, but because this is the point where it's a good time to get a read on what the flow looks like. Is now a good time?"</div>
@@ -1329,7 +1338,7 @@ PSA actions taken: [Each action with timestamp]</code>
         <tr><td><span class="readout amber">8–11</span></td><td>Minor Concerns</td><td>Agree one intern-led action on the call, deadline no more than 5 days. Log commitment verbatim. Do not contact host yet.</td><td>No movement by Week 4 WFL → PSA contacts host directly.</td></tr>
         <tr><td><span class="readout amber">4–7</span></td><td>At Risk</td><td>Intern sends host a message on the call, worded together with PSA. CareerBridge same day: C2 L5, C2 L3, C3 L2. Log both actions with timestamps.</td><td>Host doesn't respond in 48h OR intern doesn't send → PSA contacts host directly. Week 4 is an explicit checkpoint.</td></tr>
         <tr><td><span class="readout red">0–3</span></td><td>Critical</td><td>PSA contacts host same day. CareerBridge same day: C2 L1, C2 L4, C2 L6, C3 L3. Escalation flag raised. Week 4 mandatory follow-up call.</td><td>No host response in 48h → escalate. PAM visibility triggered immediately.</td></tr>
-        <tr><td><span class="readout red">Unreachable</span></td><td>Unresponsive</td><td>Log all contact attempts with timestamps. VM and text sent same day. Review WFL data immediately.</td><td>Data healthy → retry at Week 4. Data weak → contact supervisor same day.</td></tr>
+        <tr><td><span class="readout red">No Contact</span></td><td>Unresponsive</td><td>Log all contact attempts with timestamps. VM and text sent same day. Review WFL data immediately.</td><td>Data healthy → retry at Week 4. Data weak → contact supervisor same day.</td></tr>
       </table>
 
       <h2>HubSpot log template</h2>
@@ -1354,7 +1363,7 @@ PSA actions taken: [Each action with timestamp]</code>
       <div class="callout">
         <p><b>Applies to:</b> 6–8 week programmes entering the final stretch.</p>
         <p><b>When:</b> Any day, Week 5.</p>
-        <p><b>Unreachable threshold:</b> 2 calls + 1 voicemail + 1 text + 1 email, no response — treated as Critical immediately.</p>
+        <p><b>Unresponsive threshold:</b> 2 calls + 1 voicemail + 1 text + 1 email, no response — treated as Critical immediately.</p>
         <p><b>Before dialling:</b> Pull the Week 3 call log — your entry point, not a historical note. If Week 3 was At Risk or Critical, apply a higher bar: corroborating evidence required before scoring 4 or 5 in any category.</p>
       </div>
       <div class="callout warn"><p>Programme requirement. Unresponsive hosts → subject to SLA tagging.</p></div>
@@ -1391,7 +1400,7 @@ PSA actions taken: [Each action with timestamp]</code>
         <tr><td><span class="readout amber">8–11</span></td><td>Minor Concerns</td><td>Log plan and deadlines verbatim. CareerBridge if hours gap exists: C2 L2, C3 L5. Check Friday report against stated plan.</td><td>Friday report shows plan not executed → PSA contacts host same day.</td></tr>
         <tr><td><span class="readout amber">4–7</span></td><td>At Risk</td><td>PSA contacts host same day re: final deliverables. CareerBridge: C2 L5, C2 L3, C3 L2. Do not wait for intern first contact.</td><td>Host unresponsive in 24h → escalate immediately. PAM visibility triggered.</td></tr>
         <tr><td><span class="readout red">0–3</span></td><td>Critical</td><td>PSA contacts host same day. Escalation flag raised immediately. PAM visibility triggered. Log realistic outcome — do not record completion if not achievable.</td><td>Escalate immediately. Don't wait for host response before flagging PAM.</td></tr>
-        <tr><td><span class="readout red">Unreachable</span></td><td>Unresponsive</td><td>Treat as Critical immediately. Contact host same day. Log all attempts with timestamps.</td><td>Host also unreachable in 24h → escalate immediately. PAM visibility triggered.</td></tr>
+        <tr><td><span class="readout red">No Contact</span></td><td>Unresponsive</td><td>Treat as Critical immediately. Contact host same day. Log all attempts with timestamps.</td><td>Host also unresponsive in 24h → escalate immediately. PAM visibility triggered.</td></tr>
       </table>
 
       <h2>HubSpot log template</h2>
@@ -1415,7 +1424,7 @@ PSA actions taken: [Each action with timestamp]</code>
       <div class="callout">
         <p><b>Applies to:</b> 8+ week programmes at the midpoint.</p>
         <p><b>When:</b> Any day, Week 5.</p>
-        <p><b>Unreachable threshold:</b> 2 calls + 1 voicemail + 1 text + 1 email, no response — treated as Critical immediately.</p>
+        <p><b>Unresponsive threshold:</b> 2 calls + 1 voicemail + 1 text + 1 email, no response — treated as Critical immediately.</p>
         <p><b>Before dialling:</b> Pull the Week 3 call log. The Week 3 commitment is the first question on this call, not a formality. If Week 3 was At Risk or Critical, apply a higher bar: corroborating evidence required before scoring 4 or 5.</p>
       </div>
       <div class="callout warn"><p>Programme requirement. Unresponsive hosts → subject to SLA tagging.</p></div>
@@ -1455,7 +1464,7 @@ PSA actions taken: [Each action with timestamp]</code>
         <tr><td><span class="readout amber">8–11</span></td><td>Minor Concerns</td><td>Agree one concrete change on the call, specific deadline. Log commitment verbatim. Check following Friday report against it.</td><td>No movement by following Friday report → PSA contacts host directly.</td></tr>
         <tr><td><span class="readout amber">4–7</span></td><td>At Risk</td><td>Agree a structured second-half plan on the call — weekly hour targets, CareerBridge (C2 L5 · C3 L2 · C2 L3), host conversation if needed. Log plan in full. Check Friday report weekly.</td><td>No meaningful improvement by following Friday report → PSA contacts host directly and raises escalation flag.</td></tr>
         <tr><td><span class="readout red">0–3</span></td><td>Critical</td><td>PSA contacts host same day. CareerBridge: C2 L1, C2 L4, C2 L6, C3 L3. Escalation flag raised. Weekly WFL becomes mandatory check.</td><td>No meaningful change by following Friday report → escalate. PAM visibility triggered.</td></tr>
-        <tr><td><span class="readout red">Unreachable</span></td><td>Unresponsive</td><td>Log all contact attempts with timestamps. VM and text sent same day. Review WFL data immediately.</td><td>Data healthy → retry next week. Data weak → contact host same day and raise escalation flag.</td></tr>
+        <tr><td><span class="readout red">No Contact</span></td><td>Unresponsive</td><td>Log all contact attempts with timestamps. VM and text sent same day. Review WFL data immediately.</td><td>Data healthy → retry next week. Data weak → contact host same day and raise escalation flag.</td></tr>
       </table>
 
       <h2>HubSpot log template</h2>
@@ -1549,14 +1558,14 @@ PSA actions taken: [Each action with timestamp]</code>
         </details>
 
         <details class="toggle">
-          <summary>Intern engagement <span class="sop-desc">Missed calls, unreachable, withdrawal requests</span></summary>
+          <summary>Intern engagement <span class="sop-desc">Missed calls, unresponsive, withdrawal requests</span></summary>
           <div class="toggle-body">
             <p><b>What if an intern doesn't answer my calls?</b> Don't immediately label them disengaged. Have they responded another way? Are they completing required activities? Communicating with the supervisor? Is it a timezone issue, a one-off, or becoming a pattern? One missed call + email response + healthy internship is very different from repeated missed calls + no email response + missed WFL + supervisor also can't reach them.</p>
-            <p><b>What if an intern becomes completely unreachable?</b> Document what you've tried — last successful contact, email/call/WhatsApp attempts, HC contact, existing risk indicators — then follow the relevant unresponsive/withdrawal process. Don't keep treating it as just a missed call.</p>
+            <p><b>What if an intern becomes completely unresponsive?</b> Document what you've tried — last successful contact, email/call/WhatsApp attempts, HC contact, existing risk indicators — then follow the relevant unresponsive/withdrawal process. Don't keep treating it as just a missed call.</p>
             <p><b>What if the intern wants to withdraw?</b> First understand why — what happened, is the issue fixable, have they discussed it with the HC, is it the work, the supervisor, hours, university requirements, or something else. Then follow the Internship Change/Withdrawal SOP.</p>
             <p><b>Does the Partner Requirements Cheat Sheet decide whether a withdrawal is possible?</b> No — it tells you the partner's default position, not the final decision. For most partners, the default under "Can Interns Withdraw Unilaterally?" is No, route: Partner must approve, notify PAM. A few follow the SLA process instead. That default tells you PAM needs to be involved early, but it can't capture how far into the internship the intern is, whether the issue is fixable, whether the partner has flexed before, or what the university allows. A "No" on the sheet is where the conversation with PAM begins, not necessarily where it ends.</p>
             <p><b>What should I do if an intern wants to withdraw?</b> Investigate first, work out if it's fixable, check the partner's row in the cheat sheet, check financial implications (e.g. University of Hertfordshire charges 50% pre-acceptance / 100% post-acceptance; Arizona State has a fee at any stage), loop in PAM early. If there's a genuine retention chance, say so explicitly. Don't imply withdrawal is automatically simple or cost-free. If the intern is genuinely set on leaving and the issue isn't fixable, don't push retention for its own sake — give PAM the facts.</p>
-            <p><b>What if the intern wants to withdraw and then becomes unreachable?</b> Document the original request — don't treat the case as though they never contacted you. Document follow-up attempts, then follow the applicable process. Current unresponsive process: 2 calls + 1 voicemail + email + text over 7 days. If unsure whether a withdrawal can be processed without further confirmation, check the SOP rather than guessing.</p>
+            <p><b>What if the intern wants to withdraw and then becomes unresponsive?</b> Document the original request — don't treat the case as though they never contacted you. Document follow-up attempts, then follow the applicable process. Current unresponsive process: 2 calls + 1 voicemail + email + text over 7 days. If unsure whether a withdrawal can be processed without further confirmation, check the SOP rather than guessing.</p>
           </div>
         </details>
 
@@ -1840,17 +1849,16 @@ PSA actions taken: [Each action with timestamp]</code>
     <!-- ============ ESCALATION ============ -->
     <section class="panel" id="panel-escalation">
       <div class="eyebrow"><span class="tab-chip" style="background:var(--amber);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.5 3.9a1.7 1.7 0 0 0-3 0z"/><line x1="12" y1="9.5" x2="12" y2="13.5"/><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"/></svg></span>Reference</div>
-      <h1 class="page-title">Escalation &amp; edge cases</h1>
+      <h1 class="page-title">Escalation</h1>
 
-      <h2>Unreachable protocol</h2>
-      <p>An intern is Unreachable when, within the same week, all of the following have occurred: two call attempts made with no answer · one voicemail left · one text sent with no response · one email sent with no response.</p>
+      <h2>Unresponsive protocol</h2>
+      <p>An intern is Unresponsive when, within the same week, all of the following have occurred: two call attempts made with no answer · one voicemail left · one text sent with no response · one email sent with no response.</p>
       <ul class="plain">
-        <li>Log all contact attempts with timestamps in HubSpot immediately.</li>
+        <li>Log all contact attempts in HubSpot immediately — timestamps are captured automatically.</li>
         <li>Flag to PAM — do not wait for end of week.</li>
         <li>Contact the supervisor to confirm whether the intern is attending and engaging.</li>
-        <li>Apply the Unreachable outcome from the relevant week's rubric.</li>
+        <li>Apply the Unresponsive outcome from the relevant week's rubric.</li>
       </ul>
-      <p><b>SLA tagging applies.</b> An intern who remains unresponsive after PAM visibility is raised is subject to SLA tagging per the Reliability &amp; SLA Tagging Framework. This is not discretionary.</p>
 
       <h2>Ticket responses</h2>
       <ul class="plain">
@@ -1895,7 +1903,7 @@ PSA actions taken: [Each action with timestamp]</code>
             <tr><td>Partner check</td><td>PAM</td><td>Confirm intern status with partner within 1 week.</td></tr>
             <tr><td>Follow-up</td><td>PSA</td><td>After 1 week: resolved → continue placement. Unresolved → Withdraw Proposal. Still no update after a further week → proceed with withdrawal.</td></tr>
           </table>
-          <p style="font-size:12.5px; color:var(--mute);">Note: the Unreachable Protocol above defines the contact threshold before flagging to PAM.</p>
+          <p style="font-size:12.5px; color:var(--mute);">Note: the Unresponsive Protocol above defines the contact threshold before flagging to PAM.</p>
         </div>
       </details>
 
@@ -1928,43 +1936,55 @@ PSA actions taken: [Each action with timestamp]</code>
     <section class="panel" id="panel-kpis">
       <div class="eyebrow"><span class="tab-chip" style="background:var(--slate);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="20" x2="5" y2="13"/><line x1="12" y1="20" x2="12" y2="7"/><line x1="19" y1="20" x2="19" y2="10"/></svg></span>Reference</div>
       <h1 class="page-title">KPIs</h1>
-      <div class="callout info"><p>Levers first, thresholds second. If you're slipping on a number, the levers are what you change.</p></div>
+      <div class="callout info"><p>Levers first, thresholds second. If you're slipping on a number, the levers below it are what you change.</p></div>
 
-      <h2>FY26 targets — monthly</h2>
-      <table class="tight">
-        <tr><th>KPI</th><th>ME</th><th>EE</th><th>SNS</th></tr>
-        <tr><td>PSA Support Score (interns + HCs combined)</td><td>4.15 – 4.29</td><td>4.30 – 4.44</td><td>≥ 4.45</td></tr>
-        <tr><td>Internship Completion</td><td>85 – 89%</td><td>90 – 94%</td><td>≥ 95%</td></tr>
-      </table>
+      <div class="card" style="margin-bottom:14px;">
+        <h3 style="margin-top:0;">PSA Support Score <span style="font-weight:400; color:var(--mute); font-size:12px; text-transform:uppercase; letter-spacing:.03em;">Monthly · interns + HCs combined</span></h3>
+        <div class="band-row">
+          <div class="band-item"><span class="band-label">ME</span><span class="band-value">4.15–4.29</span></div>
+          <div class="band-item"><span class="band-label">EE</span><span class="band-value">4.30–4.44</span></div>
+          <div class="band-item"><span class="band-label">SNS</span><span class="band-value">≥4.45</span></div>
+        </div>
+        <div style="margin-bottom:6px; color:var(--ink); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em;">Levers</div>
+        <ul class="plain" style="margin-bottom:0;">
+          <li><b>Proactive check-ins, on schedule.</b> The Week 1/3/5 cadence is the backbone of this score — a late or skipped call shows up here directly. See <a href="#daily">Daily Reference</a> for the weekly rhythm.</li>
+          <li><b>Human communication over scripted responses.</b> Run the purpose/perception/polish filter from Human-Centred Communication before sending anything routine — see <a href="#growth">Growth &amp; Training</a>.</li>
+          <li><b>Contact both sides independently.</b> A low score on either side gets its own outreach on its own day, not a combined guess — see the intern and supervisor diagnostic frameworks on <a href="#rules">Rules &amp; Thresholds</a>.</li>
+          <li><b>Close the loop, don't just act.</b> An action agreed on a call isn't done until the outcome is confirmed — that's the Last Mile standard referenced throughout <a href="#growth">Growth &amp; Training</a>.</li>
+        </ul>
+      </div>
 
-      <h2>FY26 targets — quarterly</h2>
-      <table class="tight">
-        <tr><th>KPI</th><th>ME</th><th>EE</th><th>SNS</th></tr>
-        <tr><td>Internship Satisfaction Rate</td><td>≤ 76%</td><td>77 – 80%</td><td>≥ 81%</td></tr>
-      </table>
+      <div class="card" style="margin-bottom:14px;">
+        <h3 style="margin-top:0;">Internship Completion <span style="font-weight:400; color:var(--mute); font-size:12px; text-transform:uppercase; letter-spacing:.03em;">Monthly</span></h3>
+        <div class="band-row">
+          <div class="band-item"><span class="band-label">ME</span><span class="band-value">85–89%</span></div>
+          <div class="band-item"><span class="band-label">EE</span><span class="band-value">90–94%</span></div>
+          <div class="band-item"><span class="band-label">SNS</span><span class="band-value">≥95%</span></div>
+        </div>
+        <div style="margin-bottom:6px; color:var(--ink); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em;">Levers</div>
+        <ul class="plain" style="margin-bottom:0;">
+          <li><b>Catch risk before it's a crisis.</b> The Queue's Critical / At Risk / Disengaged sections exist so this happens before a WFL trend becomes a withdrawal — see <a href="#tech">Tech Stack</a>.</li>
+          <li><b>Mediate with structure, not instinct.</b> Gather → identify → confirm facts → middle-ground → communicate → follow up — the full framework is on <a href="#growth">Growth &amp; Training</a> and the Hub's SOP Index.</li>
+          <li><b>Coach accountability, don't absorb it.</b> Safety Net vs. Crutch: hand responsibility back to the intern instead of solving it for them — see Supportive Accountability with Interns on <a href="#growth">Growth &amp; Training</a>.</li>
+          <li><b>Set realistic task expectations with HCs.</b> Most "no tasks assigned" cases are a structure gap, not a bad-HC problem — see the Host Company Engagement section of the <a href="#faq">FAQ</a>.</li>
+        </ul>
+      </div>
 
-      <h2>Levers</h2>
-      <h3>PSA Support Score</h3>
-      <ul class="plain">
-        <li>Proactive check-ins before issues escalate</li>
-        <li>Human communication, not scripted responses</li>
-        <li>Dual-sided outreach to interns and HCs</li>
-        <li>Timely follow-up after every intervention</li>
-      </ul>
-      <h3>Internship Completion</h3>
-      <ul class="plain">
-        <li>Early identification of engagement or task-clarity risks</li>
-        <li>Structured mediation before relationships degrade</li>
-        <li>Coaching interns on accountability and communication</li>
-        <li>Supporting HCs with realistic task framing and expectations</li>
-      </ul>
-      <h3>Internship Satisfaction</h3>
-      <ul class="plain">
-        <li>Consistent expectation-setting at internship start</li>
-        <li>Addressing friction early rather than waiting for surveys</li>
-        <li>Turning negative moments into visible support experiences</li>
-        <li>Ensuring both sides feel supported, not managed</li>
-      </ul>
+      <div class="card">
+        <h3 style="margin-top:0;">Internship Satisfaction Rate <span style="font-weight:400; color:var(--mute); font-size:12px; text-transform:uppercase; letter-spacing:.03em;">Quarterly</span></h3>
+        <div class="band-row">
+          <div class="band-item"><span class="band-label">ME</span><span class="band-value">≤76%</span></div>
+          <div class="band-item"><span class="band-label">EE</span><span class="band-value">77–80%</span></div>
+          <div class="band-item"><span class="band-label">SNS</span><span class="band-value">≥81%</span></div>
+        </div>
+        <div style="margin-bottom:6px; color:var(--ink); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em;">Levers</div>
+        <ul class="plain" style="margin-bottom:0;">
+          <li><b>Get the three foundations right at Week 1.</b> Supervisor connection, task clarity, working rhythm — see the <a href="#week1">Week 1 call script</a>.</li>
+          <li><b>Don't wait for the survey to hear the friction.</b> The <a href="#faq">FAQ</a>'s core principle is investigate now, not after a complaint has had time to compound.</li>
+          <li><b>Turn objections into visible support.</b> Empathize, educate, encourage — the Three E's from Objection Handling on <a href="#growth">Growth &amp; Training</a>.</li>
+          <li><b>Support both sides without managing either.</b> Same communication standard as above, applied consistently across interns and HCs — not different tones for different audiences.</li>
+        </ul>
+      </div>
     </section>
 
     <!-- ============ TECH STACK ============ -->
@@ -1977,7 +1997,7 @@ PSA actions taken: [Each action with timestamp]</code>
         <summary>VI Platform <span class="sop-desc">Internship management — offers, project plans, placement details</span></summary>
         <div class="toggle-body">
           <p><b>What you use it for:</b> viewing and editing active internship offers · checking placement details, project plans, intern/HC information · making in-flight changes to offers.</p>
-          <p style="font-size:13.5px;"><b>Key resources:</b> Product &amp; Platform Knowledge · SOP: Editing Offers During Internship · Sending Orientation Emails to First-Time Hosting Supervisors · Saving and Sharing Offer Letters and PPP as PDFs.</p>
+          <p style="font-size:13.5px;"><b>Key resources:</b> <a href="https://app.notion.com/p/2639ebc4bb55808d8686e64bf73cef37" target="_blank" rel="noopener">Product &amp; Platform Knowledge</a> · <a href="https://app.notion.com/p/27f9ebc4bb5580949764d8631aa4f549" target="_blank" rel="noopener">SOP: Editing Offers During Internship</a> · <a href="https://app.notion.com/p/26b9ebc4bb5580ceab29c29d1cbb65ce" target="_blank" rel="noopener">Sending Orientation Emails to First-Time Hosting Supervisors</a> · <a href="https://app.notion.com/p/26b9ebc4bb55800abd1cc8a84b3f56c8" target="_blank" rel="noopener">Saving and Sharing Offer Letters and PPP as PDFs</a>.</p>
         </div>
       </details>
 
@@ -1994,12 +2014,12 @@ PSA actions taken: [Each action with timestamp]</code>
             <li>All SLA-related actions documented with date, summary, evidence links.</li>
           </ul>
           <table class="tight">
-            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
-            <tr><td>Week 1 Touchpoint Status</td><td>Dropdown</td><td>Confirmed / Partially Confirmed / Not Confirmed / Not Confirmed - Critical / Unresolved</td></tr>
-            <tr><td>Week 3 Touchpoint Status</td><td>Dropdown</td><td>On Track / Minor Concerns / At Risk / Critical / Unresponsive</td></tr>
-            <tr><td>Week 5 Touchpoint Status</td><td>Dropdown</td><td>On Track / Recovery Running / Minor Concerns / At Risk / Critical / Unresponsive</td></tr>
+            <tr><th>Property</th><th>Values</th></tr>
+            <tr><td>Week 1 Touchpoint Status</td><td>Confirmed / Partially Confirmed / Not Confirmed / Not Confirmed - Critical / Unresolved</td></tr>
+            <tr><td>Week 3 Touchpoint Status</td><td>On Track / Minor Concerns / At Risk / Critical / Unresponsive</td></tr>
+            <tr><td>Week 5 Touchpoint Status</td><td>On Track / Minor Concerns / At Risk / Critical / Unresponsive</td></tr>
           </table>
-          <p style="font-size:13.5px;"><b>Key resources:</b> HubSpot CRM Overview · HubSpot Tasks for Internship Support · Ticket Status on HubSpot · Logging WhatsApp Messages into HubSpot.</p>
+          <p style="font-size:13.5px;"><b>Key resources:</b> <a href="https://app.notion.com/p/2689ebc4bb5580268905f4ce10a1c429" target="_blank" rel="noopener">HubSpot CRM Overview</a> · <a href="https://app.notion.com/p/2b09ebc4bb5580e185f9f2176c63a536" target="_blank" rel="noopener">HubSpot Tasks for Internship Support</a> · <a href="https://app.notion.com/p/26b9ebc4bb558012a75cec160847f62c" target="_blank" rel="noopener">Ticket Status on HubSpot</a> · <a href="https://app.notion.com/p/26b9ebc4bb5580fdb4c7e70729ac5db4" target="_blank" rel="noopener">Logging WhatsApp Messages into HubSpot</a>.</p>
         </div>
       </details>
 
@@ -2007,7 +2027,7 @@ PSA actions taken: [Each action with timestamp]</code>
         <summary>Metabase <span class="sop-desc">Data and signal monitoring</span></summary>
         <div class="toggle-body">
           <p><b>What you use it for:</b> monitoring Intern and HC Engagement Status for all active internships · reviewing Slipping/Disengaged cases on Thursdays post-Week 5 · informing score follow-up decisions.</p>
-          <p style="font-size:13.5px;"><b>Key resources:</b> Submissions Tracking Report · Pre-Skills Assessment Follow-Up SOP.</p>
+          <p style="font-size:13.5px;"><b>Key resources:</b> <a href="https://metabase.virtualinternships.com/question/2655-submissions-tracking" target="_blank" rel="noopener">Submissions Tracking Report</a> · <a href="https://app.notion.com/p/26b9ebc4bb55809a8fbbf870139806b0" target="_blank" rel="noopener">Pre-Skills Assessment Follow-Up SOP</a>.</p>
         </div>
       </details>
 
@@ -2029,18 +2049,18 @@ PSA actions taken: [Each action with timestamp]</code>
             <tr><td>🟢 On Track</td><td>Intern <i>and</i> supervisor both rated 8–10, both flagged Engaged</td><td>No action required. Monitor Thursday.</td></tr>
             <tr><td>⚪ No Flag</td><td>No specific issues flagged — not yet fully verified as On Track</td><td>Monitor. Check engagement and score when next submitted.</td></tr>
           </table>
-
-          <h4>CareerBridge</h4>
-          <p>Low-score intern cards (≤7) surface a specific lesson suggestion automatically. The full CareerBridge Reference panel, below the search bar, gives copy-ready email scripts and lesson links for every learner profile and problem scenario — Part A covers learner profiles, Part B covers problem scenarios. Course 2 (Thriving in Your Internship) and Course 3 (Remote Work Ready) are the two primary references for interns in their first two weeks.</p>
-          <p style="font-size:13.5px;"><b>What "activating CareerBridge" actually means:</b> you send the intern a message — email by default, call/text/WhatsApp if the situation warrants it — naming the specific lesson codes for their situation, confirming the hours count toward their target, and confirming they know how to access them on the platform. No platform-side setup is required from you; CareerBridge is self-serve once the intern knows what to do. You confirm it worked through their next WFL submission, not as a separate check-in step.</p>
+          <p style="font-size:13.5px; color:var(--mute);">Low-score intern cards (≤7) surface a CareerBridge lesson suggestion inline — see the CareerBridge section below for what that actually means as an action.</p>
         </div>
       </details>
 
       <details class="toggle">
-        <summary>Curriculum <span class="sop-desc">Intern learning context</span></summary>
+        <summary>CareerBridge <span class="sop-desc">Intern learning content, and what "activating" it means</span></summary>
         <div class="toggle-body">
           <p><b>What you use it for:</b> understanding what interns are learning and when · contextualising feedback and task-sufficiency issues · grounding coaching conversations in programme content.</p>
-          <p style="font-size:13.5px;"><b>Key resources:</b> Curriculum Refresh 2.0.</p>
+          <p style="font-size:13.5px; color:var(--slate);"><b>Note:</b> CareerBridge is mandatory for certain interns completing an internship for academic credit — check the Partner Requirements Cheat Sheet for the specific placement. For everyone else it's a resource, not a requirement.</p>
+          <p>Low-score intern cards (≤7) in the Queue surface a specific lesson suggestion automatically. The full CareerBridge Reference panel, below the Queue's search bar, gives copy-ready email scripts and lesson links for every learner profile and problem scenario — Part A covers learner profiles, Part B covers problem scenarios. Course 2 (Thriving in Your Internship) and Course 3 (Remote Work Ready) are the two primary references for interns in their first two weeks.</p>
+          <p style="font-size:13.5px;"><b>What "activating CareerBridge" actually means:</b> you send the intern a message — email by default, call/text/WhatsApp if the situation warrants it — naming the specific lesson codes for their situation, confirming the hours count toward their target, and confirming they know how to access them on the platform. No platform-side setup is required from you; CareerBridge is self-serve once the intern knows what to do. You confirm it worked through their next WFL submission, not as a separate check-in step.</p>
+          <p style="font-size:13.5px;"><b>Key resources:</b> <a href="https://app.notion.com/p/1989ebc4bb55807892a8c59d5f30bc3b" target="_blank" rel="noopener">Curriculum Refresh 2.0</a>.</p>
         </div>
       </details>
     </section>
@@ -2051,7 +2071,7 @@ PSA actions taken: [Each action with timestamp]</code>
       <div class="eyebrow"><span class="tab-chip" style="background:var(--green);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5c-4.5 1.2-8 5.5-9 10 1.2.2 2.5.7 3.5 1.7s1.5 2.3 1.7 3.5c4.5-1 8.8-4.5 10-9-2 0-4-.5-5.5-2s-2-3.5-2-4.2z"/><circle cx="15" cy="9" r="1.6"/><path d="M7.5 16.5c-1 .3-2 1.3-2.3 4.3 3-.3 4-1.3 4.3-2.3"/></svg></span>Start here — new to the team</div>
       <h1 class="page-title">Onboarding</h1>
 
-      <div class="callout" style="border-left-color:var(--green);">
+      <div class="callout success">
         <p><b>Welcome to the PSA team.</b> Your structured onboarding lives in <a href="https://app.notion.com/p/29a9ebc4bb55804a93dcea7869e8b387" target="_blank" rel="noopener">PSA Onboarding</a> — work through the 5-day programme first, it owns all sequencing. This page is what that programme adds up to and what to know before your first call. Once you're through it, <a href="#growth">Growth &amp; Training</a> and the rest of this site become your day-to-day reference.</p>
       </div>
 
