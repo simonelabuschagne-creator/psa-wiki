@@ -115,6 +115,11 @@ body{
   border-radius:2px; flex-shrink:0;
 }
 .rail-sub{padding-left:44px; font-size:13px;}
+.rail-updated{
+  padding:16px 22px 0; margin-top:12px; border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--mute);
+  letter-spacing:.02em;
+}
 
 /* ---------- Main ---------- */
 main{flex:1; min-width:0; padding:44px 48px 80px; display:flex; justify-content:center;}
@@ -385,6 +390,7 @@ code.block{
       <div class="rail-link" data-panel="faq"><span class="rail-tab" style="background:var(--blue-bg);color:var(--blue);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.3 9a2.7 2.7 0 0 1 5.2 1c0 1.6-2.5 1.9-2.5 3.6"/><circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none"/></svg></span>FAQ</div>
       <div class="rail-link" data-panel="escalation"><span class="rail-tab" style="background:var(--amber-bg);color:var(--amber);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.5 3.9a1.7 1.7 0 0 0-3 0z"/><line x1="12" y1="9.5" x2="12" y2="13.5"/><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"/></svg></span>Escalation</div>
       <div class="rail-link" data-panel="tech"><span class="rail-tab" style="background:var(--paper);color:var(--slate);border:1px solid var(--line);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.3a1 1 0 0 0 0 1.4l1.8 1.8a1 1 0 0 0 1.4 0l3.5-3.5a5.5 5.5 0 0 1-7.3 7.3l-6.4 6.4a2 2 0 0 1-2.8-2.8l6.4-6.4a5.5 5.5 0 0 1 7.3-7.3z"/></svg></span>Tech stack</div>
+      <div class="rail-link" data-panel="glossary"><span class="rail-tab" style="background:var(--paper);color:var(--slate);border:1px solid var(--line);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5v-17z"/><path d="M4 19a2.5 2.5 0 0 1 2.5-2.5H20"/><line x1="8" y1="7" x2="15" y2="7"/><line x1="8" y1="10.5" x2="13" y2="10.5"/></svg></span>Glossary</div>
     </div>
 
     <div class="rail-group">
@@ -394,6 +400,8 @@ code.block{
       <div class="rail-link" data-panel="growth"><span class="rail-tab" style="background:var(--paper);color:var(--slate);border:1px solid var(--line);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5L12 5l10 4.5-10 4.5-10-4.5z"/><path d="M6 11.7v4.3c0 1.2 2.7 2.5 6 2.5s6-1.3 6-2.5v-4.3"/></svg></span>Growth &amp; training</div>
       <div class="rail-link" data-panel="onboarding"><span class="rail-tab" style="background:var(--green-bg);color:var(--green);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5c-4.5 1.2-8 5.5-9 10 1.2.2 2.5.7 3.5 1.7s1.5 2.3 1.7 3.5c4.5-1 8.8-4.5 10-9-2 0-4-.5-5.5-2s-2-3.5-2-4.2z"/><circle cx="15" cy="9" r="1.6"/><path d="M7.5 16.5c-1 .3-2 1.3-2.3 4.3 3-.3 4-1.3 4.3-2.3"/></svg></span>Onboarding</div>
     </div>
+
+    <div class="rail-updated">Last updated: 11 Aug 2026</div>
   </nav>
 
   <main>
@@ -1046,7 +1054,7 @@ code.block{
             <tr><td>Relationship friction, communication breakdown</td><td>Relationship issue</td><td>Early friction → coach intern. Breakdown → contact supervisor same week. Unresolvable → escalation pathway.</td></tr>
             <tr><td>Intern can't identify a specific cause</td><td>Unclear</td><td>Anchor in hours/tasks completed. Data weak → At Risk. Data healthy → monitor next Thursday.</td></tr>
           </table>
-          <p><b>Step 4 — Week-specific calibration.</b> <b>Week 2:</b> you have Week 1 context — go back to the three foundations (supervisor connection, task clarity, working rhythm) and identify which one broke down. <b>Week 4:</b> you have Week 1 and Week 3 context — if Drifting/At Risk at Week 3 and Week 4 is also low, treat as a pattern and contact the host directly without waiting for further evidence. <b>Week 6+:</b> check engagement signals alongside the score — both weak means treat as Disengaged, not just a low score.</p>
+          <p><b>Step 4 — Week-specific calibration.</b> <b>Week 2:</b> you have Week 1 context — go back to the three foundations (supervisor connection, task clarity, working rhythm) and identify which one broke down. <b>Week 4:</b> you have Week 1 and Week 3 context — if Minor Concerns/At Risk at Week 3 and Week 4 is also low, treat as a pattern and contact the host directly without waiting for further evidence. <b>Week 6+:</b> check engagement signals alongside the score — both weak means treat as Disengaged, not just a low score.</p>
         </div>
       </details>
 
@@ -1991,7 +1999,7 @@ PSA actions taken: [Each action with timestamp]</code>
     <section class="panel" id="panel-tech">
       <div class="eyebrow"><span class="tab-chip" style="background:var(--slate);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.3a1 1 0 0 0 0 1.4l1.8 1.8a1 1 0 0 0 1.4 0l3.5-3.5a5.5 5.5 0 0 1-7.3 7.3l-6.4 6.4a2 2 0 0 1-2.8-2.8l6.4-6.4a5.5 5.5 0 0 1 7.3-7.3z"/></svg></span>Reference</div>
       <h1 class="page-title">Tech stack</h1>
-      <p>Five tools, one source of truth per job. Expand the one you need.</p>
+      <p>Six tools, one source of truth per job. Expand the one you need.</p>
 
       <details class="toggle">
         <summary>VI Platform <span class="sop-desc">Internship management — offers, project plans, placement details</span></summary>
@@ -2063,6 +2071,55 @@ PSA actions taken: [Each action with timestamp]</code>
           <p style="font-size:13.5px;"><b>Key resources:</b> <a href="https://app.notion.com/p/1989ebc4bb55807892a8c59d5f30bc3b" target="_blank" rel="noopener">Curriculum Refresh 2.0</a>.</p>
         </div>
       </details>
+
+      <details class="toggle">
+        <summary>Slack <span class="sop-desc">The channels you'll actually need, and what each is for</span></summary>
+        <div class="toggle-body">
+          <table class="tight">
+            <tr><th>Channel</th><th>What it's for</th></tr>
+            <tr><td><a href="https://virtualinternships-vi.slack.com/archives/C083EFWL59C" target="_blank" rel="noopener">#psa-team</a></td><td>General PSA team channel — day-to-day discussion and coordination.</td></tr>
+            <tr><td><a href="https://virtualinternships-vi.slack.com/archives/C06EZBVB09Y" target="_blank" rel="noopener">#psa-pam-support</a></td><td>PSA ↔ PAM coordination — partner-related questions and support requests.</td></tr>
+            <tr><td><a href="https://virtualinternships-vi.slack.com/archives/C0A9Q0QE63S" target="_blank" rel="noopener">#team-prs-psa</a></td><td>PRS ↔ PSA coordination.</td></tr>
+            <tr><td><a href="https://virtualinternships-vi.slack.com/archives/C086M68CE6B" target="_blank" rel="noopener">#hc-changes-psa-prs-pm</a></td><td>Announce Host Company changes here — referenced directly in the Internship Change Guidelines.</td></tr>
+            <tr><td><a href="https://virtualinternships-vi.slack.com/archives/C0715JT1RB6" target="_blank" rel="noopener">#epd-feature-requests</a></td><td>Submit platform feature requests to Product/Engineering.</td></tr>
+            <tr><td><a href="https://virtualinternships-vi.slack.com/archives/C05SX123478" target="_blank" rel="noopener">#epd-please-help</a></td><td>Report bugs/issues and request data changes for Moo — see the Moo vs. HubSpot section of the FAQ.</td></tr>
+            <tr><td><a href="https://virtualinternships-vi.slack.com/archives/C06RURZ80RM" target="_blank" rel="noopener">#epd-spot-feedback</a></td><td>Quick, informal feedback to Product/Engineering. Simone will tag you here directly if anything in it needs your attention.</td></tr>
+            <tr><td><a href="https://virtualinternships-vi.slack.com/archives/C08H6R4T9BL" target="_blank" rel="noopener">#biz-systems-support-desk</a></td><td>Support for HubSpot, Claude, and similar business systems — not Moo, which goes through #epd-please-help instead.</td></tr>
+            <tr><td><a href="https://virtualinternships-vi.slack.com/archives/C05Q8BCB7JS" target="_blank" rel="noopener">#v2-pre-during-dreamteam</a></td><td>Coordinate with the pre-internship team for cross-team visibility — blacklisting, pausing placements at a company, and similar shared-impact decisions.</td></tr>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============ GLOSSARY ============ -->
+    <section class="panel" id="panel-glossary">
+      <div class="eyebrow"><span class="tab-chip" style="background:var(--slate);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5v-17z"/><path d="M4 19a2.5 2.5 0 0 1 2.5-2.5H20"/><line x1="8" y1="7" x2="15" y2="7"/><line x1="8" y1="10.5" x2="13" y2="10.5"/></svg></span>Reference</div>
+      <h1 class="page-title">Glossary &amp; who's who</h1>
+      <p>Terms and acronyms used throughout this wiki, and the roles behind them.</p>
+
+      <h2>Terms &amp; acronyms</h2>
+      <table class="tight">
+        <tr><th>Term</th><th>Meaning</th></tr>
+        <tr><td><b>WFL</b></td><td>Weekly Feedback (Loop). The weekly 1–10 rating interns and supervisors each submit on how the internship is going.</td></tr>
+        <tr><td><b>PPP</b></td><td>Placement Project Plan. The document outlining an intern's project scope for a Host Company placement — combined with the offer letter in the PDF Offer Letters folder.</td></tr>
+        <tr><td><b>CF</b></td><td>Career Field. One of 18 categories an intern selects; guaranteed first-choice CF, not guaranteed location or industry.</td></tr>
+        <tr><td><b>HC</b></td><td>Host Company.</td></tr>
+        <tr><td><b>SLA</b></td><td>Service Level Agreement. Used two ways on this site: response-time commitments (tickets, tasks) and the Host Company/intern reliability tagging system (SLA 1, SLA 2).</td></tr>
+        <tr><td><b>CPT</b></td><td>Curricular Practical Training — a US work-authorization category relevant to some academic-credit interns and CPT documentation requests.</td></tr>
+        <tr><td><b>ME / EE / SNS</b></td><td>Meets Expectations / Exceeds Expectations / Sets a New Standard — the three-tier band used for every KPI target on this site.</td></tr>
+        <tr><td><b>NDA</b></td><td>Non-Disclosure Agreement.</td></tr>
+      </table>
+
+      <h2>Roles — who's who</h2>
+      <table class="tight">
+        <tr><th>Role</th><th>What they do, and how to reach them</th></tr>
+        <tr><td><b>PSA</b></td><td>Placement Success Advisor — manages the during-internship experience. If you're reading this wiki, this is probably you.</td></tr>
+        <tr><td><b>PAM</b></td><td>Partnership Account Manager. Owns the partner relationship — the escalation point for partner requirements, withdrawal confirmations, and academic-credit constraints. Reached via HubSpot task, or <a href="https://virtualinternships-vi.slack.com/archives/C086M68CE6B" target="_blank" rel="noopener">#hc-changes-psa-prs-pm</a> for HC changes specifically.</td></tr>
+        <tr><td><b>PMS</b></td><td>Placement Matching Specialist. Pre-internship team — matches interns to Host Companies before a placement is confirmed. "PM" in a couple of older SOPs (the Host Company Blacklist Process, the Escalation pathways table) is shorthand for the same team.</td></tr>
+        <tr><td><b>PRS</b></td><td>Placement Readiness Support. Pre-internship team — prepares interns for interviews and placement readiness before matching.</td></tr>
+        <tr><td><b>EPD</b></td><td>Product/Engineering team (also written EDP in some source docs — same team). Reached via <a href="https://virtualinternships-vi.slack.com/archives/C05SX123478" target="_blank" rel="noopener">#epd-please-help</a> for platform issues and data changes like contact email updates.</td></tr>
+      </table>
+
     </section>
 
     <!-- ============ GROWTH ============ -->
@@ -2379,6 +2436,23 @@ PSA actions taken: [Each action with timestamp]</code>
       </details>
 
       <h3>Judgment and resolution</h3>
+
+      <details class="toggle">
+        <summary>Scoring calibration <span class="sop-desc">Illustrative — worked examples of borderline rubric calls</span></summary>
+        <div class="toggle-body">
+          <div class="callout info"><p>These two examples are illustrative — built by reasoning through the published rubric text, not drawn from real historical calls. They're here to show the calibration process, not to stand in for real calibration data. If you have real borderline cases worth adding, they'd make this section genuinely stronger.</p></div>
+
+          <h4>Example 1 — Week 1, Supervisor connection: 2 or 3?</h4>
+          <p>Intern says: <i>"I've messaged my supervisor twice, no reply yet, but I saw on LinkedIn they're active."</i></p>
+          <p>The pull is toward a 3 — the intern has tried, and trying feels like it should count for something. But the rubric's actual test for 3 is <i>"contact has been established and a meeting is scheduled"</i> — not just outreach sent. Here, nothing has been established: two unanswered messages is exactly the 2 definition, <i>"reached out with no response."</i> The instinct to reward effort is real, but score what happened, not what was attempted.</p>
+
+          <h4>Example 2 — Week 1, Task clarity: 3 or 4?</h4>
+          <p>Intern says: <i>"I know I'm working on a marketing project, my supervisor said they'd send details soon."</i></p>
+          <p>A 4 requires the intern <i>can describe</i> the work, even if outcomes are still being defined. Here, "marketing project" is a category, not a description — there's no task, no owner, no sense of what a finished version looks like. That's the 3 definition: <i>"has been given work but cannot clearly explain what it is."</i> The test for 4 isn't whether work exists — it's whether the intern can actually talk about it.</p>
+
+          <p style="font-size:13px; color:var(--slate);">The pattern in both: the rubric rewards evidence of something real happening, not evidence that the intern is trying. When a call feels borderline, go back to the exact rubric language for the score below it and check whether that's actually a better fit before defaulting up.</p>
+        </div>
+      </details>
 
       <details class="toggle">
         <summary>Judgment &amp; Decision-Making Confidence <span class="sop-desc">The Escalation Readiness Test and the Decision Playbook</span></summary>
