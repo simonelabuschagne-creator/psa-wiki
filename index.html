@@ -1,536 +1,1200 @@
-<!-- ============ HUB ============ -->  
-<section class="panel active" id="panel-hub">  
-  <div class="eyebrow"><span class="tab-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></span>Home</div>  
-  <h1 class="page-title">SOP Hub</h1>  
-  <p>Your reference for running a caseload — every SOP lives here in full, not as a summary pointing somewhere else. New to the team? Start with PSA Onboarding first; it sets out what to do in what order. Once you're through it, this is where you'll come back to for the detail behind a decision.</p>
+:root{
+--paper:#F2F2F2;
+--panel:#FFFFFF;
+--ink:#052126;
+--slate:#294C60;
+--mute:#72899A;
+--line:#DCE1E4;
+--line-strong:#C3CBCF;
+--green:#1F7D73; --green-bg:#E3F3F1;
+--amber:#B85A1D; --amber-bg:#FDEBDD;
+--red:#C81F45; --red-bg:#FCE4EA;
+--blue:#6247C9; --blue-bg:#EFEBFC;
+--radius:3px;
+}
+{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+margin:0;
+background:var(--paper);
+color:var(--ink);
+font-family:'Poppins',system-ui,sans-serif;
+font-size:15px;
+line-height:1.6;
+}
+.layout{display:flex; min-height:100vh;}
+/ ---------- Left rail: binder index ---------- /
+.rail{
+width:230px; flex-shrink:0;
+background:var(--panel);
+border-right:1px solid var(--line);
+padding:28px 0 40px;
+position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.rail-brand{
+padding:0 22px 22px;
+border-bottom:1px solid var(--line);
+margin-bottom:10px;
+}
+.rail-brand .kicker{
+font-family:'IBM Plex Mono',monospace;
+font-size:11px; letter-spacing:.06em; color:var(--mute); text-transform:uppercase;
+}
+.rail-brand h1{
+font-family:'Poppins',sans-serif; font-weight:600; font-size:19px; margin:4px 0 0;
+}
+.rail-values{margin-top:12px;}
+.rail-values summary{
+cursor:pointer; list-style:none; font-family:'IBM Plex Mono',monospace;
+font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--mute);
+padding:5px 0; border-top:1px solid var(--line);
+}
+.rail-values summary::-webkit-details-marker{display:none;}
+.rail-values summary::before{content:'+ '; color:var(--mute);}
+.rail-values[open] summary::before{content:'\2212 ';}
+.rail-values-body{padding:6px 2px 4px; font-size:11.5px; line-height:1.5; color:var(--slate);}
+.rail-values-body p{margin:0 0 8px;}
+.rail-values-body b{color:var(--ink); font-weight:600;}
+.rail-values-body ul{margin:0; padding-left:14px;}
+.rail-values-body li{margin-bottom:6px;}
+.rail-search{padding:0 22px 14px; margin-top:2px;}
+.rail-search input{
+width:100%; box-sizing:border-box; padding:8px 10px; font-size:12.5px;
+border:1px solid var(--line-strong); border-radius:var(--radius);
+font-family:'Poppins',sans-serif; background:var(--paper); color:var(--ink);
+}
+.rail-search input:focus{outline:none; border-color:var(--blue);}
+.rail-search input::placeholder{color:var(--mute);}
+.search-results{
+position:fixed; width:380px; max-height:65vh; overflow-y:auto;
+background:var(--panel); border:1px solid var(--line-strong); border-radius:var(--radius);
+box-shadow:0 10px 28px rgba(5,33,38,0.16); z-index:60; display:none;
+}
+.search-results.active{display:block;}
+.search-result{padding:11px 16px; border-bottom:1px solid var(--line); cursor:pointer;}
+.search-result:hover{background:var(--paper);}
+.search-result:last-child{border-bottom:none;}
+.search-result .sr-page{
+font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.04em;
+text-transform:uppercase; color:var(--blue); margin-bottom:3px;
+}
+.search-result .sr-title{font-weight:600; font-size:13px; color:var(--ink); margin-bottom:3px;}
+.search-result .sr-snippet{font-size:12px; color:var(--slate); line-height:1.45;}
+.search-result mark{background:var(--amber-bg); color:var(--ink); font-weight:600; padding:0 1px; border-radius:1px;}
+.search-empty{padding:14px 16px; font-size:12.5px; color:var(--mute);}
+.rail-group{margin:18px 0 4px;}
+.rail-group-label{
+font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em;
+color:var(--mute); text-transform:uppercase; padding:0 22px; margin-bottom:6px;
+}
+.rail-link{
+display:flex; align-items:center; gap:10px;
+padding:7px 22px; cursor:pointer; color:var(--slate);
+font-size:13.5px; font-weight:500; border-left:2px solid transparent;
+}
+.rail-link:hover{color:var(--ink); background:var(--paper);}
+.rail-link.active{color:var(--ink); border-left-color:var(--ink); background:var(--paper);}
+.rail-tab{
+font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600;
+width:26px; height:18px; display:flex; align-items:center; justify-content:center;
+border-radius:2px; flex-shrink:0;
+}
+.rail-sub{padding-left:44px; font-size:13px;}
+.rail-updated{
+padding:16px 22px 0; margin-top:12px; border-top:1px solid var(--line);
+font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--mute);
+letter-spacing:.02em;
+}
+/ ---------- Main ---------- */
+main{flex:1; min-width:0; padding:44px 48px 80px; display:flex; justify-content:center;}
+.page-frame{display:flex; flex-wrap:nowrap; gap:48px; align-items:flex-start; width:100%; max-width:980px;}
+.prose{flex:1 1 auto; min-width:0;}
+.panel{display:none;}
+.panel.active{display:block;}
+.page-toc{
+width:200px; flex:0 0 200px; position:sticky; top:44px;
+border-left:1px solid var(--line); padding-left:18px;
+}
+.page-toc .toc-label{
+font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em;
+text-transform:uppercase; color:var(--mute); margin-bottom:10px;
+}
+.page-toc a{
+display:block; font-size:12.5px; color:var(--slate); text-decoration:none;
+padding:5px 0; border-bottom:1px solid transparent;
+}
+.page-toc a:hover{color:var(--ink);}
+@media (max-width: 1180px){ .page-toc{display:none;} .page-frame{max-width:740px;} }
+.eyebrow{
+font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em;
+text-transform:uppercase; color:var(--mute); margin:0 0 6px;
+display:flex; align-items:center; gap:10px;
+}
+.tab-chip{
+font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:11px;
+padding:2px 7px; border-radius:2px; color:var(--panel); background:var(--ink);
+}
+h1.page-title{
+font-family:'Poppins',sans-serif; font-weight:600; font-size:28px; margin:0 0 28px;
+padding-bottom:18px; border-bottom:1px solid var(--line);
+}
+h2{
+font-family:'Poppins',sans-serif; font-weight:600; font-size:18px;
+margin:36px 0 14px; scroll-margin-top:24px;
+}
+h2:first-of-type{margin-top:0;}
+h3{font-size:14.5px; font-weight:600; margin:20px 0 8px;}
+p{color:var(--slate); margin:0 0 12px;}
+strong{color:var(--ink); font-weight:600;}
+.callout{
+border:1px solid var(--line); border-left:3px solid var(--slate);
+background:var(--paper); border-radius:0 var(--radius) var(--radius) 0;
+padding:14px 18px; margin:0 0 22px;
+}
+.callout p{margin:0 0 4px; color:var(--ink); font-size:14px;}
+.callout p:last-child{margin-bottom:0;}
+.callout.warn{border-left-color:var(--red); background:var(--red-bg);}
+.callout.warn p{color:var(--red);}
+.callout.info{border-left-color:var(--blue); background:var(--blue-bg);}
+.callout.info p{color:var(--ink);}
+.callout.success{border-left-color:var(--green); background:var(--green-bg);}
+.callout.success p{color:var(--ink);}
+.readout{
+font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13px;
+padding:2px 8px; border-radius:2px; display:inline-block;
+}
+.readout.green{color:var(--green); background:var(--green-bg);}
+.readout.amber{color:var(--amber); background:var(--amber-bg);}
+.readout.red{color:var(--red); background:var(--red-bg);}
+.readout.blue{color:var(--blue); background:var(--blue-bg);}
+.readout.gray{color:var(--slate); background:var(--paper); border:1px solid var(--line);}
+table{width:100%; border-collapse:collapse; margin:0 0 24px; font-size:13.5px;}
+table.tight{table-layout:fixed;}
+table.tight th:first-child, table.tight td:first-child{width:46%;}
+th{
+text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+letter-spacing:.04em; text-transform:uppercase; color:var(--mute);
+padding:0 12px 8px 0; border-bottom:1px solid var(--line-strong); font-weight:600;
+}
+td{padding:10px 12px 10px 0; border-bottom:1px solid var(--line); vertical-align:top; color:var(--slate);}
+td:first-child, th:first-child{padding-left:0;}
+td b, td strong{color:var(--ink);}
+tr:last-child td{border-bottom:none;}
+.script-line{
+background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+padding:12px 16px; margin:0 0 10px; font-size:14px; color:var(--ink);
+}
+.script-line .who{
+font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase;
+color:var(--mute); display:block; margin-bottom:4px; letter-spacing:.05em;
+}
+.script-branch{
+margin:6px 0 0 18px; padding-left:12px; border-left:2px solid var(--line);
+font-size:13px; color:var(--slate);
+}
+.listen{font-size:12.5px; color:var(--mute); font-style:italic; margin-top:4px;}
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px;}
+.band-row{display:flex; gap:0; margin:10px 0 16px; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+.band-item{flex:1; padding:10px 14px; border-right:1px solid var(--line);}
+.band-item:last-child{border-right:none;}
+.band-label{display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.05em; color:var(--mute); margin-bottom:4px;}
+.band-value{display:block; font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:15px; color:var(--ink);}
+.card h3{margin-top:0;}
+.week-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:0 0 26px;}
+.week-col{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+.week-col-head{
+font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
+letter-spacing:.04em; padding:9px 12px; border-bottom:1px solid var(--line);
+background:var(--paper); color:var(--ink);
+}
+.week-col-body{padding:12px;}
+.triage-item{font-size:12.5px; color:var(--slate); margin-bottom:9px; padding-left:12px; border-left:2px solid var(--line-strong); line-height:1.4;}
+.triage-item.t0{border-left-color:var(--red);}
+.triage-item b{display:block; color:var(--ink); font-size:12.5px; margin-bottom:1px;}
+.tier0-strip{
+background:var(--red-bg); border:1px solid var(--red); border-radius:var(--radius);
+padding:14px 18px; margin:0 0 24px;
+}
+.tier0-strip .eyebrow{color:var(--red);}
+.tier0-strip ul{margin:0; padding-left:18px; font-size:13.5px; color:var(--ink);}
+.tier0-strip li{margin-bottom:3px;}
+.day-strip{margin:16px 0 20px; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+.day-card{display:grid; grid-template-columns:56px 1fr; gap:16px; padding:14px 16px; border-bottom:1px solid var(--line); background:var(--panel);}
+.day-card:last-child{border-bottom:none;}
+.day-card:nth-child(even){background:var(--paper);}
+.day-label{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:12.5px; color:var(--ink); padding-top:2px; letter-spacing:.02em;}
+.day-body ul{margin:0; padding-left:16px;}
+.day-body li{font-size:13.5px; line-height:1.5; margin-bottom:4px; color:var(--ink);}
+.day-body li:last-child{margin-bottom:0;}
+.day-note{font-size:12px; color:var(--mute); margin-top:6px; font-style:italic;}
+ul.plain{padding-left:18px; color:var(--ink); font-size:14px;}
+ul.plain li{margin-bottom:5px;}
+.sop-group{margin-bottom:22px;}
+.sop-group-label{
+font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em;
+text-transform:uppercase; color:var(--mute); margin-bottom:8px; font-weight:600;
+}
+.sop-item{font-size:13.5px; margin-bottom:8px; color:var(--slate);}
+.sop-item b{color:var(--ink); font-weight:600;}
+details.toggle{
+border:1px solid var(--line); border-radius:var(--radius);
+margin-bottom:8px; background:var(--panel); overflow:hidden;
+}
+details.toggle summary{
+cursor:pointer; list-style:none; padding:11px 16px; font-size:13.5px;
+font-weight:600; color:var(--ink); display:grid;
+grid-template-columns: 300px 1fr auto; align-items:center; gap:12px;
+}
+details.toggle summary::-webkit-details-marker{display:none;}
+details.toggle summary::after{
+content:'+'; font-family:'IBM Plex Mono',monospace; color:var(--mute);
+font-size:15px; flex-shrink:0;
+}
+details.toggle[open] summary::after{content:'\2212';}
+details.toggle summary .sop-desc{
+font-weight:400; color:var(--slate); font-size:12.5px;
+}
+@media (max-width: 700px){
+details.toggle summary{grid-template-columns: 1fr auto;}
+details.toggle summary .sop-desc{display:none;}
+.session-card{grid-template-columns: 1fr;}
+.session-card .session-desc{display:none;}
+}
+details.toggle .toggle-body{
+padding:2px 16px 16px; font-size:13px; color:var(--slate); border-top:1px solid var(--line);
+}
+details.toggle .toggle-body h4{
+font-size:12.5px; font-weight:600; color:var(--ink); margin:14px 0 6px;
+text-transform:uppercase; letter-spacing:.03em; font-family:'IBM Plex Mono',monospace;
+}
+details.toggle .toggle-body table{margin:8px 0 10px; font-size:12.5px;}
+details.toggle .toggle-body ul{margin:0 0 10px; padding-left:18px;}
+details.toggle .toggle-body li{margin-bottom:4px;}
+details.toggle .toggle-body p{font-size:13px; margin:0 0 10px;}
+.session-card{
+display:grid; grid-template-columns: 300px 1fr; align-items:center; gap:12px;
+padding:11px 16px; margin-bottom:8px; font-size:13.5px;
+border:1px solid var(--line); border-radius:var(--radius); background:var(--panel);
+}
+.session-card a{color:var(--ink); text-decoration:none; font-weight:600;}
+.session-card a:hover{color:var(--blue);}
+.session-card a::after{content:'\2192'; margin-left:6px; color:var(--mute); font-weight:400;}
+.session-card .session-desc{color:var(--slate); font-size:12.5px; text-align:left;}
+.week1-check{
+border:1px solid var(--line); border-radius:var(--radius); background:var(--panel);
+padding:14px 18px; margin-bottom:8px; font-size:13.5px; color:var(--ink);
+display:flex; gap:10px; align-items:baseline;
+}
+.week1-check input{margin-top:3px; flex-shrink:0;}
+code.block{
+display:block; background:var(--ink); color:#E9E7DD; font-family:'IBM Plex Mono',monospace;
+font-size:12px; line-height:1.7; padding:16px 18px; border-radius:var(--radius);
+white-space:pre-wrap; margin:0 0 20px;
+}
+.nav-quicklinks{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px;}
+.nav-quicklinks button{
+font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:600;
+border:1px solid var(--line-strong); background:var(--panel); color:var(--ink);
+padding:7px 12px; border-radius:2px; cursor:pointer;
+}
+.nav-quicklinks button:hover{background:var(--paper);}
+@media (max-width: 860px){
+.layout{flex-direction:column;}
+.rail{width:100%; height:auto; position:relative;}
+main{padding:28px 22px 60px;}
+.two-col, .week-grid{grid-template-columns:1fr;}
+}
+      Virtual Internships PSA Wiki  Vision, Mission & Values  Vision
 
-  <h2>Document index</h2>  
-  <p>Expand any document below when you need it. Nothing here is a summary — it's the whole process.</p>
 
-  <div class="sop-group">  
-    <div class="sop-group-label">Standard Operating Procedures (SOPs)</div>
-    <p style="font-size:12.5px; color:var(--slate); margin-top:-4px; margin-bottom:12px;">Step-by-step, system-based actions with clear rules and linear execution.</p>
+We empower interns and host companies to succeed by turning every challenge into an opportunity for growth, connection, and measurable impact. Mission
 
-    <details class="toggle">  
-      <summary>SOP: Host Company Blacklisting <span class="sop-desc">Trigger events, decision flow, system steps</span></summary>  
-      <div class="toggle-body">  
-        <p><b>Purpose:</b> evidence-based, PSA + PM process for blacklisting HCs whose actions risk interns or VI.</p>  
-        <h4>Roles</h4>  
-        <ul>  
-          <li><b>PSA:</b> monitors WFLs/feedback, documents incidents, initiates pushback, drafts POAs, prepares escalation reports.</li>  
-          <li><b>PM:</b> reviews evidence with PSA. Co-decides: blacklist / final warning / re-engage under stricter terms.</li>  
-        </ul>  
-        <h4>1. Trigger events</h4>  
-        <ul>  
-          <li><b>Safety &amp; legal:</b> harassment, discrimination, unsafe conditions, fraud, illegal activity, breach of contract.</li>  
-          <li><b>Severe SLA violations:</b> persistent onboarding failure despite intervention; 3+ missed WFLs with no communication; refusal to complete evaluations after multiple reminders.</li>  
-          <li><b>Unprofessional conduct:</b> rude, abusive, or inappropriate communication toward interns or VI staff.</li>  
-          <li><b>Negative internship impact:</b> multiple interns report no meaningful tasks, unethical treatment, or poor mentorship across consecutive cycles.</li>  
-        </ul>  
-        <h4>2. Initial assessment (PSA)</h4>  
-        <ul>  
-          <li>Document the incident in HubSpot with dates, descriptions, evidence.</li>  
-          <li>Post and pin a summary tagging the relevant PMs.</li>  
-          <li>Classify severity: Minor / Major / Critical. <b>Critical cases skip straight to the decision meeting.</b></li>  
-        </ul>  
-        <h4>3. Intervention &amp; pushback phase</h4>  
-        <p>Required before blacklisting (skip if Critical): HC conversation → POA with agreed steps and deadlines → 2–4 week monitoring. Resolved → close, flag HC "At Risk – Monitored." Unresolved → decision meeting.</p>  
-        <h4>4. Decision meeting (PSA + PM)</h4>  
-        <p>Prepare a case summary (timeline, evidence, prior attempts) → review collectively → decide Blacklist / Final Warning / Re-engage under stricter terms → log the decision in Moo and HubSpot.</p>  
-        <h4>5. System updates (PSA)</h4>  
-        <ul>  
-          <li>HC profile in Moo → "Blacklist" → ignore any active-process warning and proceed.</li>  
-          <li>Choose the correct reason code (competitor, poor feedback, unresponsive, disrespectful, off-platform activity, etc.) or "Other" with free-text notes (date, reason, decision summary, key attachments).</li>  
-          <li>Submit.</li>  
-        </ul>  
-        <h4>6. Post-blacklist follow-up</h4>  
-        <ul>  
-          <li>Currently-placed interns → transition or monitor closely to completion.</li>  
-          <li>Review all blacklisted HCs every 6 months for continued appropriateness.</li>  
-        </ul>  
-        <h4>Notification</h4>  
-        <p>No proactive notification — the HC loses dashboard visibility automatically. Only respond if they reach out.</p>  
-        <h4>If the HC reaches out</h4>  
-        <ul>  
-          <li>Neutral, factual tone — no blame, no inflammatory language.</li>  
-          <li>Focus on program standards and intern safety.</li>  
-          <li>PSA + PM align internally on future participation; all decisions in HubSpot.</li>  
-          <li>Re-engagement approved → supervised trial → on success, remove blacklist status and monitor via SLA tagging.</li>  
-        </ul>  
-        <p style="font-size:12.5px; color:var(--mute);">Simone can be consulted for complex or high-stakes cases but isn't required for standard decisions.</p>  
-      </div>  
-    </details>
 
-    <details class="toggle">  
-      <summary>SOP: WFL Follow-Up <span class="sop-desc">Score bands, follow-up timing matched to the Queue</span></summary>  
-      <div class="toggle-body">  
-        <p><b>Purpose:</b> timely monitoring and follow-up on low WFL scores — maintain quality, enforce accountability, apply SLA violations correctly.</p>  
-        <h4>WFL score bands</h4>  
-        <table>  
-          <tr><th>Score</th><th>Meaning</th></tr>  
-          <tr><td>1–5</td><td><span class="readout red">Critical</span></td></tr>  
-          <tr><td>6–7</td><td><span class="readout amber">At Risk</span></td></tr>  
-          <tr><td>8–10</td><td><span class="readout green">Healthy</span></td></tr>  
-          <tr><td>No Rating</td><td>Most recent submission not made</td></tr>  
-        </table>  
-        <p>This is the real scale behind the "≤7" trigger used throughout Daily Reference and the call scripts.</p>  
-        <h4>Follow-up timing — matches the Queue exactly</h4>  
-        <table class="tight">  
-          <tr><th>Who</th><th>When</th><th>Order within the day</th></tr>  
-          <tr><td>Intern-side WFL</td><td><span class="readout blue">Mon/Tue</span></td><td>Critical (1–5) first, then At Risk (6–7)</td></tr>  
-          <tr><td>Supervisor-side WFL</td><td><span class="readout gray">Wed — Supervisor Actions</span></td><td>Same order: Critical first, then At Risk</td></tr>  
-        </table>  
-        <h4>Follow-up procedure</h4>  
-        <ul>  
-          <li>Open WFL Metabase report → filter to your caseload → sort by HC name (consolidates company outreach).</li>  
-          <li>Critical first, then At Risk within each day.</li>  
-          <li>Pre-skills outstanding for the same person → combine into one email.</li>  
-        </ul>  
-      </div>  
-    </details>
+To protect and improve the remote internship experience by ensuring every intern and host company has the clarity, support, and consistency needed for success. Values  Resourcefulness — we navigate incomplete info and messy situations with persistence and creativity. Candor with care — we speak openly and honestly, balancing clarity with respect. Progress over perfection — small wins compound into lasting impact, even when conditions aren't perfect. Teamwork across time zones — our strength is in supporting each other, always.
 
-    <details class="toggle">  
-      <summary>SOP: Skills Assessments Follow-Up <span class="sop-desc">Pre- and post-skills — statuses, deadlines, Friday bulk-mail process</span></summary>  
-      <div class="toggle-body">  
-        <p><b>Process:</b> every Friday, check the Queue for outstanding assessments (pre- and post-skills). Bulk mail all Not_Started / In_Progress for that week. One email per intern/HC even with multiple items outstanding. WFL outstanding for the same person → combine into one email.</p>  
-        <h4>Pre-skills statuses</h4>  
-        <table>  
-          <tr><th>Status</th><th>Meaning</th></tr>  
-          <tr><td>Pending</td><td>Not on platform — check tracking Gsheet</td></tr>  
-          <tr><td>Not_Started</td><td>Not yet started</td></tr>  
-          <tr><td>In_Progress</td><td>Started, not completed</td></tr>  
-          <tr><td>Completed</td><td>Done — no action</td></tr>  
-        </table>  
-        <p style="font-size:13px; color:var(--slate);">Pre-skills outstanding → resolve before chasing post-skills.</p>  
-        <h4>Post-skills deadlines</h4>  
-        <table>  
-          <tr><th>Term</th><th>Meaning</th></tr>  
-          <tr><td>Open date</td><td>First Monday of the intern's final week — don't outreach before this</td></tr>  
-          <tr><td>Soft deadline</td><td>2 weeks after end date</td></tr>  
-          <tr><td>Hard deadline</td><td>4 weeks after end date</td></tr>  
-        </table>  
-        <h4>Post-skills Friday cadence</h4>  
-        <ul>  
-          <li><b>Week 0 (opens):</b> no outreach. Confirm visibility in Metabase.</li>  
-          <li><b>Weeks 1–2:</b> Friday bulk mail — supportive tone.</li>  
-          <li><b>Week 3:</b> Friday bulk mail — reference hard deadline and SLA implications.</li>  
-          <li><b>Week 4 (hard deadline):</b> Friday bulk mail, then mark non-compliant, apply SLA consequences, document. No further reminders.</li>  
-        </ul>  
-      </div>  
-    </details>
+<details class="toggle">  
+  <summary>SOP: Host Company Blacklisting <span class="sop-desc">Trigger events, decision flow, system steps</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Purpose:</b> evidence-based, PSA + PM process for blacklisting HCs whose actions risk interns or VI.</p>  
+    <h4>Roles</h4>  
+    <ul>  
+      <li><b>PSA:</b> monitors WFLs/feedback, documents incidents, initiates pushback, drafts POAs, prepares escalation reports.</li>  
+      <li><b>PM:</b> reviews evidence with PSA. Co-decides: blacklist / final warning / re-engage under stricter terms.</li>  
+    </ul>  
+    <h4>1. Trigger events</h4>  
+    <ul>  
+      <li><b>Safety &amp; legal:</b> harassment, discrimination, unsafe conditions, fraud, illegal activity, breach of contract.</li>  
+      <li><b>Severe SLA violations:</b> persistent onboarding failure despite intervention; 3+ missed WFLs with no communication; refusal to complete evaluations after multiple reminders.</li>  
+      <li><b>Unprofessional conduct:</b> rude, abusive, or inappropriate communication toward interns or VI staff.</li>  
+      <li><b>Negative internship impact:</b> multiple interns report no meaningful tasks, unethical treatment, or poor mentorship across consecutive cycles.</li>  
+    </ul>  
+    <h4>2. Initial assessment (PSA)</h4>  
+    <ul>  
+      <li>Document the incident in HubSpot with dates, descriptions, evidence.</li>  
+      <li>Post and pin a summary tagging the relevant PMs.</li>  
+      <li>Classify severity: Minor / Major / Critical. <b>Critical cases skip straight to the decision meeting.</b></li>  
+    </ul>  
+    <h4>3. Intervention &amp; pushback phase</h4>  
+    <p>Required before blacklisting (skip if Critical): HC conversation → POA with agreed steps and deadlines → 2–4 week monitoring. Resolved → close, flag HC "At Risk – Monitored." Unresolved → decision meeting.</p>  
+    <h4>4. Decision meeting (PSA + PM)</h4>  
+    <p>Prepare a case summary (timeline, evidence, prior attempts) → review collectively → decide Blacklist / Final Warning / Re-engage under stricter terms → log the decision in Moo and HubSpot.</p>  
+    <h4>5. System updates (PSA)</h4>  
+    <ul>  
+      <li>HC profile in Moo → "Blacklist" → ignore any active-process warning and proceed.</li>  
+      <li>Choose the correct reason code (competitor, poor feedback, unresponsive, disrespectful, off-platform activity, etc.) or "Other" with free-text notes (date, reason, decision summary, key attachments).</li>  
+      <li>Submit.</li>  
+    </ul>  
+    <h4>6. Post-blacklist follow-up</h4>  
+    <ul>  
+      <li>Currently-placed interns → transition or monitor closely to completion.</li>  
+      <li>Review all blacklisted HCs every 6 months for continued appropriateness.</li>  
+    </ul>  
+    <h4>Notification</h4>  
+    <p>No proactive notification — the HC loses dashboard visibility automatically. Only respond if they reach out.</p>  
+    <h4>If the HC reaches out</h4>  
+    <ul>  
+      <li>Neutral, factual tone — no blame, no inflammatory language.</li>  
+      <li>Focus on program standards and intern safety.</li>  
+      <li>PSA + PM align internally on future participation; all decisions in HubSpot.</li>  
+      <li>Re-engagement approved → supervised trial → on success, remove blacklist status and monitor via SLA tagging.</li>  
+    </ul>  
+    <p style="font-size:12.5px; color:var(--mute);">Simone can be consulted for complex or high-stakes cases but isn't required for standard decisions.</p>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>SOP: Logging WhatsApp Messages <span class="sop-desc">What to log, how, and how fast</span></summary>  
-      <div class="toggle-body">  
-        <p>Log anything about internship progress, scheduling, feedback, key decisions, or escalations. Skip casual small talk unless directly relevant.</p>  
-        <h4>Steps</h4>  
-        <ul>  
-          <li>Open the intern/supervisor's contact record.</li>  
-          <li>More (⋮) → "Log a WhatsApp Message."</li>  
-          <li>Copy the message text or screenshot it, paste/upload into the log field.</li>  
-          <li>Add a short, clear context summary (e.g. "Intern requested a 1-week deadline extension due to exams").</li>  
-          <li>Tag relevant team members if follow-up is needed.</li>  
-          <li>Save, confirm association with the correct intern/supervisor/company record.</li>  
-          <li>To see logged WhatsApp entries in the activity feed: "Filter Activity" → select "WhatsApp" (not selected by default).</li>  
-        </ul>  
-        <p style="font-size:13px; color:var(--mute);">Log within 24h. Clear, factual summaries. No missing details.</p>  
-      </div>  
-    </details> 
+<details class="toggle">  
+  <summary>SOP: WFL Follow-Up <span class="sop-desc">Score bands, follow-up timing matched to the Queue</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Purpose:</b> timely monitoring and follow-up on low WFL scores — maintain quality, enforce accountability, apply SLA violations correctly.</p>  
+    <h4>WFL score bands</h4>  
+    <table>  
+      <tr><th>Score</th><th>Meaning</th></tr>  
+      <tr><td>1–5</td><td><span class="readout red">Critical</span></td></tr>  
+      <tr><td>6–7</td><td><span class="readout amber">At Risk</span></td></tr>  
+      <tr><td>8–10</td><td><span class="readout green">Healthy</span></td></tr>  
+      <tr><td>No Rating</td><td>Most recent submission not made</td></tr>  
+    </table>  
+    <p>This is the real scale behind the "≤7" trigger used throughout Daily Reference and the call scripts.</p>  
+    <h4>Follow-up timing — matches the Queue exactly</h4>  
+    <table class="tight">  
+      <tr><th>Who</th><th>When</th><th>Order within the day</th></tr>  
+      <tr><td>Intern-side WFL</td><td><span class="readout blue">Mon/Tue</span></td><td>Critical (1–5) first, then At Risk (6–7)</td></tr>  
+      <tr><td>Supervisor-side WFL</td><td><span class="readout gray">Wed — Supervisor Actions</span></td><td>Same order: Critical first, then At Risk</td></tr>  
+    </table>  
+    <h4>Follow-up procedure</h4>  
+    <ul>  
+      <li>Open WFL Metabase report → filter to your caseload → sort by HC name (consolidates company outreach).</li>  
+      <li>Critical first, then At Risk within each day.</li>  
+      <li>Pre-skills outstanding for the same person → combine into one email.</li>  
+    </ul>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>SOP: Editing Offers During Internship <span class="sop-desc">When and how to edit a live offer</span></summary>  
-      <div class="toggle-body">  
-        <p><b>Edit when:</b> supervisor changes, start-date updates, or data-entry corrections.</p>  
-        <h4>Steps</h4>  
-        <ul>  
-          <li>Matching → Manage Offers → search intern by name → Open Offer.</li>  
-          <li>Offers tab → Edit → update fields (Supervisor, Duration/Hours if in batch, Start Date). Start date can move outside the batch, but confirm with PAM/HC/Intern first.</li>  
-          <li>Review carefully → Update Offer to save. Verify in Offer Details. An automated update email goes to HC/Intern.</li>  
-        </ul>  
-        <p><b>Timeline:</b> complete within 24 hours of request. Don't change critical details (dates, company) without prior approval — document the reason for audit.</p>  
-      </div>  
-    </details>
+<details class="toggle">  
+  <summary>SOP: Skills Assessments Follow-Up <span class="sop-desc">Pre- and post-skills — statuses, deadlines, Friday bulk-mail process</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Process:</b> every Friday, check the Queue for outstanding assessments (pre- and post-skills). Bulk mail all Not_Started / In_Progress for that week. One email per intern/HC even with multiple items outstanding. WFL outstanding for the same person → combine into one email.</p>  
+    <h4>Pre-skills statuses</h4>  
+    <table>  
+      <tr><th>Status</th><th>Meaning</th></tr>  
+      <tr><td>Pending</td><td>Not on platform — check tracking Gsheet</td></tr>  
+      <tr><td>Not_Started</td><td>Not yet started</td></tr>  
+      <tr><td>In_Progress</td><td>Started, not completed</td></tr>  
+      <tr><td>Completed</td><td>Done — no action</td></tr>  
+    </table>  
+    <p style="font-size:13px; color:var(--slate);">Pre-skills outstanding → resolve before chasing post-skills.</p>  
+    <h4>Post-skills deadlines</h4>  
+    <table>  
+      <tr><th>Term</th><th>Meaning</th></tr>  
+      <tr><td>Open date</td><td>First Monday of the intern's final week — don't outreach before this</td></tr>  
+      <tr><td>Soft deadline</td><td>2 weeks after end date</td></tr>  
+      <tr><td>Hard deadline</td><td>4 weeks after end date</td></tr>  
+    </table>  
+    <h4>Post-skills Friday cadence</h4>  
+    <ul>  
+      <li><b>Week 0 (opens):</b> no outreach. Confirm visibility in Metabase.</li>  
+      <li><b>Weeks 1–2:</b> Friday bulk mail — supportive tone.</li>  
+      <li><b>Week 3:</b> Friday bulk mail — reference hard deadline and SLA implications.</li>  
+      <li><b>Week 4 (hard deadline):</b> Friday bulk mail, then mark non-compliant, apply SLA consequences, document. No further reminders.</li>  
+    </ul>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>SOP: Adding Pause Days <span class="sop-desc">Confirm return date, check HC, verify against partner limits</span></summary>  
-      <div class="toggle-body">  
-        <p><b>Use when:</b> an intern needs time off (illness, exams, personal emergency) or the HC is temporarily unavailable (office closure, supervisor leave).</p>  
-        <h4>Before pausing</h4>  
-        <ul>  
-          <li><b>Confirm a specific return date with the intern</b> — not a vague estimate.</li>  
-          <li><b>Confirm with the HC</b> they're aware of the pause dates and still want the intern back. Don't action until both sides confirm.</li>  
-          <li><b>Check the Partner Requirements Cheat Sheet</b> — pause days push the end date out, which may breach partner limits (academic calendar, CPT/visa, batch, 16-week max). The platform won't block this; the check is on you.</li>  
-          <li><b>PAM involvement:</b> a pause is a change to internship parameters, same category as an HC Change or duration change — follow whatever the cheat sheet says for that specific partner rather than a blanket rule.</li>  
-        </ul>  
-        <h4>Adding pause days on the platform</h4>  
-        <ul>  
-          <li>Manage Internships → find the intern → same action panel as HC Change → <b>Add pause day(s)</b>.</li>  
-          <li>Select the specific calendar day(s) being paused (not a day count) — the modal shows the running pause duration as you select.</li>  
-          <li>The end date auto-shifts by the number of days selected, shown live in the modal. You can override this and keep the original end date instead if that's the correct call for the case — check the proposed new end date carefully before confirming either way.</li>  
-          <li>Enter a reason in the free-text field. No fixed category is required, but be specific enough that anyone reading it later understands what happened — e.g. "Intern hospitalised, returning 22 Aug — confirmed with HC Katherine Tuominen" rather than "personal reasons."</li>  
-          <li><b>Always land the return date on a Monday.</b> When choosing pause days, select however many are needed so the intern's restart date falls on a Monday — this keeps them aligned with the standard WFL week (Thursday open, Friday hours) rather than restarting mid-week.</li>  
-          <li>Confirm.</li>  
-        </ul>  
-        <h4>After pausing</h4>  
-        <ul>  
-          <li><b>No manual reminder needed.</b> Because the restart always lands on a Monday, both the intern and the Host Company automatically receive a reminder email the Thursday before, letting them know the internship resumes that Monday. You don't need to track the return date yourself.</li>  
-        </ul>  
-      </div>  
-    </details>
+<details class="toggle">  
+  <summary>SOP: Logging WhatsApp Messages <span class="sop-desc">What to log, how, and how fast</span></summary>  
+  <div class="toggle-body">  
+    <p>Log anything about internship progress, scheduling, feedback, key decisions, or escalations. Skip casual small talk unless directly relevant.</p>  
+    <h4>Steps</h4>  
+    <ul>  
+      <li>Open the intern/supervisor's contact record.</li>  
+      <li>More (⋮) → "Log a WhatsApp Message."</li>  
+      <li>Copy the message text or screenshot it, paste/upload into the log field.</li>  
+      <li>Add a short, clear context summary (e.g. "Intern requested a 1-week deadline extension due to exams").</li>  
+      <li>Tag relevant team members if follow-up is needed.</li>  
+      <li>Save, confirm association with the correct intern/supervisor/company record.</li>  
+      <li>To see logged WhatsApp entries in the activity feed: "Filter Activity" → select "WhatsApp" (not selected by default).</li>  
+    </ul>  
+    <p style="font-size:13px; color:var(--mute);">Log within 24h. Clear, factual summaries. No missing details.</p>  
+  </div>  
+</details> 
 
-    <details class="toggle">  
-      <summary>SOP: Sending Orientation Emails <span class="sop-desc">Thursday-before-Monday-start process</span></summary>  
-      <div class="toggle-body">  
-        <p>Completed every Thursday before a Monday start date. Covers individual and mass email options.</p>  
-        <h4>Steps</h4>  
-        <ul>  
-          <li>Open the first-time-supervisors Metabase report, filter for the upcoming Monday's start date, note/export first-time hosts.</li>  
-          <li><b>Individual:</b> HubSpot template "HC: Orientation – 1st Time Supervisors," update with your details, send.</li>  
-          <li><b>Mass email:</b> copy addresses into Excel with an "Email Address" header row, save as CSV → HubSpot Segments → Import → Contacts, upload, tick "Manage Existing Values," "Create a contacts segment," and the outreach-consent checkbox → Finish Import.</li>  
-          <li>Email → Folders → Ops → ISA → clone the "HC Orientation Email – 1st Time Supervisors" template. Update the title (e.g. "HC Orientation Email – 1st Time Supervisors Amorie 08.09.2025") and the dates inside the email to match the start date.</li>  
-          <li>Send To → select the imported segment → review → send.</li>  
-        </ul>  
-      </div>  
-    </details>
+<details class="toggle">  
+  <summary>SOP: Editing Offers During Internship <span class="sop-desc">When and how to edit a live offer</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Edit when:</b> supervisor changes, start-date updates, or data-entry corrections.</p>  
+    <h4>Steps</h4>  
+    <ul>  
+      <li>Matching → Manage Offers → search intern by name → Open Offer.</li>  
+      <li>Offers tab → Edit → update fields (Supervisor, Duration/Hours if in batch, Start Date). Start date can move outside the batch, but confirm with PAM/HC/Intern first.</li>  
+      <li>Review carefully → Update Offer to save. Verify in Offer Details. An automated update email goes to HC/Intern.</li>  
+    </ul>  
+    <p><b>Timeline:</b> complete within 24 hours of request. Don't change critical details (dates, company) without prior approval — document the reason for audit.</p>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>SOP: Saving &amp; Sharing Offer Letters <span class="sop-desc">For CPT and documentation requests</span></summary>  
-      <div class="toggle-body">  
-        <h4>Steps</h4>  
-        <ul>  
-          <li>Moo → Matching → Manage Offers → search intern by email → note their Batch Code.</li>  
-          <li>Three Drive folders to check, each organised into per-batch subfolders — search by Batch Code, then Intern Name:  
-            <ul style="margin-top:6px;">  
-              <li><a href="https://drive.google.com/drive/folders/16gY3KGJNYlRkey17WLN2a6R_B1z_nxDM" target="_blank" rel="noopener">PDF Offer Letters for Interns</a> — Offer Letter + PPP combined.</li>  
-              <li><a href="https://drive.google.com/drive/folders/13R1jmgsWA5Y4ZNCRA4D53Q1MKW2jSOpc" target="_blank" rel="noopener">PDF PPPs</a> — PPP only, same search.</li>  
-              <li><a href="https://drive.google.com/drive/folders/1pS2akLmikpIPFQz-XjYMRizrZPUQwBug" target="_blank" rel="noopener">Offer Letter Editable Slides</a> — for edits before creating a new PDF, search by Intern Name.</li>  
-            </ul>  
-          </li>  
-          <li>Download the relevant file directly if no edits are needed.</li>  
-          <li><b>If details are wrong</b> (start date, supervisor): open the file in the Editable Slides folder, make corrections, export via File → Download → PDF Document, save with the same Batch Code + Intern Name naming convention.</li>  
-        </ul>  
-      </div>  
-    </details>  
-  </div>
+<details class="toggle">  
+  <summary>SOP: Adding Pause Days <span class="sop-desc">Confirm return date, check HC, verify against partner limits</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Use when:</b> an intern needs time off (illness, exams, personal emergency) or the HC is temporarily unavailable (office closure, supervisor leave).</p>  
+    <h4>Before pausing</h4>  
+    <ul>  
+      <li><b>Confirm a specific return date with the intern</b> — not a vague estimate.</li>  
+      <li><b>Confirm with the HC</b> they're aware of the pause dates and still want the intern back. Don't action until both sides confirm.</li>  
+      <li><b>Check the Partner Requirements Cheat Sheet</b> — pause days push the end date out, which may breach partner limits (academic calendar, CPT/visa, batch, 16-week max). The platform won't block this; the check is on you.</li>  
+      <li><b>PAM involvement:</b> a pause is a change to internship parameters, same category as an HC Change or duration change — follow whatever the cheat sheet says for that specific partner rather than a blanket rule.</li>  
+    </ul>  
+    <h4>Adding pause days on the platform</h4>  
+    <ul>  
+      <li>Manage Internships → find the intern → same action panel as HC Change → <b>Add pause day(s)</b>.</li>  
+      <li>Select the specific calendar day(s) being paused (not a day count) — the modal shows the running pause duration as you select.</li>  
+      <li>The end date auto-shifts by the number of days selected, shown live in the modal. You can override this and keep the original end date instead if that's the correct call for the case — check the proposed new end date carefully before confirming either way.</li>  
+      <li>Enter a reason in the free-text field. No fixed category is required, but be specific enough that anyone reading it later understands what happened — e.g. "Intern hospitalised, returning 22 Aug — confirmed with HC Katherine Tuominen" rather than "personal reasons."</li>  
+      <li><b>Always land the return date on a Monday.</b> When choosing pause days, select however many are needed so the intern's restart date falls on a Monday — this keeps them aligned with the standard WFL week (Thursday open, Friday hours) rather than restarting mid-week.</li>  
+      <li>Confirm.</li>  
+    </ul>  
+    <h4>After pausing</h4>  
+    <ul>  
+      <li><b>No manual reminder needed.</b> Because the restart always lands on a Monday, both the intern and the Host Company automatically receive a reminder email the Thursday before, letting them know the internship resumes that Monday. You don't need to track the return date yourself.</li>  
+    </ul>  
+  </div>  
+</details>
 
-  <div class="sop-group">  
-    <div class="sop-group-label">Playbooks</div>
-    <p style="font-size:12.5px; color:var(--slate); margin-top:-4px; margin-bottom:12px;">Judgment-heavy frameworks for weighing evidence, managing relationships, and decision-making.</p>
+<details class="toggle">  
+  <summary>SOP: Sending Orientation Emails <span class="sop-desc">Thursday-before-Monday-start process</span></summary>  
+  <div class="toggle-body">  
+    <p>Completed every Thursday before a Monday start date. Covers individual and mass email options.</p>  
+    <h4>Steps</h4>  
+    <ul>  
+      <li>Open the first-time-supervisors Metabase report, filter for the upcoming Monday's start date, note/export first-time hosts.</li>  
+      <li><b>Individual:</b> HubSpot template "HC: Orientation – 1st Time Supervisors," update with your details, send.</li>  
+      <li><b>Mass email:</b> copy addresses into Excel with an "Email Address" header row, save as CSV → HubSpot Segments → Import → Contacts, upload, tick "Manage Existing Values," "Create a contacts segment," and the outreach-consent checkbox → Finish Import.</li>  
+      <li>Email → Folders → Ops → ISA → clone the "HC Orientation Email – 1st Time Supervisors" template. Update the title (e.g. "HC Orientation Email – 1st Time Supervisors Amorie 08.09.2025") and the dates inside the email to match the start date.</li>  
+      <li>Send To → select the imported segment → review → send.</li>  
+    </ul>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>Playbook: Mediation <span class="sop-desc">Fast triage, the mediation spine, worked examples</span></summary>  
-      <div class="toggle-body">  
-        <p>A judgment framework, not a script library. Two PSAs following it properly should reach similar decisions regardless of communication style.</p>  
-        <h4>Core principle</h4>  
-        <p>Most conflict stems from expectation, communication, or skill gaps — not bad intent. Structured process over instinct. Documented, consistent decisions prevent recurrence.</p>  
-        <h4>Sequence when a case lands</h4>  
-        <p>Pause (don't respond on instinct) → Triage the case → Run the mediation spine, every step → Choose the right intervention, not the fastest → Document continuously.</p>  
-        <h4>Fast triage — common case types</h4>  
-        <ul>  
-          <li><b>Performance concern</b> — often hides unclear success criteria, skill–task mismatch, or thin feedback cadence.</li>  
-          <li><b>Expectation mismatch</b> — often hides weak onboarding, ambiguous scope, different seniority assumptions.</li>  
-          <li><b>Communication breakdown</b> — often hides async/sync norm mismatch, timezone friction, early-career habits.</li>  
-          <li><b>Capacity/structural constraint</b> — often hides internal HC workload issues, poor project planning, host over-commitment.</li>  
-          <li><b>Values/fit tension</b> — often hides stress or burnout, bias, mismatched working styles.</li>  
+<details class="toggle">  
+  <summary>SOP: Saving &amp; Sharing Offer Letters <span class="sop-desc">For CPT and documentation requests</span></summary>  
+  <div class="toggle-body">  
+    <h4>Steps</h4>  
+    <ul>  
+      <li>Moo → Matching → Manage Offers → search intern by email → note their Batch Code.</li>  
+      <li>Three Drive folders to check, each organised into per-batch subfolders — search by Batch Code, then Intern Name:  
+        <ul style="margin-top:6px;">  
+          <li><a href="https://drive.google.com/drive/folders/16gY3KGJNYlRkey17WLN2a6R_B1z_nxDM" target="_blank" rel="noopener">PDF Offer Letters for Interns</a> — Offer Letter + PPP combined.</li>  
+          <li><a href="https://drive.google.com/drive/folders/13R1jmgsWA5Y4ZNCRA4D53Q1MKW2jSOpc" target="_blank" rel="noopener">PDF PPPs</a> — PPP only, same search.</li>  
+          <li><a href="https://drive.google.com/drive/folders/1pS2akLmikpIPFQz-XjYMRizrZPUQwBug" target="_blank" rel="noopener">Offer Letter Editable Slides</a> — for edits before creating a new PDF, search by Intern Name.</li>  
         </ul>  
-        <h4>The mediation spine</h4>  
-        <ul>  
-          <li><b>1. Gather information</b> — acknowledge within 48h, calm/neutral/curious tone, speak to each side separately first. Never mediate on assumptions.</li>  
-          <li><b>2. Identify the core issue</b> — list symptoms, map to skill/expectation/communication/structural causes, check for hidden causes (onboarding gaps, unclear benchmarks), validate against facts. Most poor outcomes trace to weak diagnosis, not bad intent.</li>  
-          <li><b>3. Confirm key facts</b> — meeting timestamps, tasks assigned vs delivered, response times, feedback already shared. Screenshots help. Prevents story-vs-story deadlocks.</li>  
-          <li><b>4. Choose the right intervention</b> — balance intern development, HC needs, and program integrity. Offer options not ultimatums, anchor in facts, set an observation window, document decisions.</li>  
-          <li><b>5. Communicate the decision</b> — always include a 1–2 week observation window, clear actions for both sides, what success looks like, when follow-up happens. Summarise verbally, confirm in writing.</li>  
-          <li><b>6. Follow up and monitor</b> — track patterns not single slips, progress against benchmarks, early repeat-issue signs. Not optional — this is where cases succeed or fail.</li>  
-        </ul>  
-        <h4>Intervention menu</h4>  
-        <ul>  
-          <li><b>Skill-related:</b> SMART benchmarks, smaller milestones, learning resources/templates/coaching.</li>  
-          <li><b>Expectation-related:</b> reset scope and priorities, define "good" concretely, adjust timelines to match capacity.</li>  
-          <li><b>Communication-related:</b> daily/weekly check-ins, async status updates, explicit response-time norms.</li>  
-        </ul>  
-        <h4>Escalate when</h4>  
-        <p>Benchmarks are repeatedly missed · one party disengages · no willingness to adjust · program integrity or safety is at risk. Escalation is a decision, not a failure — don't let a case drag beyond 1–2 weeks. Options: final improvement window, reassignment, early closure.</p>  
-        <h4>When both sides are "right"</h4>  
-        <p>Reframe: what does the intern need to learn? What does the HC need to protect (time, quality, credibility)? What does the program need to uphold (fairness, consistency, outcomes)? If all three can't be satisfied simultaneously, program integrity outranks individual preference.</p>  
-        <h4>Worked examples</h4>  
-        <ul>  
-          <li><b>Performance vs expectation:</b> HC says intern is slow → no onboarding docs, scope misunderstood → reset expectations + checklist + milestones → intern met deadlines, HC satisfied.</li>  
-          <li><b>Communication breakdown:</b> intern misses calls, HC frustrated → timezone misalignment + unclear async norms → weekly check-in schedule + Slack response norms → communication stabilized.</li>  
-          <li><b>Capacity disguised as poor performance:</b> HC says intern "does nothing" → HC overloaded, minimal tasks assigned → redistribute tasks + HC coaching → tasks completed, HC aware of responsibility.</li>  
-          <li><b>Values/fit tension:</b> tone complaints between HC and intern → cultural misunderstanding + early-career directness → 1:1 coaching on norms + reflection call → mutual understanding, de-escalated.</li>  
-          <li><b>Repeated missed benchmarks:</b> intern keeps missing milestones → lacks skills + unclear benchmarks → SMART goals + 1-week observation + escalation window → HC sees progress, structured escalation in place if pattern continues.</li>  
-        </ul>  
-      </div>  
-    </details>
+      </li>  
+      <li>Download the relevant file directly if no edits are needed.</li>  
+      <li><b>If details are wrong</b> (start date, supervisor): open the file in the Editable Slides folder, make corrections, export via File → Download → PDF Document, save with the same Batch Code + Intern Name naming convention.</li>  
+    </ul>  
+  </div>  
+</details>  
+<details class="toggle">  
+  <summary>Playbook: Mediation <span class="sop-desc">Fast triage, the mediation spine, worked examples</span></summary>  
+  <div class="toggle-body">  
+    <p>A judgment framework, not a script library. Two PSAs following it properly should reach similar decisions regardless of communication style.</p>  
+    <h4>Core principle</h4>  
+    <p>Most conflict stems from expectation, communication, or skill gaps — not bad intent. Structured process over instinct. Documented, consistent decisions prevent recurrence.</p>  
+    <h4>Sequence when a case lands</h4>  
+    <p>Pause (don't respond on instinct) → Triage the case → Run the mediation spine, every step → Choose the right intervention, not the fastest → Document continuously.</p>  
+    <h4>Fast triage — common case types</h4>  
+    <ul>  
+      <li><b>Performance concern</b> — often hides unclear success criteria, skill–task mismatch, or thin feedback cadence.</li>  
+      <li><b>Expectation mismatch</b> — often hides weak onboarding, ambiguous scope, different seniority assumptions.</li>  
+      <li><b>Communication breakdown</b> — often hides async/sync norm mismatch, timezone friction, early-career habits.</li>  
+      <li><b>Capacity/structural constraint</b> — often hides internal HC workload issues, poor project planning, host over-commitment.</li>  
+      <li><b>Values/fit tension</b> — often hides stress or burnout, bias, mismatched working styles.</li>  
+    </ul>  
+    <h4>The mediation spine</h4>  
+    <ul>  
+      <li><b>1. Gather information</b> — acknowledge within 48h, calm/neutral/curious tone, speak to each side separately first. Never mediate on assumptions.</li>  
+      <li><b>2. Identify the core issue</b> — list symptoms, map to skill/expectation/communication/structural causes, check for hidden causes (onboarding gaps, unclear benchmarks), validate against facts. Most poor outcomes trace to weak diagnosis, not bad intent.</li>  
+      <li><b>3. Confirm key facts</b> — meeting timestamps, tasks assigned vs delivered, response times, feedback already shared. Screenshots help. Prevents story-vs-story deadlocks.</li>  
+      <li><b>4. Choose the right intervention</b> — balance intern development, HC needs, and program integrity. Offer options not ultimatums, anchor in facts, set an observation window, document decisions.</li>  
+      <li><b>5. Communicate the decision</b> — always include a 1–2 week observation window, clear actions for both sides, what success looks like, when follow-up happens. Summarise verbally, confirm in writing.</li>  
+      <li><b>6. Follow up and monitor</b> — track patterns not single slips, progress against benchmarks, early repeat-issue signs. Not optional — this is where cases succeed or fail.</li>  
+    </ul>  
+    <h4>Intervention menu</h4>  
+    <ul>  
+      <li><b>Skill-related:</b> SMART benchmarks, smaller milestones, learning resources/templates/coaching.</li>  
+      <li><b>Expectation-related:</b> reset scope and priorities, define "good" concretely, adjust timelines to match capacity.</li>  
+      <li><b>Communication-related:</b> daily/weekly check-ins, async status updates, explicit response-time norms.</li>  
+    </ul>  
+    <h4>Escalate when</h4>  
+    <p>Benchmarks are repeatedly missed · one party disengages · no willingness to adjust · program integrity or safety is at risk. Escalation is a decision, not a failure — don't let a case drag beyond 1–2 weeks. Options: final improvement window, reassignment, early closure.</p>  
+    <h4>When both sides are "right"</h4>  
+    <p>Reframe: what does the intern need to learn? What does the HC need to protect (time, quality, credibility)? What does the program need to uphold (fairness, consistency, outcomes)? If all three can't be satisfied simultaneously, program integrity outranks individual preference.</p>  
+    <h4>Worked examples</h4>  
+    <ul>  
+      <li><b>Performance vs expectation:</b> HC says intern is slow → no onboarding docs, scope misunderstood → reset expectations + checklist + milestones → intern met deadlines, HC satisfied.</li>  
+      <li><b>Communication breakdown:</b> intern misses calls, HC frustrated → timezone misalignment + unclear async norms → weekly check-in schedule + Slack response norms → communication stabilized.</li>  
+      <li><b>Capacity disguised as poor performance:</b> HC says intern "does nothing" → HC overloaded, minimal tasks assigned → redistribute tasks + HC coaching → tasks completed, HC aware of responsibility.</li>  
+      <li><b>Values/fit tension:</b> tone complaints between HC and intern → cultural misunderstanding + early-career directness → 1:1 coaching on norms + reflection call → mutual understanding, de-escalated.</li>  
+      <li><b>Repeated missed benchmarks:</b> intern keeps missing milestones → lacks skills + unclear benchmarks → SMART goals + 1-week observation + escalation window → HC sees progress, structured escalation in place if pattern continues.</li>  
+    </ul>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>Playbook: Decision-Making &amp; Escalation <span class="sop-desc">When to own it vs when to escalate</span></summary>  
-      <div class="toggle-body">  
-        <p><b>If it's a risk, escalate. If it's a decision, own it.</b> Operating framework for thinking under uncertainty — goal is momentum and clarity, not perfect decisions.</p>  
-        <h4>Default expectation: ownership</h4>  
-        <p>Uncertainty alone is not a reason to escalate. If progress can be made safely, make it. Use SOPs and precedent; stay accountable for outcomes.</p>  
-        <h4>How to think before deciding</h4>  
-        <ul>  
-          <li><b>Identify the real problem:</b> facts vs assumptions, actual blockers vs discomfort, temporary friction vs genuine risk. If nothing is truly blocked, it likely doesn't need escalation.</li>  
-          <li><b>Ground yourself in existing tools:</b> SOPs, the task bank, timeline levers (pauses, extensions, resequencing). These are starting points, not rigid rules — no perfect SOP fit is expected for every case.</li>  
-        </ul>  
-        <h4>Making the call</h4>  
-        <p>Own it when: logical given available info · defensible if questioned · reversible if new info emerges. Confidence builds through practice, not pre-approval.</p>  
-        <h4>Communicate the decision</h4>  
-        <p>State what's happening, what's being done, and what happens next — to interns, HCs, and internal stakeholders.</p>  
-        <h4>Escalation is required for</h4>  
-        <p>Genuine compliance/university risk · legal exposure · safety concerns · reputational risk to the programme or company.</p>  
-        <h4>Escalation is <i>not</i> required for</h4>  
-        <p>Temporary delays (OOO, holidays) · resolvable ambiguity · anything a pause, task-bank assignment, or timeline adjustment can handle. These are exactly the scenarios where PSA judgment should be exercised.</p>  
-        <h4>How to escalate well</h4>  
-        <p>Good escalation accelerates progress, it doesn't pause it: clear context and background, what's already been tried, options considered, a recommended path forward. Work continues in parallel — escalation is not a hand-off of ownership.</p>  
-        <h4>Decision-making as a learning loop</h4>  
-        <p>Best call with available info → revisit when new info emerges → sense-check after action, not before. Mistakes handled thoughtfully are growth, not failure.</p>  
-        <h4>Common over-escalation patterns</h4>  
-        <ul>  
-          <li><b>Escalating discomfort, not risk</b> — "I'm not 100% sure, so I wanted to check." Fix: make a reasonable call, document rationale, adjust if needed.</li>  
-          <li><b>Escalating before using available tools</b> — asking for guidance without checking SOPs or the task bank. Fix: use tools as a starting point even if the fit isn't perfect.</li>  
-          <li><b>Treating escalation as a pause button</b> — waiting to hear back instead of continuing the case. Fix: keep working in parallel, escalate with options and a recommendation.</li>  
-          <li><b>Escalating resolvable ambiguity</b> — asking others to interpret instead of clarifying. Fix: make a reasonable assumption, communicate it, set a check-in point.</li>  
-          <li><b>Using escalation to transfer responsibility</b> — handing off the decision entirely. Fix: escalate with context, options, and a recommendation — stay accountable.</li>  
-        </ul>  
-        <h4>What "good" looks like</h4>  
-        <ul>  
-          <li><b>Temporary delay:</b> supervisor OOO 2 weeks, intern anxious → assign task-bank work, communicate clearly, keep monitoring without escalating.</li>  
-          <li><b>Ambiguity:</b> loosely defined scope → separate known from missing, use SOP intent/precedent for a reasonable assumption, propose a short-term plan with a check-in.</li>  
-          <li><b>Post-decision calibration:</b> paused an internship, new context emerges → explain original reasoning, share the update, adjust the plan — treat it as calibration, not error.</li>  
-        </ul>  
-      </div>  
-    </details>  
-  </div>
+<details class="toggle">  
+  <summary>Playbook: Decision-Making &amp; Escalation <span class="sop-desc">When to own it vs when to escalate</span></summary>  
+  <div class="toggle-body">  
+    <p><b>If it's a risk, escalate. If it's a decision, own it.</b> Operating framework for thinking under uncertainty — goal is momentum and clarity, not perfect decisions.</p>  
+    <h4>Default expectation: ownership</h4>  
+    <p>Uncertainty alone is not a reason to escalate. If progress can be made safely, make it. Use SOPs and precedent; stay accountable for outcomes.</p>  
+    <h4>How to think before deciding</h4>  
+    <ul>  
+      <li><b>Identify the real problem:</b> facts vs assumptions, actual blockers vs discomfort, temporary friction vs genuine risk. If nothing is truly blocked, it likely doesn't need escalation.</li>  
+      <li><b>Ground yourself in existing tools:</b> SOPs, the task bank, timeline levers (pauses, extensions, resequencing). These are starting points, not rigid rules — no perfect SOP fit is expected for every case.</li>  
+    </ul>  
+    <h4>Making the call</h4>  
+    <p>Own it when: logical given available info · defensible if questioned · reversible if new info emerges. Confidence builds through practice, not pre-approval.</p>  
+    <h4>Communicate the decision</h4>  
+    <p>State what's happening, what's being done, and what happens next — to interns, HCs, and internal stakeholders.</p>  
+    <h4>Escalation is required for</h4>  
+    <p>Genuine compliance/university risk · legal exposure · safety concerns · reputational risk to the programme or company.</p>  
+    <h4>Escalation is <i>not</i> required for</h4>  
+    <p>Temporary delays (OOO, holidays) · resolvable ambiguity · anything a pause, task-bank assignment, or timeline adjustment can handle. These are exactly the scenarios where PSA judgment should be exercised.</p>  
+    <h4>How to escalate well</h4>  
+    <p>Good escalation accelerates progress, it doesn't pause it: clear context and background, what's already been tried, options considered, a recommended path forward. Work continues in parallel — escalation is not a hand-off of ownership.</p>  
+    <h4>Decision-making as a learning loop</h4>  
+    <p>Best call with available info → revisit when new info emerges → sense-check after action, not before. Mistakes handled thoughtfully are growth, not failure.</p>  
+    <h4>Common over-escalation patterns</h4>  
+    <ul>  
+      <li><b>Escalating discomfort, not risk</b> — "I'm not 100% sure, so I wanted to check." Fix: make a reasonable call, document rationale, adjust if needed.</li>  
+      <li><b>Escalating before using available tools</b> — asking for guidance without checking SOPs or the task bank. Fix: use tools as a starting point even if the fit isn't perfect.</li>  
+      <li><b>Treating escalation as a pause button</b> — waiting to hear back instead of continuing the case. Fix: keep working in parallel, escalate with options and a recommendation.</li>  
+      <li><b>Escalating resolvable ambiguity</b> — asking others to interpret instead of clarifying. Fix: make a reasonable assumption, communicate it, set a check-in point.</li>  
+      <li><b>Using escalation to transfer responsibility</b> — handing off the decision entirely. Fix: escalate with context, options, and a recommendation — stay accountable.</li>  
+    </ul>  
+    <h4>What "good" looks like</h4>  
+    <ul>  
+      <li><b>Temporary delay:</b> supervisor OOO 2 weeks, intern anxious → assign task-bank work, communicate clearly, keep monitoring without escalating.</li>  
+      <li><b>Ambiguity:</b> loosely defined scope → separate known from missing, use SOP intent/precedent for a reasonable assumption, propose a short-term plan with a check-in.</li>  
+      <li><b>Post-decision calibration:</b> paused an internship, new context emerges → explain original reasoning, share the update, adjust the plan — treat it as calibration, not error.</li>  
+    </ul>  
+  </div>  
+</details>  
+<details class="toggle">  
+  <summary>Guide: Reliability &amp; SLA Tagging <span class="sop-desc">HC reliability tags — when and how to apply them</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Purpose:</b> standardize HC reliability tagging using documented evidence. System: Moo. Evidence sources: HubSpot, WFLs, evaluations, emails, Slack, placement records.</p>  
+    <h4>Tags</h4>  
+    <table>  
+      <tr><th>Tag</th><th>Indicator</th><th>Operational action</th></tr>  
+      <tr><td><b>Reliable</b></td><td>Consistently responsive, delivers as promised</td><td>No restrictions; eligible for multiple placements</td></tr>  
+      <tr><td><b>SLA 1 — Moderate Risk</b></td><td>Isolated or minor inconsistency; communication gaps; limited impact on intern experience</td><td>Host continues with regular monitoring. Log evidence and follow-up timeline in HubSpot.</td></tr>  
+      <tr><td><b>SLA 2 — High Risk</b></td><td>Recurring or severe issues; pattern of unresponsiveness; significant impact on intern experience</td><td>Placement pause until intervention call resolved. Blacklist before call if warranted. Detailed HubSpot note + link to intervention summary. PAM visibility required before any new intern.</td></tr>  
+    </table>  
+    <h4>Classification rules</h4>  
+    <ul>  
+      <li>Assess frequency, severity, and impact — a single incident does not constitute a pattern.</li>  
+      <li>SLA 1: minor or isolated issue with limited impact. SLA 2: recurring or severe issue with significant impact.</li>  
+      <li>Tags reflect current reliability, not a permanent label. Reassess when circumstances change.</li>  
+    </ul>  
+    <h4>Tagging process</h4>  
+    <ol>  
+      <li><b>Review evidence</b> — WFLs, evaluations, communication history, placement records.</li>  
+      <li><b>Identify pattern</b> — determine frequency, severity, and intern impact.</li>  
+      <li><b>Apply tag</b> in Moo.</li>  
+      <li><b>Document in HubSpot</b> — date, factual issue description, impact, supporting links.</li>  
+      <li><b>Review</b> — reassess when circumstances change or at programme end.</li>  
+    </ol>  
+    <h4>Documentation standard</h4>  
+    <p>Every SLA 1 or SLA 2 note must include: date · factual issue description · impact on intern · supporting links (WFLs, emails, Slack). No opinions — facts only.</p>  
+  </div>  
+</details>
 
-  <div class="sop-group">  
-    <div class="sop-group-label">Guides &amp; Reference</div>
-    <p style="font-size:12.5px; color:var(--slate); margin-top:-4px; margin-bottom:12px;">Static reference materials, definitions, rubrics, and operating knowledge.</p>
+<details class="toggle">  
+  <summary>Guide: Internship Changes <span class="sop-desc">When a change is warranted, RESTART vs RESUME, timelines</span></summary>  
+  <div class="toggle-body">  
+    <p>Changes come after coaching, mediation, and realignment — not as a first response. Interns dismissed from an HC get one replacement only, at the team's discretion.</p>  
+    <h4>General rules</h4>  
+    <ul>  
+      <li>CF/role changes during an HC change need PRS sign-off and suitable skills.</li>  
+      <li>Hours or application-field adjustments need PMS approval before the change, within batch, discussed with PAM.</li>  
+      <li>Each placement is a separate internship — max 16 weeks per placement. Prior placement time doesn't count toward the new duration.</li>  
+    </ul>  
+    <h4>Not grounds for a change</h4>  
+    <ul>  
+      <li>Don't like the work / bored · no daily tasks (interns must be proactive) · timezone mismatch unless truly incompatible · small/early-stage company · communication or cultural differences without disrespect.</li>  
+    </ul>  
+    <h4>Request categorization</h4>  
+    <table>  
+      <tr><th>Reason type</th><th>Immediate change?</th><th>Path</th></tr>  
+      <tr><td><b>Disrespect / misconduct</b></td><td>Yes</td><td>Escalate to PMS immediately, log in Moo. No mediation — misconduct overrides it. Change immediately; blacklist HC if confirmed.</td></tr>  
+      <tr><td><b>Severe misalignment</b></td><td>No</td><td>Confirm tasks vs offer letter → attempt realignment, 7-day review → change if realignment fails.</td></tr>  
+      <tr><td><b>Unresponsiveness (10+ days)</b></td><td>No</td><td>Execute SLA outreach → final 2-day grace period → change + flag if no reply.</td></tr>  
+      <tr><td><b>Mutual disengagement</b></td><td>No</td><td>Intake reasons, probe deeper → mediation call within 3 days → change if unresolved.</td></tr>  
+      <tr><td><b>Intern discontent</b></td><td>No</td><td>Coach on proactive behavior, discuss alternate projects with HC. No change unless it escalates.</td></tr>  
+      <tr><td><b>Host discontent</b></td><td>No</td><td>Support intern with coaching, 7–10 day review. If persists → possible withdrawal, not change.</td></tr>  
+      <tr><td><b>Timezone / culture mismatch</b></td><td>No</td><td>Provide async tools and structured calls, 7–10 day review. Change only if truly unworkable.</td></tr>  
+      <tr><td><b>Company size / structure</b></td><td>No</td><td>Set realistic expectations, monitor only. Grounds for change only if tied to misconduct or misalignment.</td></tr>  
+    </table>  
+    <h4>Process</h4>  
+    <ul>  
+      <li><b>1. Intake:</b> log in HubSpot, acknowledge within 1 business day, collect detailed reasons from both parties, check background (PMS/PRS notes, SLA tags, offer vs actual tasks).</li>  
+      <li><b>2. Categorize</b> using the table above.</li>  
+      <li><b>3. Investigate:</b> clarifying questions, look for miscommunication/unmet expectations/coaching opportunities.</li>  
+      <li><b>4. Mediate:</b> coaching call, 1-week action plan with clear expectations, reassess at the end.</li>  
+      <li><b>5. Final decision:</b> resolved → continue with support plan. Unresolved → change, with fault determining the new timeline.</li>  
+    </ul>  
+    <h4>Timeline by fault</h4>  
+    <ul>  
+      <li><b>HC fault</b> (misconduct, severe misalignment, prolonged unresponsiveness): new start date 2 weeks out, matching begins immediately.</li>  
+      <li><b>Intern fault:</b> must book a call with PSA within 1 week or be withdrawn. Call clarifies requirements and expectations. Must then complete a reflective task — approval starts the 6-week placement process. Miss the task deadline → withdrawn.</li>  
+    </ul>  
+    <h4>RESTART vs RESUME</h4>  
+    <ul>  
+      <li><b>RESTART:</b> full duration reset (e.g. 12-week internship → full 12 weeks again). New start/end dates. 16 weeks max.</li>  
+      <li><b>RESUME:</b> completed hours carry over, duration adjusted (e.g. 12-week with 5 done → 7 weeks at new placement). 16 weeks max.</li>  
+    </ul>  
+    <h4>Initiating an HC change (PSA steps)</h4>  
+    <ul>  
+      <li>Notify PMs/PRS/PAM in Slack immediately, with intern name, HC name, reason, HubSpot ticket link.</li>  
+      <li>Mandatory call with the intern before actioning (skip only if HC is at fault) — confirm the change, outline next steps, answer questions.</li>  
+      <li>Clarify with intern: reason, RESTART or RESUME preference, end-date adjustments, batch requirements (academic credit), profile updates.</li>  
+      <li>Action in Moo: Manage Internships → search intern → View Internship → Change Company → choose Resume/Restart with reason. This terminates Internship 1 and sets the intern unplaced for Internship 2. Ensure the new start date is ≥2 weeks out for Resume. Update HubSpot notes, add HC Change Tag.</li>  
+      <li>Confirm details with intern, schedule PRS call if CF change requested, announce in the HC-Changes-ISA-PRS-PMS Slack channel.</li>  
+      <li><b>Credit-bearing programs (ASU, BAU):</b> the platform auto-updates the end date — verify it aligns with program requirements, confirm hours/weeks needed for on-time graduation, add to notes and the Slack channel, and update the end date once the new placement is confirmed.</li>  
+    </ul>  
+    <h4>Important notes</h4>  
+    <ul>  
+      <li>PSAs/PMs must connect with host supervisors on LinkedIn at the start of every internship.</li>  
+      <li>Before declaring anyone "unresponsive": at least 3 emails and 1 alternative channel (LinkedIn, WhatsApp, call) attempted.</li>  
+      <li>Collaborate closely with PMS when an HC claims skill mismatch, when either side reports no relevant tasks, or when an intern was accepted despite a weaker profile.</li>  
+    </ul>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>Guide: Reliability &amp; SLA Tagging <span class="sop-desc">HC reliability tags — when and how to apply them</span></summary>  
-      <div class="toggle-body">  
-        <p><b>Purpose:</b> standardize HC reliability tagging using documented evidence. System: Moo. Evidence sources: HubSpot, WFLs, evaluations, emails, Slack, placement records.</p>  
-        <h4>Tags</h4>  
-        <table>  
-          <tr><th>Tag</th><th>Indicator</th><th>Operational action</th></tr>  
-          <tr><td><b>Reliable</b></td><td>Consistently responsive, delivers as promised</td><td>No restrictions; eligible for multiple placements</td></tr>  
-          <tr><td><b>SLA 1 — Moderate Risk</b></td><td>Isolated or minor inconsistency; communication gaps; limited impact on intern experience</td><td>Host continues with regular monitoring. Log evidence and follow-up timeline in HubSpot.</td></tr>  
-          <tr><td><b>SLA 2 — High Risk</b></td><td>Recurring or severe issues; pattern of unresponsiveness; significant impact on intern experience</td><td>Placement pause until intervention call resolved. Blacklist before call if warranted. Detailed HubSpot note + link to intervention summary. PAM visibility required before any new intern.</td></tr>  
-        </table>  
-        <h4>Classification rules</h4>  
-        <ul>  
-          <li>Assess frequency, severity, and impact — a single incident does not constitute a pattern.</li>  
-          <li>SLA 1: minor or isolated issue with limited impact. SLA 2: recurring or severe issue with significant impact.</li>  
-          <li>Tags reflect current reliability, not a permanent label. Reassess when circumstances change.</li>  
-        </ul>  
-        <h4>Tagging process</h4>  
-        <ol>  
-          <li><b>Review evidence</b> — WFLs, evaluations, communication history, placement records.</li>  
-          <li><b>Identify pattern</b> — determine frequency, severity, and intern impact.</li>  
-          <li><b>Apply tag</b> in Moo.</li>  
-          <li><b>Document in HubSpot</b> — date, factual issue description, impact, supporting links.</li>  
-          <li><b>Review</b> — reassess when circumstances change or at programme end.</li>  
-        </ol>  
-        <h4>Documentation standard</h4>  
-        <p>Every SLA 1 or SLA 2 note must include: date · factual issue description · impact on intern · supporting links (WFLs, emails, Slack). No opinions — facts only.</p>  
-      </div>  
-    </details>
+<details class="toggle">  
+  <summary>Guide: HubSpot Tasks Priority &amp; SLA <span class="sop-desc">Priority levels, SLA, naming convention</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Rule:</b> if partner intervention is required, or a partner has requested VI intervention, a task must be created.</p>  
+    <h4>Priority &amp; SLA</h4>  
+    <table>  
+      <tr><th>Priority</th><th>Typical cases</th><th>SLA</th></tr>  
+      <tr><td><span class="readout red">High</span></td><td>Non-responsive intern, tight-deadline internship changes (ASU/BAU), CPT/visa updates, supervisor escalations with possible termination, timeline-impacting intern questions, prompt partner requests</td><td>24–48h</td></tr>  
+      <tr><td><span class="readout amber">Medium</span></td><td>Partner clarifications, withdrawal requests, non-urgent leave requests, routine check-ins, compliance/legal (NDAs), participation-affecting issues (exams, work schedule)</td><td>48–72h</td></tr>  
+      <tr><td><span class="readout gray">Low</span></td><td>Information requests with minimal timeline impact</td><td>3–5 business days</td></tr>  
+    </table>  
+    <p style="font-size:13px;"><b>Borderline case:</b> default to High for SLA safety, confirm with PSA/PAM lead.</p>  
+    <h4>Naming convention</h4>  
+    <p><code style="font-family:'IBM Plex Mono',monospace;">[Case Type] – [Action Required]</code>, e.g. "Non-Responsive – Contact Partner", "Withdrawal Request – Confirm with Partner". Include full context in notes: prior attempts, communication history, deadlines, partner instructions.</p>  
+    <h4>Creation &amp; assignment</h4>  
+    <ul>  
+      <li>Create from the intern's contact record so context and history stay attached (or from a Help Desk ticket directly on the record).</li>  
+      <li>Set priority and title per the conventions above.</li>  
+      <li>Assign to the relevant internal team member (PSA→PAM, PAM→PSA). No PSA assigned yet → assign to Simone for reassignment.</li>  
+      <li>Set Queue to PAM / PSA Support.</li>  
+      <li>Include notes: issue summary, attempts already made, relevant deadlines, supporting links.</li>  
+      <li>Due date auto-sets per SLA (2 days default) — adjust if needed.</li>  
+      <li>Ensure the task is associated with the correct contact so it reflects accurately on the contact page.</li>  
+    </ul>  
+    <h4>Management</h4>  
+    <ul>  
+      <li>Log all communication and actions in task notes.</li>  
+      <li>Check approaching deadlines daily; send manual follow-ups as needed.</li>  
+      <li>Requester closes the task once resolved.</li>  
+      <li>Use HubSpot comments for context/questions, not Slack or email.</li>  
+      <li>Reopening a "done" task for new feedback → reset the due date.</li>  
+    </ul>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>Guide: Internship Changes <span class="sop-desc">When a change is warranted, RESTART vs RESUME, timelines</span></summary>  
-      <div class="toggle-body">  
-        <p>Changes come after coaching, mediation, and realignment — not as a first response. Interns dismissed from an HC get one replacement only, at the team's discretion.</p>  
-        <h4>General rules</h4>  
-        <ul>  
-          <li>CF/role changes during an HC change need PRS sign-off and suitable skills.</li>  
-          <li>Hours or application-field adjustments need PMS approval before the change, within batch, discussed with PAM.</li>  
-          <li>Each placement is a separate internship — max 16 weeks per placement. Prior placement time doesn't count toward the new duration.</li>  
-        </ul>  
-        <h4>Not grounds for a change</h4>  
-        <ul>  
-          <li>Don't like the work / bored · no daily tasks (interns must be proactive) · timezone mismatch unless truly incompatible · small/early-stage company · communication or cultural differences without disrespect.</li>  
-        </ul>  
-        <h4>Request categorization</h4>  
-        <table>  
-          <tr><th>Reason type</th><th>Immediate change?</th><th>Path</th></tr>  
-          <tr><td><b>Disrespect / misconduct</b></td><td>Yes</td><td>Escalate to PMS immediately, log in Moo. No mediation — misconduct overrides it. Change immediately; blacklist HC if confirmed.</td></tr>  
-          <tr><td><b>Severe misalignment</b></td><td>No</td><td>Confirm tasks vs offer letter → attempt realignment, 7-day review → change if realignment fails.</td></tr>  
-          <tr><td><b>Unresponsiveness (10+ days)</b></td><td>No</td><td>Execute SLA outreach → final 2-day grace period → change + flag if no reply.</td></tr>  
-          <tr><td><b>Mutual disengagement</b></td><td>No</td><td>Intake reasons, probe deeper → mediation call within 3 days → change if unresolved.</td></tr>  
-          <tr><td><b>Intern discontent</b></td><td>No</td><td>Coach on proactive behavior, discuss alternate projects with HC. No change unless it escalates.</td></tr>  
-          <tr><td><b>Host discontent</b></td><td>No</td><td>Support intern with coaching, 7–10 day review. If persists → possible withdrawal, not change.</td></tr>  
-          <tr><td><b>Timezone / culture mismatch</b></td><td>No</td><td>Provide async tools and structured calls, 7–10 day review. Change only if truly unworkable.</td></tr>  
-          <tr><td><b>Company size / structure</b></td><td>No</td><td>Set realistic expectations, monitor only. Grounds for change only if tied to misconduct or misalignment.</td></tr>  
-        </table>  
-        <h4>Process</h4>  
-        <ul>  
-          <li><b>1. Intake:</b> log in HubSpot, acknowledge within 1 business day, collect detailed reasons from both parties, check background (PMS/PRS notes, SLA tags, offer vs actual tasks).</li>  
-          <li><b>2. Categorize</b> using the table above.</li>  
-          <li><b>3. Investigate:</b> clarifying questions, look for miscommunication/unmet expectations/coaching opportunities.</li>  
-          <li><b>4. Mediate:</b> coaching call, 1-week action plan with clear expectations, reassess at the end.</li>  
-          <li><b>5. Final decision:</b> resolved → continue with support plan. Unresolved → change, with fault determining the new timeline.</li>  
-        </ul>  
-        <h4>Timeline by fault</h4>  
-        <ul>  
-          <li><b>HC fault</b> (misconduct, severe misalignment, prolonged unresponsiveness): new start date 2 weeks out, matching begins immediately.</li>  
-          <li><b>Intern fault:</b> must book a call with PSA within 1 week or be withdrawn. Call clarifies requirements and expectations. Must then complete a reflective task — approval starts the 6-week placement process. Miss the task deadline → withdrawn.</li>  
-        </ul>  
-        <h4>RESTART vs RESUME</h4>  
-        <ul>  
-          <li><b>RESTART:</b> full duration reset (e.g. 12-week internship → full 12 weeks again). New start/end dates. 16 weeks max.</li>  
-          <li><b>RESUME:</b> completed hours carry over, duration adjusted (e.g. 12-week with 5 done → 7 weeks at new placement). 16 weeks max.</li>  
-        </ul>  
-        <h4>Initiating an HC change (PSA steps)</h4>  
-        <ul>  
-          <li>Notify PMs/PRS/PAM in Slack immediately, with intern name, HC name, reason, HubSpot ticket link.</li>  
-          <li>Mandatory call with the intern before actioning (skip only if HC is at fault) — confirm the change, outline next steps, answer questions.</li>  
-          <li>Clarify with intern: reason, RESTART or RESUME preference, end-date adjustments, batch requirements (academic credit), profile updates.</li>  
-          <li>Action in Moo: Manage Internships → search intern → View Internship → Change Company → choose Resume/Restart with reason. This terminates Internship 1 and sets the intern unplaced for Internship 2. Ensure the new start date is ≥2 weeks out for Resume. Update HubSpot notes, add HC Change Tag.</li>  
-          <li>Confirm details with intern, schedule PRS call if CF change requested, announce in the HC-Changes-ISA-PRS-PMS Slack channel.</li>  
-          <li><b>Credit-bearing programs (ASU, BAU):</b> the platform auto-updates the end date — verify it aligns with program requirements, confirm hours/weeks needed for on-time graduation, add to notes and the Slack channel, and update the end date once the new placement is confirmed.</li>  
-        </ul>  
-        <h4>Important notes</h4>  
-        <ul>  
-          <li>PSAs/PMs must connect with host supervisors on LinkedIn at the start of every internship.</li>  
-          <li>Before declaring anyone "unresponsive": at least 3 emails and 1 alternative channel (LinkedIn, WhatsApp, call) attempted.</li>  
-          <li>Collaborate closely with PMS when an HC claims skill mismatch, when either side reports no relevant tasks, or when an intern was accepted despite a weaker profile.</li>  
-        </ul>  
-      </div>  
-    </details>
+<details class="toggle">  
+  <summary>Guide: HubSpot Ticket Statuses <span class="sop-desc">Category definitions and when to use each</span></summary>  
+  <div class="toggle-body">  
+    <p>Always select the most specific category available. Update immediately if a case moves phase (e.g. Escalations → HC Change once a change is agreed).</p>  
+    <h4>Pre-internship</h4>  
+    <p><b>Preparation</b> — everything before the start date: connection emails, CPT questions, NDA questions, offer letter requests, pre-start inquiries, decline-after-accept, offer detail changes.</p>  
+    <h4>During internship</h4>  
+    <table>  
+      <tr><th>Category</th><th>Use for</th></tr>  
+      <tr><td><b>Week 1 Issues</b></td><td>Problems in the first week — WFL 0 follow-ups, platform access, misaligned/non-diverse projects.</td></tr>  
+      <tr><td><b>Escalations</b></td><td>Critical intervention up to the point a resolution path is agreed. Manual only — severity is a judgment call.</td></tr>  
+      <tr><td><b>Intern Unresponsive</b></td><td>Auto-triggered: 3 logged outreach attempts / 7 days, no reply.</td></tr>  
+      <tr><td><b>Unresponsive Company</b></td><td>Auto-triggered: e.g. 2 consecutive missed WFLs or no supervisor reply after defined attempts.</td></tr>  
+      <tr><td><b>Assessments</b></td><td>Pre/Post self-assessment, supervisor pre-assessment, assessment questions.</td></tr>  
+      <tr><td><b>Feedback</b></td><td>WFL communication — reminders, low-score follow-ups.</td></tr>  
+      <tr><td><b>Final Evaluation</b></td><td>End-of-internship evaluation communications.</td></tr>  
+      <tr><td><b>HC Change</b></td><td>Once a change is agreed and in motion (recategorised from Escalations).</td></tr>  
+      <tr><td><b>Touchpoint check in</b></td><td>All Week 1/3/5 call scheduling, summaries, follow-up. Auto-stamped by the touchpoint workflow.</td></tr>  
+      <tr><td><b>Other: Technical Support</b></td><td>EPD escalation, CareerBridge reactivation, platform errors.</td></tr>  
+      <tr><td><b>Refunds</b></td><td>Intern refund requests.</td></tr>  
+      <tr><td><b>Withdrawals</b></td><td>Formal withdrawal confirmations.</td></tr>  
+      <tr><td><b>Other: Stipend Queries</b></td><td>Stipend timing, amount, missing payment, eligibility.</td></tr>  
+      <tr><td><b>General Inquiries</b></td><td>Catch-all — pause requests, misc questions. Never set as an automated default.</td></tr>  
+    </table>  
+    <p style="font-size:12.5px; color:var(--mute);">HubSpot category mapping uses prefixes: "During: Escalations", "During: Touchpoint check in", "Other: Technical Support/Refunds/Withdrawal/Stipend Queries", "General Inquiries: During internship", "Pre: Preparation".</p>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>Guide: HubSpot Tasks Priority &amp; SLA <span class="sop-desc">Priority levels, SLA, naming convention</span></summary>  
-      <div class="toggle-body">  
-        <p><b>Rule:</b> if partner intervention is required, or a partner has requested VI intervention, a task must be created.</p>  
-        <h4>Priority &amp; SLA</h4>  
-        <table>  
-          <tr><th>Priority</th><th>Typical cases</th><th>SLA</th></tr>  
-          <tr><td><span class="readout red">High</span></td><td>Non-responsive intern, tight-deadline internship changes (ASU/BAU), CPT/visa updates, supervisor escalations with possible termination, timeline-impacting intern questions, prompt partner requests</td><td>24–48h</td></tr>  
-          <tr><td><span class="readout amber">Medium</span></td><td>Partner clarifications, withdrawal requests, non-urgent leave requests, routine check-ins, compliance/legal (NDAs), participation-affecting issues (exams, work schedule)</td><td>48–72h</td></tr>  
-          <tr><td><span class="readout gray">Low</span></td><td>Information requests with minimal timeline impact</td><td>3–5 business days</td></tr>  
-        </table>  
-        <p style="font-size:13px;"><b>Borderline case:</b> default to High for SLA safety, confirm with PSA/PAM lead.</p>  
-        <h4>Naming convention</h4>  
-        <p><code style="font-family:'IBM Plex Mono',monospace;">[Case Type] – [Action Required]</code>, e.g. "Non-Responsive – Contact Partner", "Withdrawal Request – Confirm with Partner". Include full context in notes: prior attempts, communication history, deadlines, partner instructions.</p>  
-        <h4>Creation &amp; assignment</h4>  
-        <ul>  
-          <li>Create from the intern's contact record so context and history stay attached (or from a Help Desk ticket directly on the record).</li>  
-          <li>Set priority and title per the conventions above.</li>  
-          <li>Assign to the relevant internal team member (PSA→PAM, PAM→PSA). No PSA assigned yet → assign to Simone for reassignment.</li>  
-          <li>Set Queue to PAM / PSA Support.</li>  
-          <li>Include notes: issue summary, attempts already made, relevant deadlines, supporting links.</li>  
-          <li>Due date auto-sets per SLA (2 days default) — adjust if needed.</li>  
-          <li>Ensure the task is associated with the correct contact so it reflects accurately on the contact page.</li>  
-        </ul>  
-        <h4>Management</h4>  
-        <ul>  
-          <li>Log all communication and actions in task notes.</li>  
-          <li>Check approaching deadlines daily; send manual follow-ups as needed.</li>  
-          <li>Requester closes the task once resolved.</li>  
-          <li>Use HubSpot comments for context/questions, not Slack or email.</li>  
-          <li>Reopening a "done" task for new feedback → reset the due date.</li>  
-        </ul>  
-      </div>  
-    </details>
+<details class="toggle">  
+  <summary>Guide: HubSpot CRM Overview <span class="sop-desc">Pipelines, ticket statuses, HelpDesk practice</span></summary>  
+  <div class="toggle-body">  
+    <p>Moo is the source of truth — one-way sync into HubSpot. HubSpot owns inbox, communication history, meeting logs.</p>  
+    <h4>Pipelines</h4>  
+    <p>General (default) · PMS (Placement Matching) · PRS (Placement Readiness) · ISA (during-internship team) · EDP (Product/Engineering)</p>  
+    <h4>Ticket statuses</h4>  
+    <ul>  
+      <li><b>New</b> — verify pipeline (auto-corrects), add a category before replying.</li>  
+      <li><b>Waiting on Customer / Waiting on Us</b> — automatic, based on last reply.</li>  
+      <li><b>Waiting on Internal Team</b> — manual, when PAM/ISA/Finance/Product input is needed.</li>  
+      <li><b>Resolved</b> — category confirmed, resolution set to No Monitoring or Needs Monitoring before closing.</li>  
+    </ul>  
+    <h4>Creating an outbound ticket</h4>  
+    <p>You must create a ticket before emailing an intern (e.g. interview outcome follow-up): HelpDesk → "+" New Ticket → Ticket Name = email subject, Pipeline = ISA, Category, Ticket Owner = yourself, Associate with Contact (intern) and Company → Create. Compose from support@virtualinternships.com, not your personal address.</p>  
+    <h4>HelpDesk daily practice</h4>  
+    <ul>  
+      <li>Daily: review New and Waiting on Us.</li>  
+      <li>Every 2 days: review Waiting on Customer / Waiting on Internal Team.</li>  
+      <li>Close within 48–72h once scope is confirmed and all queries addressed. A quiet "thank you" thread is safe to close.</li>  
+    </ul>  
+    <h4>Ticket assignment logic</h4>  
+    <p>Interns: assigned by type (B2B/B2C) and Intern Learner Status (Application stages → pre-enrollment team; Enrolled & Awaiting Placement → PRS; In Interview/In Offer → PRS or PMS depending on B2B/B2C; Placed onward → ISA). HCs: assigned by company owner.</p>  
+    <h4>Technical questions</h4>  
+    <p>PM reassigns to the designated technical owner, who takes full ownership. SLA: acknowledge within 1 business day, resolve within 5 business days.</p>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>Guide: HubSpot Ticket Statuses <span class="sop-desc">Category definitions and when to use each</span></summary>  
-      <div class="toggle-body">  
-        <p>Always select the most specific category available. Update immediately if a case moves phase (e.g. Escalations → HC Change once a change is agreed).</p>  
-        <h4>Pre-internship</h4>  
-        <p><b>Preparation</b> — everything before the start date: connection emails, CPT questions, NDA questions, offer letter requests, pre-start inquiries, decline-after-accept, offer detail changes.</p>  
-        <h4>During internship</h4>  
-        <table>  
-          <tr><th>Category</th><th>Use for</th></tr>  
-          <tr><td><b>Week 1 Issues</b></td><td>Problems in the first week — WFL 0 follow-ups, platform access, misaligned/non-diverse projects.</td></tr>  
-          <tr><td><b>Escalations</b></td><td>Critical intervention up to the point a resolution path is agreed. Manual only — severity is a judgment call.</td></tr>  
-          <tr><td><b>Intern Unresponsive</b></td><td>Auto-triggered: 3 logged outreach attempts / 7 days, no reply.</td></tr>  
-          <tr><td><b>Unresponsive Company</b></td><td>Auto-triggered: e.g. 2 consecutive missed WFLs or no supervisor reply after defined attempts.</td></tr>  
-          <tr><td><b>Assessments</b></td><td>Pre/Post self-assessment, supervisor pre-assessment, assessment questions.</td></tr>  
-          <tr><td><b>Feedback</b></td><td>WFL communication — reminders, low-score follow-ups.</td></tr>  
-          <tr><td><b>Final Evaluation</b></td><td>End-of-internship evaluation communications.</td></tr>  
-          <tr><td><b>HC Change</b></td><td>Once a change is agreed and in motion (recategorised from Escalations).</td></tr>  
-          <tr><td><b>Touchpoint check in</b></td><td>All Week 1/3/5 call scheduling, summaries, follow-up. Auto-stamped by the touchpoint workflow.</td></tr>  
-          <tr><td><b>Other: Technical Support</b></td><td>EPD escalation, CareerBridge reactivation, platform errors.</td></tr>  
-          <tr><td><b>Refunds</b></td><td>Intern refund requests.</td></tr>  
-          <tr><td><b>Withdrawals</b></td><td>Formal withdrawal confirmations.</td></tr>  
-          <tr><td><b>Other: Stipend Queries</b></td><td>Stipend timing, amount, missing payment, eligibility.</td></tr>  
-          <tr><td><b>General Inquiries</b></td><td>Catch-all — pause requests, misc questions. Never set as an automated default.</td></tr>  
-        </table>  
-        <p style="font-size:12.5px; color:var(--mute);">HubSpot category mapping uses prefixes: "During: Escalations", "During: Touchpoint check in", "Other: Technical Support/Refunds/Withdrawal/Stipend Queries", "General Inquiries: During internship", "Pre: Preparation".</p>  
-      </div>  
-    </details>
+<details class="toggle">  
+  <summary>Guide: Product &amp; Platform Knowledge <span class="sop-desc">How VI works, Moo basics, revenue model</span></summary>  
+  <div class="toggle-body">  
+    <h4>Product</h4>  
+    <ul>  
+      <li>18 Career Fields (CFs) — interns work 3 CF-related tasks + 2 cross-functional activities. Guaranteed first-choice CF, not guaranteed location or industry.</li>  
+      <li>Linear interview process (one company at a time), with urgency-based exceptions near a start date.</li>  
+      <li>Durations: 1/2/3/4 months at 10/20/30 hrs/week. Every intern gets an end point coaching call, 24/7 CareerBridge, and monthly webinars regardless of track. All internships are unpaid — any payment is at the HC's discretion.</li>  
+      <li>Revenue: ~90% B2B (universities, pathway providers, MOOCs/bootcamps, government-affiliated programs), ~10% B2C. Host companies never pay — zero fees, zero salaries.</li>  
+    </ul>  
+    <h4>HC eligibility criteria</h4>  
+    <ul>  
+      <li>Any industry except gambling/casinos, religious institutions, wines &amp; spirits, tobacco.</li>  
+      <li>Any geography except a defined restricted-country list (sanctions-driven).</li>  
+      <li>Minimum 3 full-time employees, and a live website with a valid URL.</li>  
+      <li>Supervisor must be full-time, intermediate+ English, register with a company-domain email. One persona can manage up to 3 interns at a time.</li>  
+      <li>1–2 employee companies: case-by-case approval by Head of Pre-Internship, considering hard-to-place fields and full-time contractor presence.</li>  
+    </ul>  
+    <h4>Moo — the operations platform</h4>  
+    <p>The "back-end" of the customer-facing platform. As a PSA you live mainly in "During Internship" and its subpages, occasionally in Registration and Matching. Access arrives via invitation early in week two — complete your profile with name, country, phone number, timezone.</p>  
+  </div>  
+</details>
 
-    <details class="toggle">  
-      <summary>Guide: HubSpot CRM Overview <span class="sop-desc">Pipelines, ticket statuses, HelpDesk practice</span></summary>  
-      <div class="toggle-body">  
-        <p>Moo is the source of truth — one-way sync into HubSpot. HubSpot owns inbox, communication history, meeting logs.</p>  
-        <h4>Pipelines</h4>  
-        <p>General (default) · PMS (Placement Matching) · PRS (Placement Readiness) · ISA (during-internship team) · EDP (Product/Engineering)</p>  
-        <h4>Ticket statuses</h4>  
-        <ul>  
-          <li><b>New</b> — verify pipeline (auto-corrects), add a category before replying.</li>  
-          <li><b>Waiting on Customer / Waiting on Us</b> — automatic, based on last reply.</li>  
-          <li><b>Waiting on Internal Team</b> — manual, when PAM/ISA/Finance/Product input is needed.</li>  
-          <li><b>Resolved</b> — category confirmed, resolution set to No Monitoring or Needs Monitoring before closing.</li>  
-        </ul>  
-        <h4>Creating an outbound ticket</h4>  
-        <p>You must create a ticket before emailing an intern (e.g. interview outcome follow-up): HelpDesk → "+" New Ticket → Ticket Name = email subject, Pipeline = ISA, Category, Ticket Owner = yourself, Associate with Contact (intern) and Company → Create. Compose from support@virtualinternships.com, not your personal address.</p>  
-        <h4>HelpDesk daily practice</h4>  
-        <ul>  
-          <li>Daily: review New and Waiting on Us.</li>  
-          <li>Every 2 days: review Waiting on Customer / Waiting on Internal Team.</li>  
-          <li>Close within 48–72h once scope is confirmed and all queries addressed. A quiet "thank you" thread is safe to close.</li>  
-        </ul>  
-        <h4>Ticket assignment logic</h4>  
-        <p>Interns: assigned by type (B2B/B2C) and Intern Learner Status (Application stages → pre-enrollment team; Enrolled & Awaiting Placement → PRS; In Interview/In Offer → PRS or PMS depending on B2B/B2C; Placed onward → ISA). HCs: assigned by company owner.</p>  
-        <h4>Technical questions</h4>  
-        <p>PM reassigns to the designated technical owner, who takes full ownership. SLA: acknowledge within 1 business day, resolve within 5 business days.</p>  
-      </div>  
-    </details>
+<details class="toggle">  
+  <summary>Guide: Curriculum Refresh 2.0 <span class="sop-desc">What's changing and why</span></summary>  
+  <div class="toggle-body">  
+    <p>Replacing the current curriculum: clunky, text-heavy, six years out of date, running on an old LMS, reliant on non-proprietary content.</p>  
+    <h4>What's changing</h4>  
+    <ul>  
+      <li>5 courses, each covering a key career-readiness area, 2.5–3.5h each (12–15h total experience).</li>  
+      <li>6 lessons per course, 25–40 minutes each, broken into 3–10 minute units building to the lesson objective.</li>  
+      <li>Every lesson includes reflection prompts, videos, tutorials, key readings, summaries, and career-skill roundups, all mapped to defined learning objectives at course/module/lesson level.</li>  
+    </ul>  
+    <h4>How to contribute</h4>  
+    <ul>  
+      <li><b>Become a reviewer</b> — under 5 minutes per lesson. Watch the intro Loom, find a lesson in the Curriculum Review Tracker, open it in Review 360, add comments. No password needed.</li>  
+      <li><b>Upload a video</b> — under 5 minutes to record. Pick a topic question, record under 2 minutes, upload via the link on the full Curriculum Refresh page.</li>  
+    </ul>  
+  </div>  
+</details>  
+Supervisor connection - Score (1-5): [Evidence of contact and interaction]
+Task clarity - Score (1-5): [What work is assigned and how clearly the intern describes it]
+Working rhythm - Score (1-5): [Agreed schedule, hours plan, supervisor check-in frequency]
+Total score: /15
+Status applied:
+Intern commitment: [Verbatim - do not paraphrase]
+PSA actions taken: [Each action with timestamp]
 
-    <details class="toggle">  
-      <summary>Guide: Product &amp; Platform Knowledge <span class="sop-desc">How VI works, Moo basics, revenue model</span></summary>  
-      <div class="toggle-body">  
-        <h4>Product</h4>  
-        <ul>  
-          <li>18 Career Fields (CFs) — interns work 3 CF-related tasks + 2 cross-functional activities. Guaranteed first-choice CF, not guaranteed location or industry.</li>  
-          <li>Linear interview process (one company at a time), with urgency-based exceptions near a start date.</li>  
-          <li>Durations: 1/2/3/4 months at 10/20/30 hrs/week. Every intern gets an end point coaching call, 24/7 CareerBridge, and monthly webinars regardless of track. All internships are unpaid — any payment is at the HC's discretion.</li>  
-          <li>Revenue: ~90% B2B (universities, pathway providers, MOOCs/bootcamps, government-affiliated programs), ~10% B2C. Host companies never pay — zero fees, zero salaries.</li>  
-        </ul>  
-        <h4>HC eligibility criteria</h4>  
-        <ul>  
-          <li>Any industry except gambling/casinos, religious institutions, wines &amp; spirits, tobacco.</li>  
-          <li>Any geography except a defined restricted-country list (sanctions-driven).</li>  
-          <li>Minimum 3 full-time employees, and a live website with a valid URL.</li>  
-          <li>Supervisor must be full-time, intermediate+ English, register with a company-domain email. One persona can manage up to 3 interns at a time.</li>  
-          <li>1–2 employee companies: case-by-case approval by Head of Pre-Internship, considering hard-to-place fields and full-time contractor presence.</li>  
-        </ul>  
-        <h4>Moo — the operations platform</h4>  
-        <p>The "back-end" of the customer-facing platform. As a PSA you live mainly in "During Internship" and its subpages, occasionally in Registration and Matching. Access arrives via invitation early in week two — complete your profile with name, country, phone number, timezone.</p>  
-      </div>  
-    </details>
+Week 1 status (from prior log): [Pull before dialling]
+Work output - Score (1-5): [What the intern described working on - concrete or vague]
+Hours trajectory - Score (1-5): [Current vs target, sustainability, any host-side issue]
+Host relationship - Score (1-5): [Feedback signal, communication pattern, any avoidance surfaced]
+Total score: /15
+Status applied:
+Trajectory projection: [Intern's own words when asked how the internship finishes if nothing changes]
+Intern commitment: [Verbatim - do not paraphrase]
+PSA actions taken: [Each action with timestamp]
 
-    <details class="toggle">  
-      <summary>Guide: Curriculum Refresh 2.0 <span class="sop-desc">What's changing and why</span></summary>  
-      <div class="toggle-body">  
-        <p>Replacing the current curriculum: clunky, text-heavy, six years out of date, running on an old LMS, reliant on non-proprietary content.</p>  
-        <h4>What's changing</h4>  
-        <ul>  
-          <li>5 courses, each covering a key career-readiness area, 2.5–3.5h each (12–15h total experience).</li>  
-          <li>6 lessons per course, 25–40 minutes each, broken into 3–10 minute units building to the lesson objective.</li>  
-          <li>Every lesson includes reflection prompts, videos, tutorials, key readings, summaries, and career-skill roundups, all mapped to defined learning objectives at course/module/lesson level.</li>  
-        </ul>  
-        <h4>How to contribute</h4>  
-        <ul>  
-          <li><b>Become a reviewer</b> — under 5 minutes per lesson. Watch the intro Loom, find a lesson in the Curriculum Review Tracker, open it in Review 360, add comments. No password needed.</li>  
-          <li><b>Upload a video</b> — under 5 minutes to record. Pick a topic question, record under 2 minutes, upload via the link on the full Curriculum Refresh page.</li>  
-        </ul>  
-      </div>  
-    </details>  
-  </div>
+Week 3 status (from prior log): [Pull before dialling]
+Hours to target - Score (1-5): [Hours logged vs remaining, intern's stated plan]
+Execution plan - Score (1-5): [Unresolved loose ends, first move and when]
+Intern ownership - Score (1-5): [What the intern wants final feedback to say, driving or waiting]
+Total score: /15
+Status applied:
+Completion plan: [Specific hours and submission targets the intern committed to, in their words]
+PSA actions taken: [Each action with timestamp]
 
-</section>
+Week 3 status (from prior log): [Pull before dialling]
+Hours to target - Score (1-5): [Current vs midpoint target, projected finish at current pace]
+Follow-through - Score (1-5): [Week 3 commitment - completed or not, and what the intern said]
+Execution plan - Score (1-5): [Whether the intern has a specific second-half plan or is drifting]
+Total score: /15
+Status applied:
+Evidence check: [Strongest work identified, what they want to point to by the end]
+Intern commitment: [Verbatim - do not paraphrase]
+PSA actions taken: [Each action with timestamp]
+
+<details class="toggle">  
+  <summary>The PSA mindset <span class="sop-desc">What you're actually responsible for, who you support</span></summary>  
+  <div class="toggle-body">  
+    <p><b>What is the PSA actually responsible for?</b> Not just answering questions, chasing forms, or completing calls. You're responsible for understanding how the internship is actually going, spotting problems early, and stepping in when something could affect the experience. The question to keep coming back to: <i>"Is this internship moving in the right direction?"</i> — not <i>"have I completed everything I'm supposed to complete?"</i> A placement can be technically up to date while the intern is having a poor experience, and vice versa.</p>  
+    <p><b>Who is the PSA supporting — intern or Host Company?</b> Both. Their interests genuinely conflict sometimes. Don't automatically side with whoever contacted you first: understand both perspectives, establish the facts, understand what each person expected, check the relevant requirements, look at the impact, then decide what needs to change.</p>  
+    <p><b>How do I know whether something is actually a problem?</b> Three things — <b>Pattern</b> (one-off or repeating?), <b>Impact</b> (is it actually affecting the experience or requirements?), <b>Trajectory</b> (better, same, or worse?). A missed email is different from repeated non-response. Low hours in Week 1 is different from low hours in Week 7 with no recovery plan.</p>  
+    <p><b>What's the biggest judgement mistake a new PSA can make?</b> Assuming the first version of the story is the whole story. An intern's "my supervisor doesn't support me" might be genuine — or it might be that they're missing scheduled check-ins, or the supervisor is supporting them in a way they don't recognise. Don't rush to decide who's right — find out what's actually happening.</p>  
+    <p><b>Should I wait for all the facts before contacting the other party?</b> No. You can start building the Host Company relationship while still investigating an intern's concern, without saying "the intern has complained about you." A routine check-in gives you another perspective and makes a later difficult conversation easier. Don't wait until the relationship is already damaged.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>I'm a new PSA <span class="sop-desc">First assignment, intro email, first call, shadowing</span></summary>  
+  <div class="toggle-body">  
+    <p><b>What should I do when an internship is assigned to me?</b> Get the basic picture first — intern details, Host Company, supervisor, start date, duration, programme type, academic-credit requirements, existing communication and concerns. Don't rush into contacting someone based on incomplete information.</p>  
+    <p><b>When should I send the introduction email?</b> Once the internship is assigned and visible to you. If someone tells you that you have an intern but you can't see the placement in Moo, double-check the assignment first — don't assume the system is wrong.</p>  
+    <p><b>When do I get to do my first call?</b> Once you've completed onboarding and your first placements are assigned. Week 1 calls are completed and logged through HubSpot.</p>  
+    <p><b>Can I shadow another PSA's call?</b> Not routinely — calls are handled through HubSpot, so live shadowing can be difficult. Where possible, the team can add you to booked meetings so you can observe. But don't wait forever for the perfect shadowing opportunity — learn the process, understand the structure, and start taking calls yourself.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>Week 1 &amp; the first conversation <span class="sop-desc">Purpose of the call, common questions, no-answer scenarios</span></summary>  
+  <div class="toggle-body">  
+    <p><b>What's the purpose of the Week 1 call?</b> Activation and relationship-building. Understand: has the internship started, does the intern know their supervisor, have they been contacted, do they have a schedule and work, do they understand expectations, do they know what the PSA does and when to reach you, is anything already wrong. But don't turn it into a checklist — you're also establishing the relationship that makes future intervention easier. If the first time an intern hears from you is when something's gone wrong, it's much harder to have a productive conversation.</p>  
+    <p><b>What questions do interns most likely ask in Week 1?</b> HC expectations ("what should I be doing in my first week?"), communication ("how often should I talk to my supervisor?"), hours/scheduling ("how do I track my hours?"), requirements ("what forms do I need?"), problems ("what if I'm not enjoying it?"), career development ("can this lead to a job?"), and platform/admin questions. If you don't know an answer, say so and find the right one — don't guess.</p>  
+    <p><b>What if the intern doesn't answer my call but responds by email?</b> Use your judgement. If the email establishes they've started, know their supervisor, have a schedule and tasks, and the internship appears healthy, you don't need to force a phone call just to say it happened. Compare "sorry, was in class, started Monday, meeting twice a week, already got my first project" against no answer + no email response + supervisor hasn't heard from them + missing WFL. The first points to a healthy start; the second is multiple signals of a possible engagement problem. Assess the internship, not just whether the call happened.</p>  
+    <p><b>What if the intern has started but has no tasks?</b> Address it — an internship can't be meaningful without meaningful work. Find out why: supervisor hasn't had time, intern waiting for access, supervisor unclear what to assign, genuinely no work, or a communication problem. Don't dismiss it because the supervisor is friendly — the issue is whether the internship provides meaningful work, not whether the supervisor is nice. Start the intern on CareerBridge while you support contacting the company.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>The Touchpoint Model <span class="sop-desc">Why it exists, healthy placements, mid-touchpoint problems</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Why do we have the Touchpoint Model?</b> A structured, proactive way to stay connected throughout the internship — finding problems earlier rather than waiting for a complaint, an escalation, a Critical WFL, or a placement that's become difficult to recover. A touchpoint isn't just another task to complete — it's an opportunity to find out what's actually happening.</p>  
+    <p><b>What happens during the different touchpoints?</b> Follow the current Touchpoint Model/SOP for exact requirements — broadly Week 1 Activation, Week 2 WFL Triage, Week 3 Trajectory Check, Week 4 WFL Triage, Week 5 Finish Strong/Midpoint Course-Correct. The important part isn't memorising the headings — every touchpoint should help you understand the health and trajectory of the internship. Detailed execution sits in the Touchpoint Model/SOP; this FAQ doesn't duplicate that.</p>  
+    <p><b>What if everything looks healthy?</b> Complete the required touchpoint anyway. Healthy placements still need contact — it keeps the relationship active and makes it much easier to step in if something changes later.</p>  
+    <p><b>What if I discover a problem during a touchpoint?</b> Don't wait for the next one. Move into Investigate → Coach/Intervene → Monitor → Escalate if required, right away. If a Week 3 conversation reveals no meaningful work for two weeks, deal with it now, not at Week 4.</p>  
+    <p><b>What if the placement is already at risk before the scheduled touchpoint?</b> Act when you see the risk. The schedule makes proactive engagement consistent — it should never stop you from responding earlier.</p>  
+  </div>  
+</details>  
+<details class="toggle">  
+  <summary>Weekly Feedback — WFL <span class="sop-desc">Score bands, discrepancies between sides, no explanation given</span></summary>  
+  <div class="toggle-body">  
+    <p>WFL = Weekly Feedback. Each week, interns and supervisors rate their experience 1–10.</p>  
+    <table class="tight">  
+      <tr><th>Score</th><th>What it tells you</th></tr>  
+      <tr><td>8–10</td><td><span class="readout green">Healthy</span></td></tr>  
+      <tr><td>6–7</td><td><span class="readout amber">Something may need attention</span></td></tr>  
+      <tr><td>1–5</td><td><span class="readout red">Critical / action required</span></td></tr>  
+    </table>  
+    <p>The score is a signal. Your job is to understand the signal.</p>  
+    <p><b>What if an intern gives a WFL of 5?</b> Act on it — it's Critical and needs prompt follow-up. Don't let the rest of the dashboard talk you out of it. Healthy hours, healthy submissions, and a responsive supervisor don't make a 5 less important — they mean there's something about the experience the other metrics aren't showing you. Ask "why is this intern telling us the experience isn't fine?", not "everything else looks fine, I'll deal with this Thursday."</p>  
+    <p><b>What if the WFL is 6 or 7?</b> Investigate. Not necessarily a crisis, but a signal something may need attention. What's driving the score? What changed? Is this isolated? Is the other party aware? Can it be fixed easily? Is the trajectory improving or worsening?</p>  
+    <p><b>What if the intern and supervisor give very different scores?</b> Don't choose a side. An intern rating "my supervisor doesn't give me enough support" 4/10 against a supervisor's "everything is going really well" 9/10 — the difference itself is the interesting part. What does "support" mean to the intern? What has the supervisor actually provided? How often do they meet, and is the intern attending? The discrepancy is useful information on joint understanding.</p>  
+    <p><b>What if the WFL is low but there's no explanation?</b> Follow up. Don't write off the score because the comment box is empty — the score is telling you something, and your conversation should help you understand what.</p>  
+    <p><b>What if the low WFL seems outside the Host Company's control?</b> Still investigate. The point isn't finding someone to blame — the intern could be unhappy because of university requirements, scheduling, a technical issue, a misunderstanding, their own expectations, or a personal circumstance. Understand the cause before deciding what to do.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>Intern engagement <span class="sop-desc">Missed calls, unresponsive, withdrawal requests</span></summary>  
+  <div class="toggle-body">  
+    <p><b>What if an intern doesn't answer my calls?</b> Don't immediately label them disengaged. Have they responded another way? Are they completing required activities? Communicating with the supervisor? Is it a timezone issue, a one-off, or becoming a pattern? One missed call + email response + healthy internship is very different from repeated missed calls + no email response + missed WFL + supervisor also can't reach them.</p>  
+    <p><b>What if an intern becomes completely unresponsive?</b> Document what you've tried — last successful contact, email/call/WhatsApp attempts, HC contact, existing risk indicators — then follow the relevant unresponsive/withdrawal process. Don't keep treating it as just a missed call.</p>  
+    <p><b>What if the intern wants to withdraw?</b> First understand why — what happened, is the issue fixable, have they discussed it with the HC, is it the work, the supervisor, hours, university requirements, or something else. Then follow the Internship Change/Withdrawal SOP.</p>  
+    <p><b>Does the Partner Requirements Cheat Sheet decide whether a withdrawal is possible?</b> No — it tells you the partner's default position, not the final decision. For most partners, the default under "Can Interns Withdraw Unilaterally?" is No, route: Partner must approve, notify PAM. A few follow the SLA process instead. That default tells you PAM needs to be involved early, but it can't capture how far into the internship the intern is, whether the issue is fixable, whether the partner has flexed before, or what the university allows. A "No" on the sheet is where the conversation with PAM begins, not necessarily where it ends.</p>  
+    <p><b>What should I do if an intern wants to withdraw?</b> Investigate first, work out if it's fixable, check the partner's row in the cheat sheet, check financial implications (e.g. University of Hertfordshire charges 50% pre-acceptance / 100% post-acceptance; Arizona State has a fee at any stage), loop in PAM early. If there's a genuine retention chance, say so explicitly. Don't imply withdrawal is automatically simple or cost-free. If the intern is genuinely set on leaving and the issue isn't fixable, don't push retention for its own sake — give PAM the facts.</p>  
+    <p><b>What if the intern wants to withdraw and then becomes unresponsive?</b> Document the original request — don't treat the case as though they never contacted you. Document follow-up attempts, then follow the applicable process. Current unresponsive process: 2 calls + 1 voicemail + email + text over 7 days. If unsure whether a withdrawal can be processed without further confirmation, check the SOP rather than guessing.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>Risk priority <span class="sop-desc">When a healthy dashboard doesn't mean a healthy experience</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Hours and submissions are healthy but the WFL is 5 — what now?</b> Critical. Don't average everything together and decide "most things look good" — the WFL is a direct experience signal.</p>  
+    <p><b>What if the issue is "Slipping" or "Disengaged"?</b> These are engagement/trajectory signals shown in the Queue. Don't automatically treat them as SLA — use the relevant priority framework and investigate the cause.</p>  
+    <p><b>What if the dashboard looks healthy but the intern says the internship is poor?</b> Investigate. The dashboard doesn't replace the intern's experience — it tells you what's happening operationally, the conversation tells you what it actually feels like. Both matter. Don't say "but everything looks healthy" to an intern telling you they're not learning anything.</p>  
+  </div>  
+</details>  
+<details class="toggle">  
+  <summary>Hours &amp; scheduling <span class="sop-desc">Flexing requirements, low hours, HC pushing beyond approved limits</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Do partner hour requirements ever flex?</b> Check the cheat sheet first, but if changing hours could keep an intern on the programme instead of withdrawing, ask PAM — don't automatically assume no. Some requirements are contractual/preference-based (PAM may be able to negotiate), others are legally mandated (e.g. University of Hertfordshire's 15-hour weekly limit is tied to UKVI legislation — PAM can't negotiate that away, but there may be other ways to keep the intern on the programme). Ask what's possible before deciding there's no option.</p>  
+    <p><b>What if an intern has logged fewer hours than required?</b> Look at the stage and the reason. Lower hours early on don't automatically mean something's wrong — a Week 1 intern with fewer hours but a started internship, engaged supervisor, tasks, schedule, and positive feedback is a monitoring/coaching situation, not a crisis, if there's time left to recover.</p>  
+    <p><b>What if the internship isn't for academic credit?</b> Still check the hours, but don't automatically treat a shortfall as Critical. "12 hours instead of 15, but we've agreed I'll make it up next week" is very different from "only 5 hours because my supervisor doesn't have anything for me" — the second may actually be a Host Company quality problem.</p>  
+    <p><b>What if an academic-credit internship is struggling with hours?</b> Take it seriously — don't wait until Week 7 if a Week 3 intern in an 8-week internship already has a significant shortfall. Work out required vs. completed hours, why the gap exists, whether the HC understands the requirement, whether the schedule can adjust, whether the remaining hours can realistically be recovered, and any university/programme constraints. Find the problem while there's still something you can do about it.</p>  
+    <p><b>What if the Host Company expects more hours than the intern is supposed to work?</b> No — don't agree to it, and don't treat it as a judgement call. The intern's hours need to match what's contracted or approved. This is different from asking PAM whether an adjustment could help retain an intern — a HC simply asking an intern to exceed an approved limit is not something to agree to. Explain the requirement; escalate if they push back.</p>  
+    <p><b>What if the intern wants to change their working hours?</b> Understand why first, then check whether the proposed schedule still meets requirements and partner rules. Don't promise the intern it's possible. If the change could prevent a withdrawal, raise it with PAM.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>Academic-credit vs. skills/career interns <span class="sop-desc">Different motivations, same problem can land differently</span></summary>  
+  <div class="toggle-body">  
+    <p>Academic-credit interns often care more about requirements, deadlines, forms, evaluations, hours, and university expectations. Skills/career-focused interns often care more about meaningful projects, learning, mentorship, networking, and future employment. Neither matters more — but understanding the motivation helps you understand what risk looks like for that specific intern.</p>  
+    <p><b>A good early question:</b> "At the end of this internship, what would make you feel it was successful?" You might hear "I need to earn credit," "I want to learn project management," "I want something strong for my CV," or "I want a job offer" — each tells you what matters to that intern.</p>  
+    <p><b>Why this matters:</b> the same slow-feedback supervisor might worry an academic-credit intern about their evaluation completing, while a career-focused intern is worried about not getting enough feedback to improve. Same Host Company issue, different support needed.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>CareerBridge &amp; programme requirements <span class="sop-desc">Is it mandatory, explaining requirements to interns</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Is CareerBridge mandatory for every intern?</b> No — mandatory for certain interns completing an internship for academic credit. Check the Partner Requirements Cheat Sheet and relevant programme guidance for the specific placement.</p>  
+    <p><b>What if an intern asks why they have to complete a requirement?</b> Explain the reason where you can — don't just say "because the system says so." If academic, explain there are requirements attached beyond the day-to-day work with the Host Company. If you don't know the exact reason, check — don't guess.</p>  
+  </div>  
+</details>  
+<details class="toggle">  
+  <summary>Host Company engagement <span class="sop-desc">Missed WFLs, chasing without annoying, no tasks assigned</span></summary>  
+  <div class="toggle-body">  
+    <p><b>What if a supervisor doesn't complete a WFL?</b> Start with a reminder, then look at the bigger picture — is this the first missed one, have they completed previous ones, are they otherwise responsive and assigning work, is the intern having a healthy experience, is this becoming a pattern. A single missed WFL and a pattern of non-response are not the same thing.</p>  
+    <p><b>How do I chase a supervisor without annoying them?</b> This is a big part of PSA judgement. The goal isn't "get the WFL completed at any cost" — it's "keep the relationship productive while still holding them accountable." Progression: Reminder → Follow-up → Change approach/channel → Investigate the broader pattern → Escalate if needed. Don't send five versions of the same email if the real problem is disengagement — call them, text them, connect on LinkedIn, explain why it matters, ask if there's a practical barrier.</p>  
+    <p><b>What if the supervisor doesn't assign tasks?</b> Treat this as more serious than a missing WFL — a missing WFL is administrative, no meaningful work is an internship-quality problem. A supervisor who's missed one WFL but the intern has regular meetings, meaningful work, and a good relationship needs just a reminder. Multiple missed WFLs + no email response + no meaningful work + intern waiting is several signals pointing the same direction — that needs stronger intervention.</p>  
+    <p><b>What if the supervisor is responsive but provides poor support?</b> Being responsive isn't enough — look at whether the intern is getting meaningful work, guidance, feedback, learning, room to ask questions, and reasonable autonomy. A supervisor can answer every email and still provide a poor internship experience.</p>  
+    <p><b>What if the Host Company says "I've worked with VI for years"?</b> Don't become defensive, but don't let their history override current requirements either. VI's processes change and a long-standing HC may genuinely be surprised by a new one. Acknowledge the history, explain the current requirement, understand their concern, find the most practical way forward.</p>  
+    <p><b>What if the supervisor is new and overwhelmed by WFLs and assessments?</b> Coach first — they may simply not understand the process yet. Make the requirement easy to understand and action. Don't treat someone as an unreliable Host Company for missing one requirement while still learning.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>SLA &amp; reliability <span class="sop-desc">When SLA actually triggers, SLA 1 vs SLA 2</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Does the SLA process trigger because a PSA misses a Week 2/4/6 call?</b> No. This distinction matters — the trigger isn't "we skipped the call," it's WFL score ≤7 → PSA follow-up → intern/supervisor doesn't respond → review against the Reliability &amp; SLA Tagging Framework. A PSA failing their own follow-up is an internal operational issue, not automatically an SLA trigger for the Host Company.</p>  
+    <p><b>When should I apply an SLA tag?</b> Don't apply one just because someone was slow once — use the framework and the evidence. Flow: Identify the issue → Confirm the evidence → Apply the tag in Moo with rationale → Communicate where required → Reassess. Evidence: dates, communication attempts, WFLs, evaluations, emails, texts, impact on the internship.</p>  
+    <p><b>What is SLA 1?</b> Moderate Risk — one late onboarding, WFL completion 51–65%, minor inconsistency. Response is monitoring, not an immediate placement restriction.</p>  
+    <p><b>What is SLA 2?</b> High Risk — recurring/unresponsive behaviour, &gt;50% WFLs missed, no work reported. Consequences: placement pause, mandatory intervention call before a new intern is assigned, blacklist applied before that call.</p>  
+    <p><b>What if a Host Company has been unresponsive for 1.5 weeks but the intern says everything's fine?</b> Don't turn time into an automatic SLA rule. Non-response matters, but so does the intern actively communicating with the supervisor, having work, a clear schedule, and saying it's going well. Look at the actual framework criteria and document the evidence rather than defaulting to "1.5 weeks = SLA 2."</p>  
+    <p><b>What if the Host Company is repeatedly unresponsive and there's no work?</b> Now you have a much stronger reliability concern — multiple missed WFLs, repeated non-response, no meaningful work, intern affected, previous intervention hasn't worked. May meet criteria for SLA 2 or blacklisting. Use the framework, not instinct alone.</p>  
+    <p><b>What happens to an SLA tag over time?</b> Tags reflect current reliability and are reviewed when circumstances change. HCs can return to Reliable after three consecutive clean placements. Tags: Reliable → SLA 1 – Moderate Risk → SLA 2 – High Risk. Blacklisted HCs follow the Blacklist Process SOP for re-engagement.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>Host Company blacklisting <span class="sop-desc">Evidence-based only, difficult ≠ bad</span></summary>  
+  <div class="toggle-body">  
+    <p><b>How does blacklisting work?</b> Use the Host Company Blacklist Process and the Reliability &amp; SLA Tagging Framework together — evidence-based, following the established process.</p>  
+    <p><b>Should I blacklist a Host Company because I have a bad feeling about them?</b> No. Your instinct should tell you to investigate — it shouldn't replace the evidence.</p>  
+    <p><b>What if the Host Company is difficult but provides an excellent internship?</b> "Difficult to deal with" doesn't automatically mean "bad Host Company." A demanding, blunt supervisor who isn't enthusiastic about VI admin but gives meaningful work, meets regularly, gives feedback, and supports learning may need careful relationship management — that doesn't make them unsuitable. Don't confuse personality with risk.</p>  
+  </div>  
+</details>  
+<details class="toggle">  
+  <summary>Intern vs. Host Company conflict <span class="sop-desc">Establishing facts before deciding who's right</span></summary>  
+  <div class="toggle-body">  
+    <p><b>What if the intern and Host Company genuinely disagree?</b> Don't start with "who's right?" — start with "what does each person believe should be happening?" Then establish expectations, requirements, communication, evidence, and impact.</p>  
+    <p><b>Scenario — academic requirements vs. workload:</b> intern needs required hours, HC doesn't think they need them working that much. Don't automatically side with either — establish the actual academic/programme requirement and whether the HC's expectation conflicts with it, then work out a solution or escalate.</p>  
+    <p><b>Scenario — support dispute:</b> intern says "my supervisor never meets with me," supervisor says "I have meetings scheduled weekly, they don't attend." Don't decide who's telling the truth immediately — check meeting invites, attendance, communication, expectations, and whether the meetings are actually useful. The goal is fixing the underlying issue, not proving someone wrong.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>Withdrawals &amp; Host Company changes <span class="sop-desc">When a change is warranted, cheat sheet defaults</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Can a PSA request a Host Company change?</b> Only within what the partner allows — but don't treat a "No" or "Not Advised" in the cheat sheet as the end of the conversation. Check the partner's default under "Can Host Company Be Changed?": <b>Not Advised</b> (common with academic-credit partners, since a change can affect timeline, graduation, or visa status), <b>Case by Case</b> (no strong default), or <b>Yes – Operational Need</b> (some non-credit partners allow it). Then look at the actual situation.</p>  
+    <p><b>What should I do before asking for a Host Company change?</b> Establish whether the problem is actually fixable — what's wrong, is it temporary, what's already been tried, has the HC had a chance to improve, is meaningful work still happening, is trust fundamentally broken, are there programme/university restrictions, would a change actually solve it. A difficult supervisor isn't automatically a reason to change.</p>  
+    <p><b>What if an HC change could prevent a withdrawal?</b> Raise it with PAM explicitly if it looks like the difference between keeping the intern and losing them. Don't rule it out yourself because the cheat sheet says "Not Advised" — and don't promise the intern it'll happen either. PAM owns the partner conversation. Follow the Internship Change Guidelines and use the relevant #hc-changes-psa-prs-pm channel.</p>  
+    <p><b>When should I recommend a Host Company change?</b> Not simply because the intern doesn't like the supervisor. "My supervisor is strict and I don't like their communication style" alone probably isn't enough. "I've raised this three times, I'm not getting meaningful work, my supervisor won't communicate, we've tried to fix it and nothing's changed" means you're looking at whether the placement is still viable.</p>  
+    <p><b>What if the intern simply doesn't like the Host Company?</b> Don't automatically process a change — find out what "I don't like it" actually means. Could be the work isn't what they expected, not enough work, a difficult supervisor, industry dislike, unrealistic expectations, or a genuine quality issue. The response depends on the reason.</p>  
+  </div>  
+</details>  
+<details class="toggle">  
+  <summary>Serious &amp; sensitive issues <span class="sop-desc">What to escalate immediately, incomplete facts</span></summary>  
+  <div class="toggle-body">  
+    <p><b>What should I escalate immediately?</b> Don't treat these like normal internship problems: harassment allegations, discrimination, bullying, misconduct, inappropriate behaviour, threats to safety/wellbeing/security, labour regulation violations, university requirement violations, immediate HC termination requests, intern resignation/abandonment without notice, legal or regulatory complaints, media complaints, significant trust breakdowns, NDA/contracting concerns. When in doubt, ask for support.</p>  
+    <p><b>What if I don't have all the facts?</b> If the potential risk is high, escalate anyway. Escalating doesn't mean "I've decided what happened" — it means "something potentially serious has been raised and I want the right people to have visibility while I establish the facts." You can investigate while it's escalated. Don't wait until you've proven everything.</p>  
+    <p><b>What if an intern says they don't feel safe?</b> Treat it as high-risk. Escalate immediately through the appropriate process. Don't try to independently resolve a safety or safeguarding concern.</p>  
+    <p><b>What if there's an NDA or contract issue?</b> If you're not completely comfortable handling it, come to the PSA Lead/team for support. Don't improvise contractual advice — these situations can create significant downstream issues if handled incorrectly.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>The PSA Decision Framework <span class="sop-desc">The 12-step process for when you genuinely don't know what to do</span></summary>  
+  <div class="toggle-body">  
+    <ol style="padding-left:20px; font-size:13.5px;">  
+      <li style="margin-bottom:8px;"><b>What actually happened?</b> Separate facts from assumptions.</li>  
+      <li style="margin-bottom:8px;"><b>Who is affected?</b> The intern? The Host Company? Both? The university/programme? VI?</li>  
+      <li style="margin-bottom:8px;"><b>Is anyone at immediate risk?</b> If yes — escalate.</li>  
+      <li style="margin-bottom:8px;"><b>Is there a Critical signal?</b> If yes — act promptly.</li>  
+      <li style="margin-bottom:8px;"><b>Is this a one-off or a pattern?</b> Look at the history.</li>  
+      <li style="margin-bottom:8px;"><b>What evidence do I have?</b> WFLs, hours, assessments, HubSpot, Moo, emails, WhatsApp, meetings, intern feedback, HC feedback, partner requirements.</li>  
+      <li style="margin-bottom:8px;"><b>Have I heard both sides?</b> If there's disagreement, don't decide based on one account unless the risk requires immediate action.</li>  
+      <li style="margin-bottom:8px;"><b>Can coaching solve it?</b> If yes — coach.</li>  
+      <li style="margin-bottom:8px;"><b>Does it need intervention?</b> If yes — intervene and monitor.</li>  
+      <li style="margin-bottom:8px;"><b>Does an SOP apply?</b> If yes — follow the SOP. This FAQ gives you the judgement around the situation; the SOP gives you the detailed process.</li>  
+      <li style="margin-bottom:8px;"><b>Does another team own the decision?</b> If yes — route it to the right team while keeping visibility.</li>  
+      <li><b>Have I documented it?</b> If it materially affects the internship — log it.</li>  
+    </ol>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>When in doubt <span class="sop-desc">The do-nothing test</span></summary>  
+  <div class="toggle-body">  
+    <p>If you're still unsure, ask yourself: <i>"If I do nothing, what happens next?"</i></p>  
+    <ul class="plain">  
+      <li><b>"Probably nothing."</b> → Monitor.</li>  
+      <li><b>"The issue could become harder to fix."</b> → Intervene.</li>  
+      <li><b>"Someone could be harmed, the internship could break down, or there could be legal/programme implications."</b> → Escalate.</li>  
+    </ul>  
+    <p>You don't need to have every answer. You do need to recognise when something matters.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>The PSA Principles <span class="sop-desc">Ten operating principles, including "everything is a conversation"</span></summary>  
+  <div class="toggle-body">  
+    <ul class="plain">  
+      <li><b>Don't assume. Investigate.</b> The first version of the story isn't always the whole story.</li>  
+      <li><b>Don't wait. Intervene early.</b> A problem is usually easier to fix before it becomes a pattern.</li>  
+      <li><b>Don't overreact. Look at the evidence.</b> Not every difficult situation needs escalation.</li>  
+      <li><b>Don't ignore patterns.</b> One small issue may be manageable. Repeated small issues can become serious.</li>  
+      <li><b>Don't take sides.</b> Understand both perspectives.</li>  
+      <li><b>Don't let systems replace judgement.</b> Moo, HubSpot, WFLs, and the Queue give you information — they don't make the decision for you.</li>  
+      <li><b>Don't let relationships replace accountability.</b> Being supportive of a Host Company doesn't mean letting requirements slide.</li>  
+      <li><b>Don't let policy replace humanity.</b> The goal isn't simply compliance — it's a successful internship experience.</li>  
+      <li><b>Everything is a conversation if you start it.</b> A partner default of "No" or "Not Advised" is a starting position, not necessarily the final answer. If there's a realistic way to keep an intern on the programme, raise it with PAM — don't let a spreadsheet column decide before the conversation happens.</li>  
+    </ul>  
+    <p style="margin-top:12px; font-size:13.5px;"><b>And finally:</b> the PSA's job isn't to have every answer. It's to know how to find the right answer, recognise when something matters, ask the right questions, look at the full picture, and act before a manageable problem becomes an unmanageable one. Good PSA work isn't about reacting to everything — it's about knowing what matters, why it matters, and what to do next.</p>  
+  </div>  
+</details>  
+<details class="toggle">  
+  <summary>Communication <span class="sop-desc">WhatsApp, logging outside HubSpot, call vs. email</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Can I use WhatsApp for work?</b> Yes — commonly used. You can use a work number and add it to your email signature. WhatsApp Business is optional.</p>  
+    <p><b>Should everything happen through WhatsApp?</b> No — use the channel that fits the situation. For important internship communication, make sure the outcome is captured in HubSpot even if the conversation happened on WhatsApp.</p>  
+    <p><b>What if an important conversation happened outside HubSpot?</b> Log it — including WhatsApp, phone calls, external meetings, or relevant Slack. If it materially affects the internship, the outcome needs to be captured.</p>  
+    <p><b>When should I call rather than email?</b> Use judgement — consider urgency, sensitivity, complexity, and whether written communication has worked. If you've sent three emails and you're having the same conversation over and over, change the approach. A call can resolve in ten minutes what email won't resolve in three days.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>Moo vs. HubSpot <span class="sop-desc">System of record vs. system of engagement</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Moo = System of Record.</b> Core data — contact details, company details, internship/placement records, website URLs, structural placement information. Moo is the primary source of truth for these; sync runs Moo → HubSpot. If you change a synced field directly in HubSpot, the change may be overwritten or may not persist.</p>  
+    <p><b>HubSpot = System of Engagement.</b> Emails, calls, meetings, HelpDesk, tasks, escalations, communication history, operational workflows, placement support activity.</p>  
+    <p><b>What if I need to change a contact's email address?</b> Don't change it directly in HubSpot. Contact email changes go through #epd-please-help to EPD, after which the change syncs to HubSpot.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>HubSpot, meetings &amp; tasks <span class="sop-desc">Meeting links, when to create a task, what to write in a note</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Where do I find my meeting link?</b> In HubSpot — use your own link in communication where appropriate.</p>  
+    <p><b>When should I create a HubSpot task?</b> When there's a specific follow-up action that needs to happen — "follow up with supervisor on Friday if no WFL response" is a task. A note tells you what happened; a task tells you what needs to happen next. For task priority, naming, and SLA detail, use the HubSpot Tasks for Internship Support guidance.</p>  
+    <p><b>What should I document in a HubSpot note?</b> What happened, when, who was involved, what was said/done, what's the impact, what happens next. "Spoke to intern, all good" isn't useful six weeks later — capture the context someone would actually need.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>Technical issues <span class="sop-desc">Don't guess, don't invent a workaround</span></summary>  
+  <div class="toggle-body">  
+    <p><b>What if an intern reports a technical issue?</b> First work out what's actually broken — what are they trying to do, what happens when they try, is there an error message, is it affecting their ability to complete the internship, is it actually a platform issue or a process misunderstanding. Then use the appropriate technical support route. Don't invent a workaround when you don't know whether it's safe or correct.</p>  
+    <p><b>What if I don't know the answer?</b> Ask. Don't say "I think this should work..." when you don't know — say "let me check this and come back to you," then find the answer through the appropriate resource. "I don't know" is fine. Guessing isn't.</p>  
+  </div>  
+</details>  
+<details class="toggle">  
+  <summary>Common PSA mistakes <span class="sop-desc">Five recurring patterns worth watching for in yourself</span></summary>  
+  <div class="toggle-body">  
+    <p><b>Biggest technical mistake:</b> not documenting communication that happens outside HubSpot — WhatsApp, phone calls, external meetings, important Slack. If it materially affects the internship, capture the outcome.</p>  
+    <p><b>Biggest communication mistake:</b> assuming the first complaint is the full story. Investigate.</p>  
+    <p><b>Another common mistake:</b> waiting until a problem is completely confirmed before contacting the other party. Maintaining contact with the Host Company while investigating an intern's concern gives you more context and makes intervention easier later.</p>  
+    <p><b>Biggest risk-management mistake:</b> treating a serious issue like a normal internship problem. Legal, safeguarding, safety, misconduct, contractual, or serious relationship concerns — escalate early.</p>  
+    <p><b>Biggest Host Company relationship mistake:</b> being so worried about annoying a supervisor that you stop holding them accountable. Relationship management and accountability aren't opposites — a good PSA can be warm + clear + persistent.</p>  
+    <p><b>Biggest intern-support mistake:</b> trying to solve every problem for the intern. Support and coach them while helping them develop their own professional judgement — sometimes the best support isn't doing something for them, it's helping them work out how to handle it themselves.</p>  
+  </div>  
+</details>
+
+<details class="toggle">  
+  <summary>Case studies <span class="sop-desc">Fifteen worked scenarios, from a silent supervisor to a happy supervisor with an unhappy intern</span></summary>  
+  <div class="toggle-body">  
+    <h4>1. The Silent Supervisor</h4>  
+    <p>Two missed WFLs, two unanswered emails — but the intern says everything's fine, they talk daily, and they're getting lots of work. Don't jump straight to SLA 2. Non-response matters, but so does the intern's actual experience — look at how many WFLs are missing, how many attempts you've made, whether there's other HC communication, and whether the situation actually meets the SLA criteria. <b>Lesson:</b> non-response matters, context matters too.</p>
+
+    <h4>2. The Perfect Dashboard</h4>  
+    <p>Healthy hours, healthy submissions, no missed requirements, positive supervisor feedback — but the intern gives a WFL of 5 and says they're miserable and not learning anything. Contact them promptly; the WFL is Critical. Then find out why the experience and the metrics don't match. <b>Lesson:</b> a healthy dashboard doesn't cancel a poor experience.</p>
+
+    <h4>3. The Angry Intern</h4>  
+    <p>"My supervisor is terrible, they don't support me at all." Don't immediately email the HC with the complaint — first understand what happened, what "support" means to the intern, how often they communicate, what work and feedback they're receiving, whether meetings are scheduled and attended. <b>Lesson:</b> take the complaint seriously without treating the first version as the final version.</p>
+
+    <h4>4. The Happy Supervisor</h4>  
+    <p>Supervisor rates the intern 9/10 — "they're doing great." Intern rates the experience 4/10 — "I'm learning nothing." Investigate the difference: the intern may be performing well but still feel underutilised, and the supervisor may be happy with performance while not providing enough development. <b>Lesson:</b> good performance and good experience aren't necessarily the same thing.</p>
+
+    <h4>5. Week 1 Low Hours</h4>  
+    <p>Fewer hours than expected in Week 1, but the intern's started successfully, the supervisor's engaged, tasks are assigned, there's a clear schedule, feedback is positive. Understand the reason and monitor — don't automatically escalate. <b>Lesson:</b> timing matters.</p>
+
+    <h4>6. Week 3 Academic-Credit Intern</h4>  
+    <p>Significantly behind on hours by Week 3 of an 8-week internship; the HC says "we don't really need them for more hours." Act now — establish required vs. completed hours, why the gap exists, whether the HC understands the requirement, and whether the shortfall can realistically be recovered within the applicable requirements. <b>Lesson:</b> a recoverable problem in Week 3 can become an impossible problem in Week 7.</p>
+
+    <h4>7. The Host Company Wants Out</h4>  
+    <p>"This isn't working. We want to terminate the intern immediately." Don't treat this as a normal conversation — immediate termination requests need investigation and resolution attempts. Gather the facts, document what's happened, involve the appropriate teams. <b>Lesson:</b> don't jump straight to termination.</p>
+
+    <h4>8. The Intern Wants to Withdraw</h4>  
+    <p>"I want to withdraw, I hate this internship." Don't immediately process it — ask what they mean: the work, the supervisor, the hours, the company, expectations, something academic, something else. Then work out if it's fixable, and if the intern's open to staying, check partner requirements and raise retention with PAM. <b>Lesson:</b> "I want to withdraw" is an outcome — find the reason before deciding what happens next.</p>
+
+    <h4>9. The Intern Wants to Withdraw — Then Disappears</h4>  
+    <p>They request withdrawal, you respond, they stop replying. Document the original request and your follow-up attempts, let PAM know, then follow the usual process — if unresponsive with no PAM feedback, withdraw. Don't chase them indefinitely as if they never told you what they wanted. <b>Lesson:</b> the original request is part of the case history.</p>
+
+    <h4>10. The Difficult Supervisor</h4>  
+    <p>Blunt and demanding, the intern doesn't particularly like them — but they meet regularly, provide meaningful work and feedback, and the intern is learning with healthy WFLs. Not grounds for a Host Company change based on personality alone; work with the supervisor on better mentorship too — coaching isn't just for the intern. <b>Lesson:</b> don't confuse discomfort with risk.</p>
+
+    <h4>11. The Nice Supervisor With No Work</h4>  
+    <p>Lovely, responsive, well-liked by the intern — but almost nothing to do. Not healthy, but not an immediate HC change either. Help the supervisor craft meaningful work using the original offer first; change only if that's not feasible. <b>Lesson:</b> a good relationship doesn't compensate for a lack of meaningful work.</p>
+
+    <h4>12. The Long-Term Host Company</h4>  
+    <p>"We've worked with VI for five years, we've never had to do this before." Don't become defensive, but don't abandon the current requirement — explain the process, understand their concern, find the most practical way forward. <b>Lesson:</b> respect the relationship without letting history override current requirements.</p>
+
+    <h4>13. The Technical Issue</h4>  
+    <p>"I can't access the platform" and you don't know why. Don't guess — find out what they're trying to access, what happens, whether there's an error, whether it's account-specific, then route it through the established support channel. <b>Lesson:</b> "let me check with our team" is acceptable, inventing an answer isn't.</p>
+
+    <h4>14. The WFL 5 With Everything Else Green</h4>  
+    <p>WFL 5, hours healthy, submissions healthy, supervisor responsive. Critical — prompt contact, don't let the other metrics dilute the signal. <b>Lesson:</b> the score is the priority signal.</p>
+
+    <h4>15. The Supervisor Who Won't Respond</h4>  
+    <p>Missed several WFLs, hasn't responded to multiple follow-ups, hasn't assigned meaningful work — and the intern is now concerned. This isn't just "please complete your WFL" anymore — document the evidence, assess against the SLA criteria, escalate through the appropriate framework. <b>Lesson:</b> when administrative non-compliance starts affecting the internship, the issue has changed.</p>  
+  </div>  
+</details>  
+  <h4>The eight sections, in order</h4>  
+  <table class="tight">  
+    <tr><th>Section</th><th>Trigger</th><th>Action</th></tr>  
+    <tr><td>📞 Wk 1/3/5 Calls</td><td>Intern is in their scheduled check-in week</td><td>Complete the structured call. Overlaps with status sections — an intern can be Critical <i>and</i> in Wk 3 Calls at once.</td></tr>  
+    <tr><td>🔴 Critical</td><td>Intern rated 5 or below</td><td>Contact intern same day. Card shows both intern and supervisor scores.</td></tr>  
+    <tr><td>🟡 At Risk</td><td>Intern rated 6 or 7</td><td>Contact intern Mon/Tue. Card shows both scores.</td></tr>  
+    <tr><td>🏢 Supervisor Actions</td><td>HC Disengaged/Slipping, or supervisor assessments outstanding</td><td>Contact supervisor this week (Wed).</td></tr>  
+    <tr><td>🟠 Disengaged</td><td>Not Critical/At Risk by score, but intern engagement = Disengaged or Slipping</td><td>Contact intern directly. No response → SLA process.</td></tr>  
+    <tr><td>📋 Assessments</td><td>Outstanding pre-eval, goals, or post-eval</td><td>Nudge intern and/or supervisor to complete.</td></tr>  
+    <tr><td>🟢 On Track</td><td>Intern <i>and</i> supervisor both rated 8–10, both flagged Engaged</td><td>No action required. Monitor Thursday.</td></tr>  
+    <tr><td>⚪ No Flag</td><td>No specific issues flagged — not yet fully verified as On Track</td><td>Monitor. Check engagement and score when next submitted.</td></tr>  
+  </table>  
+  <p style="font-size:13.5px; color:var(--mute);">Low-score intern cards (≤7) surface a CareerBridge lesson suggestion inline — see the CareerBridge section below for what that actually means as an action.</p>  
+</div>  
+  <h4>Example 1 — Week 1, Supervisor connection: 2 or 3?</h4>  
+  <p>Intern says: <i>"I've messaged my supervisor twice, no reply yet, but I saw on LinkedIn they're active."</i></p>  
+  <p>The pull is toward a 3 — the intern has tried, and trying feels like it should count for something. But the rubric's actual test for 3 is <i>"contact has been established and a meeting is scheduled"</i> — not just outreach sent. Here, nothing has been established: two unanswered messages is exactly the 2 definition, <i>"reached out with no response."</i> The instinct to reward effort is real, but score what happened, not what was attempted.</p>
+
+  <h4>Example 2 — Week 1, Task clarity: 3 or 4?</h4>  
+  <p>Intern says: <i>"I know I'm working on a marketing project, my supervisor said they'd send details soon."</i></p>  
+  <p>A 4 requires the intern <i>can describe</i> the work, even if outcomes are still being defined. Here, "marketing project" is a category, not a description — there's no task, no owner, no sense of what a finished version looks like. That's the 3 definition: <i>"has been given work but cannot clearly explain what it is."</i> The test for 4 isn't whether work exists — it's whether the intern can actually talk about it.</p>
+
+  <p style="font-size:13px; color:var(--slate);">The pattern in both: the rubric rewards evidence of something real happening, not evidence that the intern is trying. When a call feels borderline, go back to the exact rubric language for the score below it and check whether that's actually a better fit before defaulting up.</p>  
+</div>
